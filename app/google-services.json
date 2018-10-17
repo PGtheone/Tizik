@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "922940829094",
+    "firebase_url": "https://tizik-1b4be.firebaseio.com",
+    "project_id": "tizik-1b4be",
+    "storage_bucket": "tizik-1b4be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922940829094:android:fb4a0da1bfbad7d3",
+        "android_client_info": {
+          "package_name": "com.shif.peterson.tizik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922940829094-t0tp1scag2p54h7skqsqtek52d7pnead.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shif.peterson.tizik",
+            "certificate_hash": "e429bd1fbfc8eb2c54ecef142a4af26f8c9898b1"
+          }
+        },
+        {
+          "client_id": "922940829094-ucbkisuedvcrra5o6vn25t7hf750t7e7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-e0KMVB_f8SFR0FjU1KunD7feQo3RE-A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922940829094-ucbkisuedvcrra5o6vn25t7hf750t7e7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
