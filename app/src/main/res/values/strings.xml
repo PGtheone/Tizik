@@ -6,4 +6,19 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="se_connecter_avec_email">Connexion par email</string>
+    <string name="se_connecter_avec_tel">Connexion par téléphone</string>
+    <string name="ou">OU</string>
+    <string name="pas_encore_membre">Pas encore membre ?</string>
+    <string name="s_inscrire">S\'inscrire</string>
+    <string name="email">Email</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="se_connecter">Se connecter</string>
+    <string name="nom_complet">Nom Complet</string>
+    <string name="tel">Telephone</string>
+    <string name="d_ja_membre">Déja membre ?</string>
+    <string name="champobligatoire">Champ obligatoire</string>
+    <string name="upload_success">Succes</string>
+    <string name="upload_failure">Erreur</string>
+    <string name="progress_uploading">Patientez</string>
 </resources>

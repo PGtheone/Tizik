@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.MainSignInDialogFragment">
+    >
 
 
     <android.support.constraint.ConstraintLayout
@@ -20,7 +20,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/patterns"
                 android:scaleType="centerCrop"
                 />
@@ -77,7 +77,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@color/dark_gray"
+            android:background="@android:color/darker_gray"
             app:layout_constraintBottom_toBottomOf="@+id/txtou"
             app:layout_constraintEnd_toStartOf="@+id/txtou"
             app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +104,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:background="@color/dark_gray"
+            android:background="@android:color/darker_gray"
             app:layout_constraintBottom_toBottomOf="@+id/txtou"
             app:layout_constraintStart_toEndOf="@id/txtou"
             app:layout_constraintEnd_toEndOf="parent"
@@ -124,30 +124,11 @@
             android:padding="5dp"
             android:text="@string/se_connecter_avec_email"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtou" />
 
-
-        <Button
-            android:id="@+id/btnphonelogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:drawableLeft="@drawable/ic_smartphone_white"
-            android:drawablePadding="5dp"
-            android:padding="5dp"
-            android:text="@string/se_connecter_avec_tel"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnemaillogin" />
 
 
 
@@ -175,7 +156,7 @@
             android:textColor="@color/colorPrimary"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnphonelogin" />
+            app:layout_constraintTop_toBottomOf="@+id/btnemaillogin" />
 
 
     </android.support.constraint.ConstraintLayout>
