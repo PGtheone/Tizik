@@ -1,5 +1,6 @@
 package com.shif.peterson.tizik;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,9 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.shif.peterson.tizik.fragment.MainSignInDialogFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +30,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +39,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -80,15 +81,98 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_profile) {
 
-        } else if (id == R.id.nav_slideshow) {
+            if (mAuth.getInstance().getCurrentUser() != null){
 
-        } else if (id == R.id.nav_manage) {
+                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                //startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
+            }else{
+
+
+                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
+                // newFragment.setTargetFragment(MainActivity.this, 0);
+                newFragment.show(ft, "SignIn");
+            }
+
+        } else if (id == R.id.nav_genre) {
+
+        } else if (id == R.id.nav_favori) {
+
+            if (mAuth.getInstance().getCurrentUser() != null){
+
+                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                //startActivity(intent);
+
+            }else{
+
+
+                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
+                // newFragment.setTargetFragment(MainActivity.this, 0);
+                newFragment.show(ft, "SignIn");
+            }
+
+        } else if (id == R.id.nav_playlist) {
+
+            if (mAuth.getInstance().getCurrentUser() != null){
+
+                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                //startActivity(intent);
+
+            }else{
+
+
+                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
+                // newFragment.setTargetFragment(MainActivity.this, 0);
+                newFragment.show(ft, "SignIn");
+            }
+
+        }else if (id == R.id.nav_upload) {
+
+            if (mAuth.getInstance().getCurrentUser() != null){
+
+                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                //startActivity(intent);
+
+            }else{
+
+
+                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
+                // newFragment.setTargetFragment(MainActivity.this, 0);
+                newFragment.show(ft, "SignIn");
+            }
+
+        }else if (id == R.id.nav_notification) {
+
+            if (mAuth.getInstance().getCurrentUser() != null){
+
+                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                //startActivity(intent);
+
+            }else{
+
+
+                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
+                // newFragment.setTargetFragment(MainActivity.this, 0);
+                newFragment.show(ft, "SignIn");
+            }
+
+        }else if (id == R.id.nav_reglages) {
+
+        }else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

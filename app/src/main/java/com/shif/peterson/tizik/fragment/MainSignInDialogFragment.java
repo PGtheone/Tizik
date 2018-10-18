@@ -19,6 +19,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -86,7 +87,9 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
 
+        FacebookSdk.sdkInitialize(getContext());
         mCallbackManager = CallbackManager.Factory.create();
+
     }
 
     @Override
@@ -154,8 +157,7 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
 
 
         btnloginemail.setOnClickListener(this);
-        btnlogintelephone.setOnClickListener(this);
-        signInButton.setOnClickListener(this);
+//        signInButton.setOnClickListener(this);
         loginButton.setOnClickListener(this);
         btnInscrire.setOnClickListener(this);
 

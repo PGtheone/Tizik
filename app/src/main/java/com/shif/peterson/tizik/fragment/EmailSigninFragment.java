@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hbb20.CountryCodePicker;
-import com.piyay.pegasus.piyay.R;
 import com.shif.peterson.tizik.R;
 
 /**
@@ -159,11 +158,11 @@ public class EmailSigninFragment extends DialogFragment implements View.OnClickL
         switch (id){
 
 
-            case R.id.btnphonelogin:
-
-                signInWithEmailPassword(editemail.getText().toString(), editpassword.getText().toString());
-
-                break;
+//            case R.id.btnphonelogin:
+//
+//                signInWithEmailPassword(editemail.getText().toString(), editpassword.getText().toString());
+//
+//                break;
 
             case R.id.btninscrire:
 

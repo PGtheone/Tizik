@@ -5,21 +5,45 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black"
+            android:title="@string/nav_accueil" />
+
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_person_gray"
+            android:title="@string/nav_profile" />
+
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_genre"
+            android:icon="@drawable/ic_library_music_black"
+            android:title="@string/nav_genres" />
+
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_upload"
+            android:icon="@drawable/ic_upload_black"
+            android:title="@string/nav_upload" />
+
+        <item
+        android:id="@+id/nav_favori"
+        android:icon="@drawable/ic_favorite_black"
+        android:title="@string/nav_favori" />
+
+        <item
+            android:id="@+id/nav_playlist"
+            android:icon="@drawable/ic_list_black"
+            android:title="@string/nav_playlist" />
+
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/ic_notifications_black"
+            android:title="@string/nav_notification" />
+
+        <item
+            android:id="@+id/nav_reglages"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="@string/action_settings" />
+
     </group>
 
     <item android:title="Communicate">

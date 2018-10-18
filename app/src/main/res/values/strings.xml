@@ -21,4 +21,18 @@
     <string name="upload_success">Succes</string>
     <string name="upload_failure">Erreur</string>
     <string name="progress_uploading">Patientez</string>
+    <string name="nav_notification">Notifications</string>
+    <string name="nav_playlist">Playlist</string>
+    <string name="nav_favori">Favori</string>
+    <string name="nav_genres">Genres</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_accueil">Accueil</string>
+    <string name="nav_upload">Upload</string>
+
+    <!--Facebook-->
+    <string name="facebook_app_id">2056975091279719</string>
+    <string name="fb_login_protocol_scheme">fb2056975091279719</string>
+
+
+
 </resources>
