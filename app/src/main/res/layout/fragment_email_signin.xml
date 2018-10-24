@@ -84,6 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
+                    android:singleLine="true"
                     android:drawableStart="@drawable/ic_email_gray"
                     android:drawablePadding="10dp"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
@@ -107,6 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/mot_de_passe"
+                    android:singleLine="true"
                     android:inputType="textPassword"
                     android:drawableStart="@drawable/ic_lock_gray"
                     android:drawablePadding="10dp"
@@ -125,6 +127,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/colorPrimary"
                 android:text="@string/se_connecter"
+                android:padding="10dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"

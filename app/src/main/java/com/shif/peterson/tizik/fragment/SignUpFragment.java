@@ -1,6 +1,7 @@
 package com.shif.peterson.tizik.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
@@ -20,8 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.hbb20.CountryCodePicker;
 import com.shif.peterson.tizik.R;
+import com.shif.peterson.tizik.model.Utilisateur;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +49,7 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
     private Button btnconnect;
 
     FirebaseAuth mAuth;
+
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -149,10 +154,11 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
     }
 
 
-    protected void signUpWithEmailPassword(String nom, String email, String password){
+    protected void signUpWithEmailPassword(final String nom, String email, String password){
 
-        String telephone = ccp.getFullNumberWithPlus();
-        String pays = ccpPays.getSelectedCountryName();
+        //todo add loading screen
+        final String telephone = ccp.getFullNumberWithPlus();
+        final String pays = ccpPays.getSelectedCountryName();
 
         if (valide()){
 
@@ -166,30 +172,30 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
 
                                 FirebaseUser user = task.getResult().getUser();
 
-//                                Utilisateur utilisateur;
+                                Utilisateur utilisateur;
+
+                                utilisateur = new Utilisateur();
+                                utilisateur.setId_utilisateur(user.getUid());
+                                utilisateur.setNom_complet(nom);
+                                utilisateur.setEmail(user.getEmail());
+                                utilisateur.setTelephone(telephone);
+                                utilisateur.setPassword(editpassword.getText().toString());
+                                utilisateur.setPays(pays);
 //
-//                                utilisateur = new Utilisateur();
-//                                utilisateur.setIdUtilisateur(user.getUid());
-//                                utilisateur.setNomComplet(nom);
-//                                utilisateur.setEmail(user.getEmail());
-//                                utilisateur.setTelephone(telephone);
-//                                utilisateur.setMotDePasse(editpassword.getText().toString());
-//                                utilisateur.setPays(pays);
-//
-//                                Utilisateur userfirestore = UserNetworkUtils.getUserById(getActivity(), utilisateur.getIdUtilisateur());
-//                                if (userfirestore == null){
-//
-//                                    UserNetworkUtils.getUtilisateurCollectionReference().add(utilisateur).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                        @Override
-//                                        public void onSuccess(DocumentReference documentReference) {
-//
-//                                            Log.d(LOG, "Success");
-//                                            getDialog().dismiss();
-//                                        }
-//                                    });
-//
-//
-//                                }
+                                Utilisateur userfirestore = Utilisateur.getUserById(getActivity(), utilisateur.getId_utilisateur());
+                                if (userfirestore == null){
+
+                                    Utilisateur.getUtilisateurCollectionReference().add(utilisateur).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+
+                                            Log.d(LOG, "Success");
+                                            getDialog().dismiss();
+                                        }
+                                    });
+
+
+                                }
 
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -227,4 +233,8 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
                 break;
         }
     }
+
+
+
+
 }

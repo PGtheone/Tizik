@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -98,10 +99,6 @@ public class EmailSigninFragment extends DialogFragment implements View.OnClickL
     }
 
 
-
-
-
-
     protected boolean valide(){
 
         boolean valide = false;
@@ -129,11 +126,6 @@ public class EmailSigninFragment extends DialogFragment implements View.OnClickL
     }
 
 
-
-
-
-
-
     protected void signInWithEmailPassword(String email, String password){
 
         if (valide()){
@@ -157,12 +149,17 @@ public class EmailSigninFragment extends DialogFragment implements View.OnClickL
 
         switch (id){
 
+            case R.id.btnemaillogin:
+                //todo add Loding screen
+                if(valide()){
+                    signInWithEmailPassword(editemail.getText().toString(), editpassword.getText().toString());
 
-//            case R.id.btnphonelogin:
-//
-//                signInWithEmailPassword(editemail.getText().toString(), editpassword.getText().toString());
-//
-//                break;
+                }else{
+
+                    Toast.makeText(getContext(), "Show Error mesage", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
 
             case R.id.btninscrire:
 

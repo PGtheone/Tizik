@@ -15,13 +15,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -37,9 +30,10 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
 import com.shif.peterson.tizik.R;
+import com.shif.peterson.tizik.model.Utilisateur;
 
-import static com.facebook.login.widget.ProfilePictureView.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,16 +51,12 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
     //google login
     private GoogleSignInClient mGoogleSignInClient;
 
-    //facebooklogin
-    private CallbackManager mCallbackManager;
-
 
     private Button btnloginemail;
     private Button btnlogintelephone;
     private AppCompatButton btnInscrire;
 
 
-    private LoginButton loginButton;
     private SignInButton signInButton;
 
     private ImageView imgback;
@@ -87,9 +77,6 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
 
-        FacebookSdk.sdkInitialize(getContext());
-        mCallbackManager = CallbackManager.Factory.create();
-
     }
 
     @Override
@@ -98,13 +85,13 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_sign_in_dialog, container, false);
 
-
+        // [START initialize_auth]
+        mAuth = FirebaseAuth.getInstance();
 
         btnloginemail = view.findViewById(R.id.btnemaillogin);
         btnInscrire = (AppCompatButton)  view.findViewById(R.id.btninscrire);
 
         signInButton = view.findViewById(R.id.btngmail);
-        loginButton = view.findViewById(R.id.faceboologin_button);
 
         imgback = (ImageView) view.findViewById(R.id.imgclose);
 
@@ -130,41 +117,9 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
 
 
         //COnfigure facebook login
-
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(LOG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-
-                Log.d(LOG, "facebook:onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-                Log.d(LOG, "facebook:onError", error);
-            }
-        });
-
-        // [START initialize_auth]
-        mAuth = FirebaseAuth.getInstance();
-
-
         btnloginemail.setOnClickListener(this);
-//        signInButton.setOnClickListener(this);
-        loginButton.setOnClickListener(this);
+        signInButton.setOnClickListener(this);
         btnInscrire.setOnClickListener(this);
-
-
-
-
-
 
         return view;
     }
@@ -192,17 +147,6 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
                 newFragment1.show(ft1, "email SignIn");
 
                 break;
-
-//            case R.id.btnphonelogin:
-//
-////                this.dismiss();
-////
-////                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-////                final PhoneSigninFragment newFragment = PhoneSigninFragment.newInstance();
-////                // newFragment.setTargetFragment(MainActivity.this, 0);
-////                newFragment.show(ft, "Phone SignIn");
-//
-//                break;
 
             case R.id.btninscrire:
 
@@ -255,99 +199,47 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(LOG, "signInWithCredential:success");
 
-//                            FirebaseUser user = task.getResult().getUser();
-//
-//                            Utilisateur utilisateur;
-//
-//                            utilisateur = new Utilisateur();
-//                            utilisateur.setIdUtilisateur(user.getUid());
-//                            utilisateur.setNomComplet(user.getDisplayName());
-//                            utilisateur.setEmail(user.getEmail());
-//                            utilisateur.setProfilUrl(user.getPhotoUrl().toString());
-//                            utilisateur.setTelephone(user.getPhoneNumber());
-//
-//
-//                            Utilisateur userfirestore = UserNetworkUtils.getUserById(getActivity(), utilisateur.getIdUtilisateur());
-//                            if (userfirestore == null){
-//
-//                                UserNetworkUtils.getUtilisateurCollectionReference().add(utilisateur).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                    @Override
-//                                    public void onSuccess(DocumentReference documentReference) {
-//
-//                                        Log.d(LOG, "Success");
-//                                        getDialog().dismiss();
-//                                    }
-//                                });
-//
-//                            }
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(LOG, "signInWithCredential:failure", task.getException());
-
-                        }
-
-                    }
-                });
-    }
-
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(LOG, "signInWithCredential:success");
                             FirebaseUser user = task.getResult().getUser();
 
-//                            Utilisateur utilisateur;
-//
-//                            utilisateur = new Utilisateur();
-//                            utilisateur.setIdUtilisateur(user.getUid());
-//                            utilisateur.setNomComplet(user.getDisplayName());
-//                            utilisateur.setEmail(user.getEmail());
-//                            utilisateur.setProfilUrl(user.getPhotoUrl().toString());
-//                            utilisateur.setTelephone(user.getPhoneNumber());
-//
-//
-//                            Utilisateur userfirestore = UserNetworkUtils.getUserById(getActivity(), utilisateur.getIdUtilisateur());
-//                            if (userfirestore == null){
-//
-//                                UserNetworkUtils.getUtilisateurCollectionReference().add(utilisateur).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                    @Override
-//                                    public void onSuccess(DocumentReference documentReference) {
-//
-//                                        Log.d(LOG, "Success");
-//                                        getDialog().dismiss();
-//                                    }
-//                                });
-//
-//                            }
+                            Utilisateur utilisateur;
+
+                            utilisateur = new Utilisateur();
+                            utilisateur.setId_utilisateur(user.getUid());
+                            utilisateur.setNom_complet(user.getDisplayName());
+                            utilisateur.setEmail(user.getEmail());
+                            utilisateur.setUrl_photo(user.getPhotoUrl().toString());
+                            utilisateur.setTelephone(user.getPhoneNumber());
+
+
+                            Utilisateur userfirestore = Utilisateur.getUserById(getActivity(), utilisateur.getId_utilisateur());
+                            if (userfirestore == null){
+
+                                Utilisateur.getUtilisateurCollectionReference().add(utilisateur).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+
+                                        Log.d(LOG, "Success");
+                                        getDialog().dismiss();
+                                    }
+                                });
+
+                            }
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(LOG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
 
                         }
-
 
                     }
                 });
     }
+
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
-        Log.d(LOG, "Facebook sign in  onActivity result");
 
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -363,11 +255,6 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
                 Log.w(LOG, "Google sign in failed "+e.getMessage(), e);
 
             }
-        }else{
-
-            Log.d(LOG, "Facebook sign in  onActivity result");
-
-            mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 }
