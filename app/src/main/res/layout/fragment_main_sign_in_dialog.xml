@@ -94,11 +94,9 @@
                     android:id="@+id/editemail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_email_black"
+                    android:drawableStart="@drawable/ic_email_gray"
                     android:drawablePadding="10dp"
                     android:hint="@string/email"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black"
                     android:singleLine="true"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
@@ -121,12 +119,9 @@
                     android:id="@+id/editpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_lock_black"
                     android:drawablePadding="10dp"
                     android:hint="@string/mot_de_passe"
                     android:inputType="textPassword"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black"
                     android:singleLine="true"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
