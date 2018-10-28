@@ -4,6 +4,7 @@ package com.shif.peterson.tizik.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
+import com.hbb20.CountryCodePicker;
 import com.shif.peterson.tizik.R;
 import com.shif.peterson.tizik.model.Utilisateur;
 
@@ -61,6 +64,12 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
 
     private ImageView imgback;
 
+    private EditText editemail;
+    private CountryCodePicker ccp;
+    private TextInputEditText editpassword;
+    private Button btnconnect;
+    private Button btnsignup;
+
 
     public MainSignInDialogFragment() {
         // Required empty public constructor
@@ -88,12 +97,15 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
 
-        btnloginemail = view.findViewById(R.id.btnemaillogin);
+
         btnInscrire = (AppCompatButton)  view.findViewById(R.id.btninscrire);
-
         signInButton = view.findViewById(R.id.btngmail);
-
         imgback = (ImageView) view.findViewById(R.id.imgclose);
+        editemail = (EditText) view.findViewById(R.id.editemail);
+        editpassword = (TextInputEditText) view.findViewById(R.id.editpassword);
+
+        btnconnect = (Button) view.findViewById(R.id.btnemaillogin);
+        btnsignup = (Button) view.findViewById(R.id.btninscrire);
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,13 +128,56 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
 
-        //COnfigure facebook login
-        btnloginemail.setOnClickListener(this);
+        btnconnect.setOnClickListener(this);
+        btnsignup.setOnClickListener(this);
+        //btnloginemail.setOnClickListener(this);
         signInButton.setOnClickListener(this);
         btnInscrire.setOnClickListener(this);
 
         return view;
     }
+
+    protected boolean valide(){
+
+        boolean valide = false;
+
+        if (editemail.getText().toString().isEmpty()){
+
+            editemail.setError(getString(R.string.champobligatoire));
+            valide = false;
+
+        }else if (editpassword.getText().toString().isEmpty()){
+
+            editpassword.setError(getString(R.string.champobligatoire));
+            valide = false;
+
+        }
+
+        else{
+            editemail.setError(null);
+            editpassword.setError(null);
+            valide = true;
+
+        }
+
+        return valide;
+    }
+
+    protected void seConnecterAvecEmailPassword(String email, String password){
+
+        if (valide()){
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+
+                            getDialog().dismiss();
+                        }
+                    });
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -133,18 +188,23 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
 
             case R.id.btngmail:
 
-                signIn();
+                seConnecterAvecGoogle();
 
                 break;
 
             case R.id.btnemaillogin:
 
-                this.dismiss();
 
-                android.support.v4.app.FragmentTransaction ft1 = getFragmentManager().beginTransaction();
-                final EmailSigninFragment newFragment1 = EmailSigninFragment.newInstance();
-                // newFragment.setTargetFragment(MainActivity.this, 0);
-                newFragment1.show(ft1, "email SignIn");
+
+                //todo add Loding screen
+                if(valide()){
+                    seConnecterAvecEmailPassword(editemail.getText().toString(), editpassword.getText().toString());
+
+                    this.dismiss();
+                }else{
+
+                    Toast.makeText(getContext(), "Show Error mesage", Toast.LENGTH_SHORT).show();
+                }
 
                 break;
 
@@ -160,6 +220,7 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
                 break;
 
 
+
         }
 
 
@@ -167,7 +228,7 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
     }
 
 
-    private void signIn() {
+    private void seConnecterAvecGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
