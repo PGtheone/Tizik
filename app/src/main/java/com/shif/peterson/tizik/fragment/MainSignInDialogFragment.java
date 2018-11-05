@@ -24,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -36,6 +37,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.hbb20.CountryCodePicker;
 import com.shif.peterson.tizik.R;
 import com.shif.peterson.tizik.model.Utilisateur;
+import com.wang.avi.AVLoadingIndicatorView;
 
 
 /**
@@ -54,9 +56,6 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
     //google login
     private GoogleSignInClient mGoogleSignInClient;
 
-
-    private Button btnloginemail;
-    private Button btnlogintelephone;
     private AppCompatButton btnInscrire;
 
 
@@ -69,6 +68,8 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
     private TextInputEditText editpassword;
     private Button btnconnect;
     private Button btnsignup;
+
+    private AVLoadingIndicatorView avLoadingIndicatorView;
 
 
     public MainSignInDialogFragment() {
@@ -106,6 +107,8 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
 
         btnconnect = (Button) view.findViewById(R.id.btnemaillogin);
         btnsignup = (Button) view.findViewById(R.id.btninscrire);
+
+        avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,17 +168,21 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
 
     protected void seConnecterAvecEmailPassword(String email, String password){
 
-        if (valide()){
-
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
 
+                            stopAnim();
                             getDialog().dismiss();
                         }
-                    });
-        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    stopAnim();
+                }
+            });
+
     }
 
 
@@ -194,15 +201,15 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
 
             case R.id.btnemaillogin:
 
-
-
-                //todo add Loding screen
                 if(valide()){
+                    
                     seConnecterAvecEmailPassword(editemail.getText().toString(), editpassword.getText().toString());
+
 
                     this.dismiss();
                 }else{
 
+                    stopAnim();
                     Toast.makeText(getContext(), "Show Error mesage", Toast.LENGTH_SHORT).show();
                 }
 
@@ -305,6 +312,7 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+            startAnim();
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
@@ -312,10 +320,22 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
 
                 firebaseAuthWithGoogle( account);
             } catch (ApiException e) {
+                stopAnim();
                 // Google Sign In failed, update UI appropriately
                 Log.w(LOG, "Google sign in failed "+e.getMessage(), e);
 
             }
         }
+    }
+
+
+    void startAnim(){
+        avLoadingIndicatorView.show();
+        // or avi.smoothToShow();
+    }
+
+    void stopAnim(){
+        avLoadingIndicatorView.hide();
+        // or avi.smoothToHide();
     }
 }

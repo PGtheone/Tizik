@@ -4,15 +4,13 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.shif.peterson.tizik.R;
-import com.shif.peterson.tizik.model.Musique;
+import com.shif.peterson.tizik.model.Audio_Artiste;
 
 import java.util.List;
 
@@ -20,11 +18,11 @@ import widgets.MusicVisualizer;
 
 public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.ItemHolder>{
     public static int currentlyPlayingPosition;
-    private List<Musique> arraylist;
+    private List<Audio_Artiste> arraylist;
     private AppCompatActivity mContext;
     private String ateKey;
 
-    public BaseQueueAdapter(AppCompatActivity context, List<Musique> arraylist) {
+    public BaseQueueAdapter(AppCompatActivity context, List<Audio_Artiste> arraylist) {
         this.arraylist = arraylist;
         this.mContext = context;
         //currentlyPlayingPosition = MusicPlayer.getQueuePosition();
@@ -40,7 +38,7 @@ public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.Item
 
     @Override
     public void onBindViewHolder(ItemHolder itemHolder, int i) {
-        Musique localItem = arraylist.get(i);
+        Audio_Artiste localItem = arraylist.get(i);
 
         //itemHolder.title.setText(localItem.title);
         //itemHolder.artist.setText(localItem.artistName);

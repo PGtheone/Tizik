@@ -135,20 +135,24 @@ public class MainActivity extends AppCompatActivity
 
         }else if (id == R.id.nav_upload) {
 
-            if (mAuth.getInstance().getCurrentUser() != null){
-
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                //startActivity(intent);
-
-            }else{
+            Intent intent = new Intent(MainActivity.this, UploadMusicActivity.class);
+            startActivity(intent);
 
 
-                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
-                // newFragment.setTargetFragment(MainActivity.this, 0);
-                newFragment.show(ft, "SignIn");
-            }
+//            if (mAuth.getInstance().getCurrentUser() != null){
+//
+//                Toast.makeText(this, "upload", Toast.LENGTH_SHORT).show();
+//                //Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+//                //startActivity(intent);
+//
+//            }else{
+//
+//
+//                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
+//                // newFragment.setTargetFragment(MainActivity.this, 0);
+//                newFragment.show(ft, "SignIn");
+//            }
 
         }else if (id == R.id.nav_notification) {
 
