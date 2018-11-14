@@ -1,51 +1,30 @@
 package com.shif.peterson.tizik;
 
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
-import com.shif.peterson.tizik.adapter.UploadMusicStepAdapter;
-import com.shif.peterson.tizik.fragment.StepChooseMusicFragment;
-import com.shif.peterson.tizik.fragment.StepFinishFragment;
-import com.stepstone.stepper.StepperLayout;
-
-public class UploadMusicActivity extends AppCompatActivity
-        implements StepChooseMusicFragment.OnFragmentInteractionListener,
-        StepFinishFragment.OnFragmentInteractionListener {
-
-    private StepperLayout mStepperLayout;
-    private String CURRENT_STEP_POSITION_KEY = "position";
-    UploadMusicStepAdapter uploadMusicStepAdapter;
+public class UploadMusicActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_music);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        mStepperLayout = (StepperLayout) findViewById(R.id.step);
-        int currentPosition = 0;
-
-        if( savedInstanceState != null ){
-
-            if(0 < savedInstanceState.getInt(CURRENT_STEP_POSITION_KEY) ){
-
-                currentPosition = savedInstanceState.getInt(CURRENT_STEP_POSITION_KEY);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
-
-//            mFileUri = savedInstanceState.getParcelable(KEY_FILE_URI);
-//            produit1 = savedInstanceState.getParcelable(KEY_PRODUIT);
-//            idprod = savedInstanceState.getString(KEY_PRODUIT_ID);
-
-
-        }
-
-        uploadMusicStepAdapter = new UploadMusicStepAdapter(getSupportFragmentManager(), this);
-        mStepperLayout.setAdapter(uploadMusicStepAdapter, currentPosition);
-        //mStepperLayout.setListener(this);
+        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }

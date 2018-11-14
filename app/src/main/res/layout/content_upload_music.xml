@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.stepstone.stepper.StepperLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/step"
-    app:ms_stepperType="progress_bar"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.shif.peterson.tizik.UploadMusicActivity"
+    tools:context=".UploadMusicActivity"
     tools:showIn="@layout/activity_upload_music">
 
-
-
-</com.stepstone.stepper.StepperLayout>
+</android.support.constraint.ConstraintLayout>
