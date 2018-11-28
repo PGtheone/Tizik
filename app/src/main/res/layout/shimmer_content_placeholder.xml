@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    >
+
+
+    <View
+        android:id="@+id/name"
+        android:layout_width="150dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/placeholder_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <View
+        android:id="@+id/more"
+        android:layout_width="50dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/placeholder_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <View
+        android:id="@+id/img1"
+        android:layout_width="@dimen/img_size"
+        android:layout_height="@dimen/img_size"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/placeholder_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <View
+        android:id="@+id/more1"
+        android:layout_width="50dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/placeholder_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img1" />
+
+    <View
+        android:id="@+id/img2"
+        android:layout_width="@dimen/img_size"
+        android:layout_height="@dimen/img_size"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/placeholder_bg"
+        app:layout_constraintStart_toEndOf="@+id/img1"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <View
+        android:id="@+id/more2"
+        android:layout_width="50dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/placeholder_bg"
+        app:layout_constraintStart_toStartOf="@+id/img2"
+        app:layout_constraintTop_toBottomOf="@+id/img2" />
+
+
+
+    <View
+        android:id="@+id/img3"
+        android:layout_width="@dimen/img_size"
+        android:layout_height="@dimen/img_size"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/placeholder_bg"
+        app:layout_constraintStart_toEndOf="@+id/img2"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+
+    <View
+        android:id="@+id/more3"
+        android:layout_width="50dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/placeholder_bg"
+        app:layout_constraintStart_toStartOf="@+id/img3"
+        app:layout_constraintTop_toBottomOf="@+id/img3" />
+
+</android.support.constraint.ConstraintLayout>
