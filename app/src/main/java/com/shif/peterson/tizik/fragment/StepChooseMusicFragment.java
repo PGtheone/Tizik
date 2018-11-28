@@ -56,7 +56,7 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
 
     View view;
 
-    private List<Audio_Artiste> selectedImageItemList;
+    private List<SelectableItem> selectedImageItemList;
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //    private static final String ARG_PARAM1 = "param1";
@@ -192,9 +192,9 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onNextButtonClicked(List<SelectableItem> selectableItems) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(selectableItems);
         }
     }
 
@@ -217,6 +217,9 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+
+       onNextButtonClicked(selectedImageItemList);
+       callback.goToNextStep();
 
     }
 
@@ -248,6 +251,36 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
 
     @Override
     public void onItemSelected(SelectableItem item) {
+
+        if(item.isSelected()){
+
+            COMPTEUR_PHOTO = COMPTEUR_PHOTO + 1;
+            selectedImageItemList.add(item);
+        }else{
+
+            COMPTEUR_PHOTO = COMPTEUR_PHOTO - 1 ;
+            selectedImageItemList.remove(item);
+
+        }
+//        if(COMPTEUR_PHOTO == 0){
+//
+//            txtcountphoto.setText(longToDate(selectedImageItemList.));
+//
+//        }else if(COMPTEUR_PHOTO == 1){
+//
+//            txtcountphoto.setText(getResources().getString(R.string.count_single_pic, COMPTEUR_PHOTO));
+//
+//        }else{
+//
+//            txtcountphoto.setText(getResources().getString(R.string.count_multiple_pic, COMPTEUR_PHOTO));
+//
+//        }
+
+//        if(COMPTEUR_PHOTO == 5){
+//
+//            goToNext(selectedImageItemList);
+//        }
+
 
     }
 
@@ -306,6 +339,6 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(List<SelectableItem> selectableItems);
     }
 }

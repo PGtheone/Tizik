@@ -13,12 +13,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.shif.peterson.tizik.fragment.HomeFragment;
 import com.shif.peterson.tizik.fragment.MainSignInDialogFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
+    private final String EXTRA_ID_UTILISATEUR = "extra_id_utilisateur";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        HomeFragment detailFragment = HomeFragment.newInstance();
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.container, detailFragment, "home container")
+                .commit();
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -135,24 +143,23 @@ public class MainActivity extends AppCompatActivity
 
         }else if (id == R.id.nav_upload) {
 
-            Intent intent = new Intent(MainActivity.this, UploadMusicActivity.class);
-            startActivity(intent);
 
 
-//            if (mAuth.getInstance().getCurrentUser() != null){
-//
-//                Toast.makeText(this, "upload", Toast.LENGTH_SHORT).show();
-//                //Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-//                //startActivity(intent);
-//
-//            }else{
-//
-//
-//                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
-//                // newFragment.setTargetFragment(MainActivity.this, 0);
-//                newFragment.show(ft, "SignIn");
-//            }
+
+            if (mAuth.getInstance().getCurrentUser() != null){
+
+                Intent intent = new Intent(MainActivity.this, UploadMusicActivity.class);
+                intent.putExtra(EXTRA_ID_UTILISATEUR, mAuth.getCurrentUser().getUid());
+                startActivity(intent);
+
+            }else{
+
+
+                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
+                // newFragment.setTargetFragment(MainActivity.this, 0);
+                newFragment.show(ft, "SignIn");
+            }
 
         }else if (id == R.id.nav_notification) {
 

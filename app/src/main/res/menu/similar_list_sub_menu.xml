@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/nav_favori"
+        android:title="Ajouter aux favoris"
+        android:orderInCategory="1"
+
+        />
+
+    <item
+        android:id="@+id/nav_delete"
+        android:title="@string/retirer_de_la_liste"
+        android:orderInCategory="2"
+        />
+
+
+
 </menu>

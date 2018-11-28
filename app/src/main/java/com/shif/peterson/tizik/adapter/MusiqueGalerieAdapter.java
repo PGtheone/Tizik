@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
-import static com.shif.peterson.tizik.utilis.Utils.toYYYYMMDDHHMMSS;
 
 public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAdapter.MusiqueGalerieViewHolder> implements OnItemSelectedListener {
     //   private List<ImageItem> imageItemList;
@@ -71,8 +70,11 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
                 (android.provider.MediaStore.Audio.Media.ARTIST);
         int duration = mValues.getColumnIndex
                 (MediaStore.Audio.Media.DURATION);
+        int albumColumn = mValues.getColumnIndex
+                (MediaStore.Audio.Media.ALBUM);
          DATA =  mValues.getColumnIndex
                 (MediaStore.Audio.Media._ID);
+         int PATH = mValues.getColumnIndex( MediaStore.Audio.Media.DATA);
 //        int poster = mValues.getColumnIndex
 //                (android.provider.MediaStore.Audio.AudioColumns.)
 
@@ -82,13 +84,23 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
             String thisTitle = mValues.getString(titleColumn);
             String thisArtist = mValues.getString(artistColumn);
             double durationMusique = mValues.getDouble(duration);
-            String urlMusique = String.valueOf(mValues.getLong(DATA));
+            String urlMusique = String.valueOf(mValues.getString(PATH));
+            String album = mValues.getString(albumColumn);
+
+            long songId = Long.parseLong(thisId);
+            Uri songUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,songId);
+            String[] dataColumn = {MediaStore.Audio.Media.DATA};
+            Cursor coverCursor = context.getContentResolver().query(songUri, dataColumn, null, null, null);
+            coverCursor.moveToFirst();
+            int dataIndex = coverCursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+
+            String posterPath = coverCursor.getString(dataIndex);
 
 
 
-
-            Audio_Artiste audio_artiste = new Audio_Artiste(thisId, urlMusique, thisTitle, thisArtist, durationMusique, null);
-            audioArtisteList.add(new SelectableItem(audio_artiste, false));
+            Audio_Artiste audio_artiste = new Audio_Artiste(thisId, urlMusique, thisTitle, thisArtist, durationMusique, urlMusique);
+           audio_artiste.setUrl_poster(posterPath);
+            audioArtisteList.add(new SelectableItem(audio_artiste, thisArtist, album, false));
 
 
         }
@@ -123,7 +135,9 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
         Cursor coverCursor = context.getContentResolver().query(songUri, dataColumn, null, null, null);
         coverCursor.moveToFirst();
         int dataIndex = coverCursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+
         String filePath = coverCursor.getString(dataIndex);
+
         coverCursor.close();
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(filePath);
@@ -167,7 +181,7 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
         holder.txtdurree.setText(String.valueOf(date));
 
          holder.txttitremusique.setText(selectableItem.getTitre_musique());
-         holder.txtartiste.setText(selectableItem.getId_artiste());
+         holder.txtartiste.setText(selectableItem.getArtiste());
 
 
 
@@ -252,6 +266,14 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
 
         @Override
         public void onClick(View v) {
+
+            if (mItem.isSelected()) {
+                setChecked(false);
+            } else {
+                setChecked(true);
+            }
+            itemSelectedListener.onItemSelected(mItem);
+
 
         }
     }

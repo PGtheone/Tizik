@@ -15,7 +15,7 @@
     <dimen name="statusBarHeight">0dp</dimen>
 
 
-   <!--todo change needs to be done here -->
+    <!--todo change needs to be done here -->
     <dimen name="detail_backdrop_height">256dp</dimen>
     <dimen name="card_margin">16dp</dimen>
     <dimen name="list_item_avatar_size">40dp</dimen>
@@ -32,4 +32,9 @@
     <dimen name="header_height">370dp</dimen>
     <dimen name="min_header_height">270dp</dimen>
     <dimen name="header_logo_size">100dp</dimen>
+
+    <dimen name="img_size">150dp</dimen>
+    <dimen name="seekbar_size_large">150dp</dimen>
+    <dimen name="textsize">14sp</dimen>
+
 </resources>

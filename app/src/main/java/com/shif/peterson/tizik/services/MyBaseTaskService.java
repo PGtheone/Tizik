@@ -1,4 +1,4 @@
-package com.piyay.pegasus.piyay.services;
+package com.shif.peterson.tizik.services;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -10,7 +10,8 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.piyay.pegasus.piyay.R;
+import com.shif.peterson.tizik.R;
+
 
 public abstract class MyBaseTaskService extends Service {
 

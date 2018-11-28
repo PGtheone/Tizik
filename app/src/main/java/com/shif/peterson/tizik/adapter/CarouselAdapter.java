@@ -1,4 +1,4 @@
-package com.piyay.pegasus.piyay.adapter;
+package com.shif.peterson.tizik.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.piyay.pegasus.piyay.R;
+import com.shif.peterson.tizik.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,8 +64,8 @@ public class CarouselAdapter extends PagerAdapter{
         RequestOptions glideOptions = new RequestOptions()
                 .override(600, 300)
                 .fitCenter()
-                .error(R.drawable.ic_placeholder)
-                .placeholder(R.drawable.ic_placeholder);
+                .error(R.drawable.ic_placeholder_headset)
+                .placeholder(R.drawable.ic_placeholder_headset);
 
 
 

@@ -119,7 +119,7 @@ public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.Item
     public long[] getSongIds() {
         long[] ret = new long[getItemCount()];
         for (int i = 0; i < getItemCount(); i++) {
-            ret[i] = arraylist.get(i).id;
+           // ret[i] = arraylist.get(i).id;
         }
 
         return ret;

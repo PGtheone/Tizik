@@ -1,23 +1,26 @@
-package com.piyay.pegasus.piyay.adapter;
+package com.shif.peterson.tizik.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.piyay.pegasus.piyay.R;
-import com.piyay.pegasus.piyay.model.Produit;
-import com.piyay.pegasus.piyay.model.SectionDataModel;
+import com.shif.peterson.tizik.R;
+import com.shif.peterson.tizik.model.Audio_Artiste;
+import com.shif.peterson.tizik.model.SectionDataModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -34,21 +37,23 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private ArrayList<SectionDataModel> dataList;
     private Context mContext;
-    private String publink;
+    private List<String> publink;
 
     private static final int PUB_ROW = 1;
     private static final int PROD_ROW = 0;
 
-    @Override
-    public void OnClick(Produit produit) {
+    private static  int pubchoose = 1;
 
-        productHandler.onClick(produit);
+    @Override
+    public void OnClick(Audio_Artiste audio) {
+
+        productHandler.onClick(audio);
     }
 
 
     public interface ProductHandler{
 
-        void onClick(Produit produit);
+        void onClick(Audio_Artiste audio);
     }
 
     public RecyclerDataAdapter(Context context, ArrayList<SectionDataModel> dataList, ProductHandler productHandler) {
@@ -57,11 +62,12 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.productHandler = productHandler;
         }
 
-    public RecyclerDataAdapter(Context context, ArrayList<SectionDataModel> dataList, String publink, ProductHandler productHandler) {
+    public RecyclerDataAdapter(Context context, ArrayList<SectionDataModel> dataList, List<String> publink, ProductHandler productHandler) {
         this.dataList = dataList;
         this.mContext = context;
         this.publink = publink;
         this.productHandler = productHandler;
+        pubchoose = 1;
     }
 
 //    @NonNull
@@ -96,7 +102,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemViewType(int position) {
 
-        if(position == 2){
+        if(position == 2 || position == 6){
 
             return PUB_ROW;
 
@@ -151,11 +157,11 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 final String sectionName = dataList.get(position).getHeaderTitle();
 
                 ArrayList singleSectionItems = dataList.get(position).getAllItemsInSection();
-                ArrayList PhotoProd = dataList.get(position).getAllPhotoItemsInSection();
 
                 ((RecyclerDataViewholder) holder).itemTitle.setText(sectionName);
 
-                MainListAdapter mainListAdapter = new MainListAdapter(mContext, singleSectionItems,PhotoProd, this);
+
+                MainListAdapter mainListAdapter = new MainListAdapter(mContext, singleSectionItems, this);
                 ((RecyclerDataViewholder) holder).recycler_view_list.setHasFixedSize(true);
                 ((RecyclerDataViewholder) holder).recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                 ((RecyclerDataViewholder) holder).recycler_view_list.setAdapter(mainListAdapter);
@@ -167,18 +173,35 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case PUB_ROW:
 
 
-                RequestOptions glideOptions = new RequestOptions()
-                        .override(900, 700)
-                        .centerCrop()
-                        .error(R.drawable.ic_placeholder)
-                        .placeholder(R.drawable.ic_placeholder);
+
+                String pub;
+
+                    if(position == 2){
+
+                         pub = publink.get(1);
+                    }else{
+
+                         pub = publink.get(2);
+                    }
 
 
-                Glide.with(mContext)
-                        .load(publink)
-                        .apply(glideOptions)
-                        .transition(withCrossFade())
-                        .into(((SingleRowDataViewholder) holder).imgpub);
+                    RequestOptions glideOptions = new RequestOptions()
+                            .override(900, 700)
+                            .centerCrop()
+                            .error(R.drawable.ic_placeholder_headset)
+                            .placeholder(R.drawable.ic_placeholder_headset);
+
+
+                    Glide.with(mContext)
+                            .load(pub)
+                            .apply(glideOptions)
+                            .transition(withCrossFade())
+                            .into(((SingleRowDataViewholder) holder).imgpub);
+
+
+
+
+
 
 
                 break;

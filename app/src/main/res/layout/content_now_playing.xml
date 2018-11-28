@@ -1,11 +1,277 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".NowPlayingActivity"
+    android:clipToPadding="false"
+    android:background="@color/placeholder_bg"
     tools:showIn="@layout/activity_now_playing">
 
-</android.support.constraint.ConstraintLayout>
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:overScrollMode="never"
+        android:descendantFocusability="blocksDescendants"
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constcontainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/txtnom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Lem ap ekri"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtalbum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtnom"
+                android:text="Goumen pou saw kwe"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                app:layout_constraintStart_toStartOf="@+id/txtnom"
+                app:layout_constraintTop_toBottomOf="@+id/txtnom" />
+
+            <TextView
+                android:id="@+id/txtcategorie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtnom"
+                android:text="Rap / Rnb"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                app:layout_constraintStart_toStartOf="@+id/txtalbum"
+                app:layout_constraintTop_toBottomOf="@+id/txtalbum" />
+
+
+            <TextView
+                android:id="@+id/txtprix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/txtnom"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/gratuit"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtcategorie" />
+
+
+            <TextView
+                android:id="@+id/txtavis"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:drawableTint="@android:color/darker_gray"
+                android:text="225,500"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                app:layout_constraintStart_toEndOf="@+id/ratingbar"
+                app:layout_constraintTop_toBottomOf="@+id/txtcategorie" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/placeholder_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtprix" />
+
+
+            <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/ratingbar"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:numStars="5"
+                android:rating="5"
+                android:progressTint="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtcategorie" />
+
+            <TextView
+                android:id="@+id/expandableTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:ellipsize="end"
+                android:maxLines="10"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ratingbar" />
+
+
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/placeholder_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/expandableTextView" />
+
+
+            <LinearLayout
+                android:id="@+id/linbuy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider2"
+                >
+
+                <Button
+                    android:id="@+id/btnfavori"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_button_accent"
+                    android:drawableLeft="@drawable/ic_favorite_white"
+                    android:layout_marginRight="4dp"
+                    android:padding="10dp"
+                    android:text="@string/ajouter_aux_favoris"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    />
+
+                <Button
+                    android:id="@+id/btncomment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/faire_un_commentaire"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:background="@drawable/bg_button_accent"
+                    android:drawableLeft="@drawable/ic_coment_white"
+
+                    />
+
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/placeholder_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linbuy" />
+
+
+            <TextView
+                android:id="@+id/txtcarttitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:text="@string/musiques_similaires"
+                android:layout_alignParentStart="true"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:overScrollMode="never"
+                android:descendantFocusability="blocksDescendants"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtcarttitle"
+                >
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclersimilar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusableInTouchMode="true"
+
+                    ></android.support.v7.widget.RecyclerView>
+
+
+
+            </LinearLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearprogress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top|center_horizontal"
+            android:background="@color/placeholder_bg"
+            >
+
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible"
+                app:indicatorColor="@color/colorPrimary"
+                app:indicatorName="LineScalePulseOutRapidIndicator"
+                />
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+
+
+
+
+</android.support.v4.widget.NestedScrollView>

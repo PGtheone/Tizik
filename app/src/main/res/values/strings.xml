@@ -39,6 +39,26 @@
     <string name="select_music_text">Selectionner pistes</string>
     <string name="denied">Refuse</string>
     <string name="accesspermission">Tizik aimerait avoir accès à:</string>
+    <string name="total_str">Total</string>
+    <string name="title_finish">Musiques</string>
+    <string name="special">Plan</string>
+    <string name="promo_code">Plan actuel</string>
+    <string name="paiement">Paiement</string>
+    <string name="credit_card">Carte de credit</string>
+    <string name="paypal">Paypal</string>
+    <string name="gratuit">Gratuit</string>
+    <string name="supprimer_str">Supprimer</string>
+    <string name="title_activity_upload_music">Tizik</string>
+    <string name="ok">OK</string>
+    <string name="title_activity_now_playing">Tizik</string>
+    <string name="musiques_similaires">Musiques Similaires</string>
+    <string name="retirer_de_la_liste">Retirer de la liste</string>
+    <string name="top_categorie">Top Categorie</string>
+    <string name="ajouter_aux_favoris">Ajouter aux favoris</string>
+    <string name="faire_un_commentaire">Faire un commentaire</string>
+    <string name="partager">Partager</string>
+    <string name="telecharger">Telecharger</string>
+    <string name="share_textt">est disponible sur Tizik Télécharger l\'application pour écouter</string>
 
 
 </resources>

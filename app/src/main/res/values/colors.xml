@@ -2,10 +2,11 @@
 <resources>
     <color name="colorPrimary">#B03850</color>
     <color name="colorPrimaryDark">#701830</color>
-    <color name="colorAccent">#A0B0B0</color>
+    <!--<color name="colorAccent">#A0B0B0</color>-->
 
     <color name="semi_transparent_pink">#99C05070</color>
     <color name="textcolor_gray">#757575</color>
     <color name="placeholder_bg">#dddddd</color>
     <color name="black_translucent">#66000000</color>
+    <color name="colorAccent">#E77818</color>
 </resources>

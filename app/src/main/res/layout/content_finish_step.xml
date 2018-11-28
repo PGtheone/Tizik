@@ -1,6 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.v4.widget.NestedScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/placeholder_bg"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtcarttitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:text="@string/title_finish"
+            android:layout_alignParentStart="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardcart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtcarttitle">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerviewmusic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cardview_light_background"
+                />
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/txtspecial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:text="@string/special"
+            android:layout_alignParentStart="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardcart" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardspecial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtspecial">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cardview_light_background"
+                >
+
+                <ImageView
+                    android:id="@+id/imgspecial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_giftcard_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/txtpromocode"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txtpromocode" />
+
+                <TextView
+                    android:id="@+id/txtpromocode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="103dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:padding="10dp"
+                    android:text="@string/promo_code"
+
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    app:layout_constraintEnd_toStartOf="@+id/imgarrow"
+                    app:layout_constraintStart_toEndOf="@+id/imgspecial"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/imgarrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_next_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txtpromocode"
+                    app:layout_constraintBottom_toBottomOf="@id/txtpromocode"
+                    />
+
+                <View
+                    android:id="@+id/div"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/placeholder_bg"
+                    app:layout_constraintTop_toBottomOf="@id/txtpromocode"
+
+                    />
+
+
+                <ImageView
+                    android:id="@+id/imggiftcard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_giftcard_gray"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+
+
+
+        <TextView
+            android:id="@+id/txtpaiementtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:text="@string/paiement"
+            android:layout_alignParentStart="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardspecial" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardpaiement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtpaiementtitle">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cardview_light_background"
+                >
+
+                <ImageView
+                    android:id="@+id/imgcard"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/card"
+                    app:layout_constraintBottom_toBottomOf="@id/txtcard"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txtcard" />
+
+                <TextView
+                    android:id="@+id/txtcard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:padding="10dp"
+                    android:text="@string/credit_card"
+
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    app:layout_constraintStart_toEndOf="@+id/imgcard"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/txtnumcard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="12121212123434"
+                    android:inputType="numberPassword"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txtcard"
+                    app:layout_constraintBottom_toBottomOf="@id/txtcard"
+                    />
+
+                <View
+                    android:id="@+id/div2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/placeholder_bg"
+                    app:layout_constraintTop_toBottomOf="@id/txtcard"
+
+                    />
+
+
+                <ImageView
+                    android:id="@+id/imgpaypal"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/paypal"
+                    app:layout_constraintBottom_toBottomOf="@id/txtpaypal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txtpaypal" />
+
+                <TextView
+                    android:id="@+id/txtpaypal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:padding="10dp"
+                    android:text="@string/paypal"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imgpaypal"
+                    app:layout_constraintTop_toBottomOf="@+id/div2" />
+
+
+                <TextView
+                    android:id="@+id/txtpaypalnumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="12121212123434"
+                    android:inputType="numberPassword"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txtpaypal"
+                    app:layout_constraintBottom_toBottomOf="@id/txtpaypal"
+
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>

@@ -30,7 +30,7 @@
         android:layout_marginTop="8dp"
         android:padding="5dp"
         android:layout_alignParentEnd="true"
-        android:text="view more"
+        android:text="voir plus"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:textColor="@color/colorAccent"
         android:textAllCaps="true"

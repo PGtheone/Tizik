@@ -1,6 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/imgmusique"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="8dp"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="fitCenter"
+        android:src="@color/placeholder_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/txtnommusique"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:singleLine="true"
+        android:text="Monte Desann"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toStartOf="@+id/imgmore"
+        app:layout_constraintStart_toEndOf="@+id/imgmusique"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/txtnomartiste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtnommusique"
+        android:layout_marginStart="8dp"
+        android:text="Baky Popile"
+        app:layout_constraintStart_toEndOf="@+id/imgmusique"
+        app:layout_constraintTop_toBottomOf="@+id/txtnommusique" />
+
+    <TextView
+        android:id="@+id/txtalbum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtnommusique"
+        android:layout_marginStart="8dp"
+        android:text="Echec Et Math"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@id/txtduree"
+        app:layout_constraintStart_toEndOf="@+id/imgmusique"
+        app:layout_constraintTop_toBottomOf="@+id/txtnomartiste" />
+
+
+    <TextView
+        android:id="@+id/txtduree"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtnommusique"
+        android:layout_marginEnd="8dp"
+        android:text="4:05s"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txtalbum"
+        app:layout_constraintTop_toBottomOf="@+id/txtnomartiste"
+        android:textAlignment="textEnd"
+        />
+
+    <!---->
+    <!--<TextView-->
+        <!--android:id="@+id/txtqttitle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/txtnommusique"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="QTY:"-->
+        <!--android:textAllCaps="true"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/imgmusique" />-->
+
+    <!--<android.support.constraint.ConstraintLayout-->
+        <!--android:id="@+id/constraintl"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/txtprix"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/txtqttitle">-->
+
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/linbtn"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent">-->
+
+
+            <!--<Button-->
+                <!--android:id="@+id/decrement"-->
+                <!--android:layout_width="10dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@null"-->
+                <!--android:padding="0dp"-->
+                <!--android:text="—"-->
+                <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/display"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@android:color/white"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:inputType="number"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="1"-->
+                <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+                <!--/>-->
+
+
+            <!--<Button-->
+                <!--android:id="@+id/increment"-->
+                <!--android:layout_width="10dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@null"-->
+                <!--android:padding="0dp"-->
+                <!--android:text="+"-->
+                <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+                <!--android:textColor="@color/colorPrimary" />-->
+        <!--</LinearLayout>-->
+
+    <!--</android.support.constraint.ConstraintLayout>-->
+
+
+    <!--<com.travijuu.numberpicker.library.NumberPicker-->
+    <!--android:id="@+id/number_picker"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_weight="1"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/txtqttitle"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/txtprix"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/imgprod"-->
+    <!--numberpicker:custom_layout="@layout/number_picker_custom_layout"-->
+    <!--numberpicker:focusable="false"-->
+    <!--numberpicker:max="10"-->
+    <!--numberpicker:min="1"-->
+    <!--numberpicker:unit="1"-->
+    <!--numberpicker:value="-5" />-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/txtqt"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/txtnomprod"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:layout_marginStart="16dp"-->
+    <!--android:text="1"-->
+    <!--android:textAllCaps="true"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/txtqttitle" />-->
+
+
+
+    <TextView
+        android:id="@+id/txtprix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Gratuit"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imgmore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_more_vert_black_24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
 
 </android.support.constraint.ConstraintLayout>

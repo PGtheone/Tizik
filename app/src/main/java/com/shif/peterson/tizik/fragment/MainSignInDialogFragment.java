@@ -55,10 +55,7 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
 
     //google login
     private GoogleSignInClient mGoogleSignInClient;
-
     private AppCompatButton btnInscrire;
-
-
     private SignInButton signInButton;
 
     private ImageView imgback;
@@ -277,6 +274,7 @@ public class MainSignInDialogFragment extends DialogFragment implements View.OnC
                             utilisateur.setEmail(user.getEmail());
                             utilisateur.setUrl_photo(user.getPhotoUrl().toString());
                             utilisateur.setTelephone(user.getPhoneNumber());
+                            utilisateur.setType_utilisateur("Fan");
 
 
                             Utilisateur userfirestore = Utilisateur.getUserById(getActivity(), utilisateur.getId_utilisateur());

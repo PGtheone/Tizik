@@ -24,6 +24,7 @@
     <!--</declare-styleable>-->
 
 
+    <!--<attr name="trackColor" format="@color/colorAccent"/>-->
     <declare-styleable name="CircularImageViewStyle">
         <attr name="circularImageViewDefault" format="reference"/>
     </declare-styleable>
