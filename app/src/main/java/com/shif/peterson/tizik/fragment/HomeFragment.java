@@ -1,23 +1,31 @@
 package com.shif.peterson.tizik.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adroitandroid.chipcloud.ChipCloud;
 import com.adroitandroid.chipcloud.ChipListener;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.shif.peterson.tizik.NowPlayingActivity;
 import com.shif.peterson.tizik.R;
@@ -25,11 +33,19 @@ import com.shif.peterson.tizik.adapter.CarouselAdapter;
 import com.shif.peterson.tizik.adapter.RecyclerDataAdapter;
 import com.shif.peterson.tizik.model.Audio_Artiste;
 import com.shif.peterson.tizik.model.SectionDataModel;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import net.steamcrafted.materialiconlib.MaterialIconView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
+import static android.app.Activity.RESULT_OK;
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +70,14 @@ public class HomeFragment extends Fragment implements RecyclerDataAdapter.Produc
     private List<String> listPubrow;
     private View view;
 
+    int ACTIVITY_REQUEST_CODE = 10000;
+
+
+
+
+
+
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -75,6 +99,7 @@ public class HomeFragment extends Fragment implements RecyclerDataAdapter.Produc
         mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
         listProduitRecyclerview = (RecyclerView) view.findViewById(R.id.listaudiorecycler);
         carousel = (ViewPager) view.findViewById(R.id.carousel);
+
 
         allMusic = new ArrayList<SectionDataModel>();
 
@@ -196,6 +221,12 @@ public class HomeFragment extends Fragment implements RecyclerDataAdapter.Produc
 
         Intent intent =  new Intent(getContext(), NowPlayingActivity.class);
         intent.putExtra(MUSIC_EXTRA, audio);
-        startActivity(intent);
+        startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 }

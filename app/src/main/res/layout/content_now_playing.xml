@@ -8,7 +8,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".NowPlayingActivity"
     android:clipToPadding="false"
-    android:background="@color/placeholder_bg"
     tools:showIn="@layout/activity_now_playing">
 
     <FrameLayout
@@ -33,7 +32,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="Lem ap ekri"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +42,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtnom"
-                android:text="Goumen pou saw kwe"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 app:layout_constraintStart_toStartOf="@+id/txtnom"
                 app:layout_constraintTop_toBottomOf="@+id/txtnom" />
@@ -69,7 +66,6 @@
                 android:layout_below="@+id/txtnom"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/gratuit"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +80,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:drawableTint="@android:color/darker_gray"
-                android:text="225,500"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 app:layout_constraintStart_toEndOf="@+id/ratingbar"
                 app:layout_constraintTop_toBottomOf="@+id/txtcategorie" />
@@ -108,7 +103,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:numStars="5"
-                android:rating="5"
                 android:progressTint="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtcategorie" />
@@ -122,7 +116,6 @@
                 android:layout_marginTop="32dp"
                 android:ellipsize="end"
                 android:maxLines="10"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -59,6 +59,20 @@
     <string name="partager">Partager</string>
     <string name="telecharger">Telecharger</string>
     <string name="share_textt">est disponible sur Tizik Télécharger l\'application pour écouter</string>
+    <string name="envoyer">Envoyer</string>
+    <string name="aucun_commentaire">Aucun commentaire</string>
+    <string name="malheureusement_aucun_commentaire_n_a_encore_t_fait_pour_cette_musique_pri_re_de_laisser_le_votre">Malheureusement aucun commentaire n\'a encore été fait pour cette musique prière de laisser le votre</string>
+    <string name="annuler">Annuler</string>
+    <string name="tous_le_commentaires">Tous le commentaires</string>
+    <string name="votre_commentaire_ici">Votre commentaire ici</string>
+    <string name="pause">Pause</string>
+    <string name="play">Play</string>
+    <string name="restart">Restart</string>
+    <string name="next">Next</string>
+
+
+    <string name="playback_channel_name">Playback</string>
+    <string name="download_channel_name">Download</string>
 
 
 </resources>

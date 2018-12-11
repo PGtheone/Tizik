@@ -27,10 +27,10 @@ public class SimilarAdater extends RecyclerView.Adapter<SimilarAdater.SimilarVie
 
     private Context mContext;
     private List<Audio_Artiste> audioArtisteList;
-    private final RemoveFromListInterface removeFromListListener;
+    private final SimiClickListener removeFromListListener;
 
 
-    public SimilarAdater(Context mContext, List<Audio_Artiste> audioArtisteList, RemoveFromListInterface removeFromListListener) {
+    public SimilarAdater(Context mContext, List<Audio_Artiste> audioArtisteList, SimiClickListener removeFromListListener) {
         this.mContext = mContext;
         this.audioArtisteList = audioArtisteList;
         this.removeFromListListener = removeFromListListener;
@@ -84,10 +84,10 @@ public class SimilarAdater extends RecyclerView.Adapter<SimilarAdater.SimilarVie
         return (null != audioArtisteList ? audioArtisteList.size() : 0);
     }
 
-    public interface RemoveFromListInterface{
+    public interface SimiClickListener{
 
 
-        public void OnRemoveFromList( int position);
+        public void onClick( int position);
     }
     public class SimilarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -126,11 +126,6 @@ public class SimilarAdater extends RecyclerView.Adapter<SimilarAdater.SimilarVie
 
                                 case R.id.nav_delete:
 
-                                    Audio_Artiste audio_artiste = audioArtisteList.get(getAdapterPosition());
-                                    audioArtisteList.remove(audio_artiste);
-                                    removeFromListListener.OnRemoveFromList(getAdapterPosition());
-                                    notifyItemRemoved(getAdapterPosition());
-
 
                                   break;
                                 case R.id.nav_favori:
@@ -158,6 +153,7 @@ public class SimilarAdater extends RecyclerView.Adapter<SimilarAdater.SimilarVie
 
         @Override
         public void onClick(View v) {
+            removeFromListListener.onClick(getAdapterPosition());
 
         }
     }

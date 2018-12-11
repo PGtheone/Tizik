@@ -85,6 +85,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-hls:2.9.1'
     implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.9.1'
 
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
 
 
 }

@@ -6,6 +6,7 @@ public class Commentaire_Audio {
     private String id_audio;
     private String id_utilisateur;
     private String commentaire;
+    private float note;
     private String created_by;
     private String date_created;
 
@@ -19,6 +20,25 @@ public class Commentaire_Audio {
         this.commentaire = commentaire;
         this.created_by = created_by;
         this.date_created = date_created;
+    }
+
+    public Commentaire_Audio(String id_commentaireAudio, String id_audio, String id_utilisateur, String commentaire, float note, String created_by, String date_created) {
+        this.id_commentaireAudio = id_commentaireAudio;
+        this.id_audio = id_audio;
+        this.id_utilisateur = id_utilisateur;
+        this.commentaire = commentaire;
+        this.note = note;
+        this.created_by = created_by;
+        this.date_created = date_created;
+    }
+
+
+    public float getNote() {
+        return note;
+    }
+
+    public void setNote(float note) {
+        this.note = note;
     }
 
     public String getId_commentaireAudio() {
