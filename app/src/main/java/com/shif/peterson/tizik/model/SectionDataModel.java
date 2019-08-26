@@ -6,7 +6,6 @@ public class SectionDataModel {
 
     private String headerTitle;
     private ArrayList<Audio_Artiste> allItemsInSection;
-    private ArrayList<Audio_Artiste> allPhotoItemsInSection;
 
     public SectionDataModel() {
 
@@ -16,12 +15,6 @@ public class SectionDataModel {
         this.headerTitle = headerTitle;
         this.allItemsInSection = allItemsInSection;
 
-    }
-
-    public SectionDataModel(String headerTitle, ArrayList<Audio_Artiste> allItemsInSection, ArrayList<Audio_Artiste> allPhotoItemsInSection) {
-        this.headerTitle = headerTitle;
-        this.allItemsInSection = allItemsInSection;
-        this.allPhotoItemsInSection = allPhotoItemsInSection;
     }
 
 
@@ -41,11 +34,5 @@ public class SectionDataModel {
         this.allItemsInSection = allItemsInSection;
     }
 
-    public ArrayList<Audio_Artiste> getAllPhotoItemsInSection() {
-        return allPhotoItemsInSection;
-    }
 
-    public void setAllPhotoItemsInSection(ArrayList<Audio_Artiste> allPhotoItemsInSection) {
-        this.allPhotoItemsInSection = allPhotoItemsInSection;
-    }
 }

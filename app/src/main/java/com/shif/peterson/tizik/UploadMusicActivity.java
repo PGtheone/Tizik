@@ -6,24 +6,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Parcelable;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.shif.peterson.tizik.adapter.UploadMusicStepAdapter;
 import com.shif.peterson.tizik.fragment.StepChooseMusicFragment;
 import com.shif.peterson.tizik.fragment.StepFinishFragment;
+import com.shif.peterson.tizik.model.Categorie;
 import com.shif.peterson.tizik.services.MusicUploadService;
 import com.shif.peterson.tizik.utilis.SelectableItem;
 import com.stepstone.stepper.StepperLayout;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UploadMusicActivity extends AppCompatActivity
@@ -31,7 +30,7 @@ public class UploadMusicActivity extends AppCompatActivity
         StepFinishFragment.onChoosenMusicListener {
 
 
-    private final String TAG = UploadMusicActivity.class.getSimpleName().toString();
+    private final String TAG = UploadMusicActivity.class.getSimpleName();
 
     private final String EXTRA_ID_UTILISATEUR = "extra_id_utilisateur";
 
@@ -39,7 +38,6 @@ public class UploadMusicActivity extends AppCompatActivity
     public static final String EXTRA_FILE_COVER_URI = "extra_file_cover_uri";
     public static final String EXTRA_FILE_URI = "extra_file_uri";
     public static final String EXTRA_DOWNLOAD_URL = "extra_download_url";
-
 
     public static final String EXTRA_MUSIC_NOM_ARTISTE = "extra_music_nom_artiste";
     public static final String EXTRA_MUSIC_ID_ARTISTE = "extra_music_artiste";
@@ -54,6 +52,7 @@ public class UploadMusicActivity extends AppCompatActivity
     String musicAlbum;
     long musicDuration;
     double price;
+    List<Categorie> categorieListToUpload;
 
     Uri mFileUri;
     Uri mPhotoUri;
@@ -68,13 +67,13 @@ public class UploadMusicActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_music);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        mStepperLayout = (StepperLayout) findViewById(R.id.step);
+        mStepperLayout = findViewById(R.id.step);
         int currentPosition = 0;
 
         if( savedInstanceState != null ){
@@ -121,7 +120,8 @@ public class UploadMusicActivity extends AppCompatActivity
 
                         //PreferenceUtils.DeleteSelelectedPhoto(SellActivity.this);
 
-                        Toast.makeText(context, "Completed", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "Completed", Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                     case MusicUploadService.UPLOAD_ERROR:
                         onUploadResultIntent(intent);
@@ -136,7 +136,12 @@ public class UploadMusicActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(List<SelectableItem> selectableItems) {
 
-        this.selectableItems = selectableItems;
+        UploadMusicActivity.selectableItems = new ArrayList<>();
+        for (SelectableItem selectableItem : selectableItems) {
+
+            selectableItem.setSelected(true);
+            UploadMusicActivity.selectableItems.add(selectableItem);
+        }
         StepFinishFragment.initListSelectedItem(selectableItems);
     }
 
@@ -144,14 +149,16 @@ public class UploadMusicActivity extends AppCompatActivity
     @Override
     public void onMusicChoosed(List<SelectableItem> selectableItemList) {
 
-        for( SelectableItem selectableItem : selectableItemList){
+        for(int i = 0; i< selectableItemList.size(); i++){
 
+            SelectableItem selectableItem = selectableItemList.get(i);
             selectableItem.setNom_chanteur(selectableItem.getArtiste());
-           uploadFromUri(Uri.fromFile(new File(selectableItem.getUrl_musique())),Uri.fromFile(new File(selectableItem.getUrl_poster())), selectableItem);
 
+            if(!selectableItem.getSelectedCategorie().isEmpty()) {
 
+                uploadFromUri(Uri.fromFile(new File(selectableItem.getUrl_musique())),Uri.fromFile(new File(selectableItem.getUrl_poster())), selectableItem);
+            }
         }
-
     }
 
 
@@ -167,22 +174,21 @@ public class UploadMusicActivity extends AppCompatActivity
          musicDuration = (long) selectableItem.getDuree_musique();
          price = selectableItem.getPrix();
          nom_artiste = selectableItem.getNom_chanteur();
-        // Clear the last download, if any
+         categorieListToUpload = selectableItem.getSelectedCategorie();
 
-        // Start MyUploadService to upload the file, so that the file is uploaded
-        // even if this Activity is killed or put in the background
         startService(new Intent(this, MusicUploadService.class)
-                .putExtra(MusicUploadService.EXTRA_FILE_URI, fileUri)
-                .putExtra(MusicUploadService.EXTRA_FILE_COVER_URI, photoUri)
+                .putExtra(MusicUploadService.EXTRA_FILE_URI, mFileUri)
+                .putExtra(MusicUploadService.EXTRA_FILE_COVER_URI, mPhotoUri)
                 .putExtra(MusicUploadService.EXTRA_MUSIC_ID_ARTISTE, musicArtist )
                 .putExtra(MusicUploadService.EXTRA_MUSIC_TITLE, titreMusique)
                 .putExtra(MusicUploadService.EXTRA_MUSIC_ALBUM, musicAlbum)
                 .putExtra(MusicUploadService.EXTRA_MUSIC_DURATION, musicDuration)
                 .putExtra(MusicUploadService.EXTRA_MUSIC_PRIICE, price)
                 .putExtra(MusicUploadService.EXTRA_MUSIC_NOM_ARTISTE, nom_artiste)
+                .putParcelableArrayListExtra(MusicUploadService.EXTRA_MUSIC_CATEGORY, (ArrayList<? extends Parcelable>) categorieListToUpload)
                 .setAction(MusicUploadService.ACTION_UPLOAD));
 
-        // Show loading spinner
+        // todo replace the spinner with some more cool like a dialog box
         showProgressDialog(getString(R.string.progress_uploading));
     }
 
@@ -238,6 +244,7 @@ public class UploadMusicActivity extends AppCompatActivity
         outState.putString(EXTRA_MUSIC_ALBUM, musicAlbum);
         outState.putLong(EXTRA_MUSIC_DURATION, musicDuration);
         outState.putDouble(EXTRA_MUSIC_PRIICE, price );
+        outState.putParcelableArrayList(MusicUploadService.EXTRA_MUSIC_CATEGORY, (ArrayList<? extends Parcelable>) categorieListToUpload);
 
 
 

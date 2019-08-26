@@ -1,9 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ProfileActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="345dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    android:elevation="3dp">
+
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="225dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="47dp"
+                        android:layout_marginRight="10dp"
+                        android:elevation="5dp">
+
+                        <com.dd.ShadowLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#FFFFFF"
+                            app:sl_cornerRadius="10dp"
+                            app:sl_dx="2dp"
+                            app:sl_dy="2dp"
+                            app:sl_shadowColor="#11e1e2e4">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/rounded_corner_5dp"
+                                android:orientation="vertical">
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="30dp"
+                                    android:orientation="vertical">
+
+                                    <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Medium
+                                        android:id="@+id/txtnomutilisateur"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:layout_marginTop="30dp"
+                                        android:text="Monali Das"
+                                        android:textColor="#4f4f4f"
+                                        android:textSize="18.5sp" />
+
+                                    <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular
+                                        android:id="@+id/txtnomartiste"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="14dp"
+                                        android:text="UI/UX Designer | Foodie | Ukraine"
+                                        android:textColor="#b9b6b6"
+                                        android:textSize="14sp" />
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginBottom="20dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Bold
+                                        android:id="@+id/txtcountpost"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="293"
+                                        android:textColor="#000"
+                                        android:textSize="16.7sp" />
+
+                                    <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular
+                                        android:id="@+id/txtpost"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:gravity="center"
+                                        android:text="@string/publication"
+                                        android:textColor="#8d8d8d"
+                                        android:textSize="12.7sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Bold
+                                        android:id="@+id/txtfollower"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="10.3k"
+                                        android:textColor="#000"
+                                        android:textSize="16.7sp" />
+
+                                    <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular
+                                        android:id="@+id/txtcountfollower"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:gravity="center"
+                                        android:text="@string/abonn_e"
+                                        android:textAllCaps="true"
+                                        android:textColor="#8d8d8d"
+                                        android:textSize="12.7sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Bold
+                                        android:id="@+id/txtfollow"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="197"
+                                        android:textColor="#000"
+                                        android:textSize="16.7sp" />
+
+                                    <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular
+                                        android:id="@+id/txtcountfollow"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:gravity="center"
+                                        android:text="@string/abonnement"
+                                        android:textAllCaps="true"
+                                        android:textColor="#8d8d8d"
+                                        android:textSize="12.7sp" />
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                        </com.dd.ShadowLayout>
+
+                    </FrameLayout>
+
+
+                    <ImageView
+                        android:id="@+id/imgprofil"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="5dp"
+                        android:src="@mipmap/ic_launcher_round"
+                        />
+
+                </FrameLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="225dp"
+                    android:background="@drawable/primary_gradient" />
+
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerprofile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

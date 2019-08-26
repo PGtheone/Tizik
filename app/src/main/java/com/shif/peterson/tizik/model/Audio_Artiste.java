@@ -3,6 +3,12 @@ package com.shif.peterson.tizik.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.firestore.Exclude;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class Audio_Artiste implements Parcelable {
 
 
@@ -18,15 +24,28 @@ public class Audio_Artiste implements Parcelable {
     private boolean is_Free;
     private double prix;
     private boolean is_actif;
-    private String Date_upload;
+    public static final Parcelable.Creator<Audio_Artiste> CREATOR = new Parcelable.Creator<Audio_Artiste>() {
+        @Override
+        public Audio_Artiste createFromParcel(Parcel source) {
+            return new Audio_Artiste(source);
+        }
+
+        @Override
+        public Audio_Artiste[] newArray(int size) {
+            return new Audio_Artiste[size];
+        }
+    };
     private String date_modified;
-    boolean selected;
+    @Exclude
+    public List<Categorie> selectedCategorie;
+    @Exclude boolean selected;
 
 
     public Audio_Artiste() {
     }
+    private  Date Date_upload;
 
-    public Audio_Artiste(String id_musique, String uploaded_by, String titre_musique, String nom_chanteur, String description_musique, double duree_musique, String url_poster, String url_musique, boolean is_Free, double prix, boolean is_actif, String date_upload, boolean selected) {
+    public Audio_Artiste(String id_musique, String uploaded_by, String titre_musique, String nom_chanteur, String description_musique, double duree_musique, String url_poster, String url_musique, boolean is_Free, double prix, boolean is_actif, Date date_upload, boolean selected) {
         this.id_musique = id_musique;
         this.uploaded_by = uploaded_by;
         this.titre_musique = titre_musique;
@@ -40,6 +59,7 @@ public class Audio_Artiste implements Parcelable {
         this.is_actif = is_actif;
         Date_upload = date_upload;
         this.selected = selected;
+        this.selectedCategorie = new ArrayList<>();
     }
 
     public Audio_Artiste(String id_musique, String url_musique,String titre_musique, String artiste, double duree_musique, String url_poster) {
@@ -49,8 +69,28 @@ public class Audio_Artiste implements Parcelable {
         this.duree_musique = duree_musique;
         this.Url_musique = url_musique;
         this.url_poster = url_poster;
+        this.selectedCategorie = new ArrayList<>();
     }
 
+    protected Audio_Artiste(Parcel in) {
+        this.id_musique = in.readString();
+        this.uploaded_by = in.readString();
+        this.nom_chanteur = in.readString();
+        this.id_album = in.readString();
+        this.titre_musique = in.readString();
+        this.description_musique = in.readString();
+        this.duree_musique = in.readDouble();
+        this.url_poster = in.readString();
+        this.Url_musique = in.readString();
+        this.is_Free = in.readByte() != 0;
+        this.prix = in.readDouble();
+        this.is_actif = in.readByte() != 0;
+        long tmpDate_upload = in.readLong();
+        this.Date_upload = tmpDate_upload == -1 ? null : new Date(tmpDate_upload);
+        this.date_modified = in.readString();
+        this.selected = in.readByte() != 0;
+        this.selectedCategorie = in.createTypedArrayList(Categorie.CREATOR);
+    }
 
     public String getId_album() {
         return id_album;
@@ -149,12 +189,12 @@ public class Audio_Artiste implements Parcelable {
         this.is_actif = is_actif;
     }
 
-    public String getDate_upload() {
-        return Date_upload;
+    public List<Categorie> getSelectedCategorie() {
+        return selectedCategorie;
     }
 
-    public void setDate_upload(String date_upload) {
-        Date_upload = date_upload;
+    public void setSelectedCategorie(List<Categorie> selectedCategorie) {
+        this.selectedCategorie = selectedCategorie;
     }
 
     public String getDate_modified() {
@@ -179,6 +219,14 @@ public class Audio_Artiste implements Parcelable {
         return 0;
     }
 
+    public Date getDate_upload() {
+        return Date_upload;
+    }
+
+    public void setDate_upload(Date date_upload) {
+        Date_upload = date_upload;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id_musique);
@@ -193,38 +241,9 @@ public class Audio_Artiste implements Parcelable {
         dest.writeByte(this.is_Free ? (byte) 1 : (byte) 0);
         dest.writeDouble(this.prix);
         dest.writeByte(this.is_actif ? (byte) 1 : (byte) 0);
-        dest.writeString(this.Date_upload);
+        dest.writeLong(this.Date_upload != null ? this.Date_upload.getTime() : -1);
         dest.writeString(this.date_modified);
         dest.writeByte(this.selected ? (byte) 1 : (byte) 0);
+        dest.writeTypedList(this.selectedCategorie);
     }
-
-    protected Audio_Artiste(Parcel in) {
-        this.id_musique = in.readString();
-        this.uploaded_by = in.readString();
-        this.nom_chanteur = in.readString();
-        this.id_album = in.readString();
-        this.titre_musique = in.readString();
-        this.description_musique = in.readString();
-        this.duree_musique = in.readDouble();
-        this.url_poster = in.readString();
-        this.Url_musique = in.readString();
-        this.is_Free = in.readByte() != 0;
-        this.prix = in.readDouble();
-        this.is_actif = in.readByte() != 0;
-        this.Date_upload = in.readString();
-        this.date_modified = in.readString();
-        this.selected = in.readByte() != 0;
-    }
-
-    public static final Creator<Audio_Artiste> CREATOR = new Creator<Audio_Artiste>() {
-        @Override
-        public Audio_Artiste createFromParcel(Parcel source) {
-            return new Audio_Artiste(source);
-        }
-
-        @Override
-        public Audio_Artiste[] newArray(int size) {
-            return new Audio_Artiste[size];
-        }
-    };
 }

@@ -2,11 +2,8 @@ package com.shif.peterson.tizik.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +12,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hbb20.CountryCodePicker;
+import com.shif.peterson.tizik.MainSignInActivity;
 import com.shif.peterson.tizik.R;
 
 /**
@@ -67,23 +71,20 @@ public class EmailSigninFragment extends DialogFragment implements View.OnClickL
         View view = inflater.inflate(R.layout.fragment_email_signin, container, false);
 
 
-        editemail = (EditText) view.findViewById(R.id.editemail);
-        editpassword = (TextInputEditText) view.findViewById(R.id.editpassword);
+        editemail = view.findViewById(R.id.editemail);
+        editpassword = view.findViewById(R.id.editpassword);
 
-        btnconnect = (AppCompatButton) view.findViewById(R.id.btnemaillogin);
-        btnsignup = (Button) view.findViewById(R.id.btninscrire);
+        btnconnect = view.findViewById(R.id.btnemaillogin);
+        btnsignup = view.findViewById(R.id.btninscrire);
 
-        imgback = (ImageView) view.findViewById(R.id.imgclose);
+        imgback = view.findViewById(R.id.imgclose);
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 getDialog().dismiss();
-                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
-                // newFragment.setTargetFragment(MainActivity.this, 0);
-                newFragment.show(ft, "SignUp SignIn");
+                startActivity(new Intent(getContext(), MainSignInActivity.class));
 
             }
         });
@@ -163,7 +164,7 @@ public class EmailSigninFragment extends DialogFragment implements View.OnClickL
 
             case R.id.btninscrire:
 
-                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
                 final SignUpFragment newFragment = SignUpFragment.newInstance();
                 // newFragment.setTargetFragment(MainActivity.this, 0);
                 newFragment.show(ft, "SignUp SignIn");

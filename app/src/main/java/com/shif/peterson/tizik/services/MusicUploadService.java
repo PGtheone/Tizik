@@ -7,15 +7,17 @@ import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,10 +28,12 @@ import com.google.firebase.storage.UploadTask;
 import com.shif.peterson.tizik.MainActivity;
 import com.shif.peterson.tizik.R;
 import com.shif.peterson.tizik.model.Audio_Artiste;
-import com.shif.peterson.tizik.model.Utilisateur;
+import com.shif.peterson.tizik.model.Categorie;
+import com.shif.peterson.tizik.model.Categorie_Audio;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class MusicUploadService extends MyBaseTaskService {
@@ -53,6 +57,8 @@ public class MusicUploadService extends MyBaseTaskService {
     public static final String EXTRA_MUSIC_DURATION = "extra_music_duration";
     public static final String EXTRA_MUSIC_PRIICE = "extra_music_price";
     public static final String EXTRA_MUSIC_NOM_ARTISTE = "extra_music_nom_artiste";
+
+    public static final String EXTRA_MUSIC_CATEGORY = "extra_music_category";
 
     // [START declare_ref]
     private StorageReference mStorageRef;
@@ -92,6 +98,7 @@ public class MusicUploadService extends MyBaseTaskService {
          String nomAlbum = intent.getStringExtra(EXTRA_MUSIC_ALBUM);
          long durationMusique = intent.getLongExtra(EXTRA_MUSIC_DURATION, 0);
          double musicPrice = intent.getDoubleExtra(EXTRA_MUSIC_PRIICE, 0);
+            List<Categorie> categories = intent.getParcelableArrayListExtra(EXTRA_MUSIC_CATEGORY);
 
          Log.d(TAG, "Music info"+titreMusique);
          Log.d(TAG, "Music info"+nomAlbum);
@@ -106,7 +113,7 @@ public class MusicUploadService extends MyBaseTaskService {
 //                        Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //            }
 
-            uploadFromUri(fileUri, fileCoverUri, idArtiste, titreMusique, nomAlbum, durationMusique, musicPrice);
+            uploadFromUri(fileUri, fileCoverUri, idArtiste, titreMusique, nomAlbum, durationMusique, musicPrice, categories);
         }
 
         return START_REDELIVER_INTENT;
@@ -114,7 +121,7 @@ public class MusicUploadService extends MyBaseTaskService {
 
 
     // [START upload_from_uri]
-    private void uploadFromUri(final Uri fileUri, final Uri fileCoverUri ,final String idArtiste, final String titreMusique, final String nomAlbum, final long duartionMusique, final double musicPrice ) {
+    private void uploadFromUri(final Uri fileUri, final Uri fileCoverUri, final String idArtiste, final String titreMusique, final String nomAlbum, final long duartionMusique, final double musicPrice, final List<Categorie> categories) {
         Log.d(TAG, "uploadFromUri:src:" + fileUri.toString());
         Log.d(TAG, "uploadCoverFromUri:src:" + fileCoverUri.toString());
 
@@ -209,7 +216,7 @@ public class MusicUploadService extends MyBaseTaskService {
                                         @Override
                                         public void onSuccess(final Uri uri) {
 
-                                            Audio_Artiste audio_artiste = new Audio_Artiste();
+                                            final Audio_Artiste audio_artiste = new Audio_Artiste();
                                             audio_artiste.setId_musique(UUID.randomUUID().toString());
                                             audio_artiste.setTitre_musique(titreMusique);
                                             audio_artiste.setuploaded_by(idArtiste);
@@ -225,33 +232,38 @@ public class MusicUploadService extends MyBaseTaskService {
                                                 audio_artiste.setIs_Free(false);
                                             }
                                             audio_artiste.setIs_actif(true);
-                                            audio_artiste.setDate_upload(new Date().toString());
+                                            audio_artiste.setDate_upload(Timestamp.now().toDate());
+
 
                                            getMusicCollectionReference().add(audio_artiste).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
 
-                                                    Log.d(TAG, "Success");
+
+                                                    for (Categorie categorie : categories ){
+
+
+                                                        Categorie_Audio categorie_audio = new Categorie_Audio();
+                                                        categorie_audio.setId_AudioTendance(UUID.randomUUID().toString());
+                                                        categorie_audio.setId_Categorie(categorie.getId_categorie());
+                                                        categorie_audio.setId_Audio(audio_artiste.getId_musique());
+                                                        categorie_audio.setDateCreated(new Date());
+                                                        categorie_audio.setCreatedBy(idArtiste);
+
+                                                        FirebaseFirestore
+                                                                .getInstance()
+                                                                .collection("AudioTendance")
+                                                                .add(categorie_audio);
+                                                    }
+
+
+
+
 
                                                 }
                                             });
 
 
-
-                                            //todo high priority add imageitem to backend in this side
-
-//                                        Photo_Produit photo_produit = new Photo_Produit();
-//                                        photo_produit.setIdPhotoProduit(UUID.randomUUID().toString());
-//                                        photo_produit.setId_produit(idprod);
-//                                        photo_produit.setCoverPhoto(iscover);
-//                                        photo_produit.setUrlPhoto("product_photos/" + downloadUri.getLastPathSegment());
-//
-//                                        PhotoProduitNetworkUtils.getProdPicCollectionReference().add(photo_produit).addOnSuccessListener( new OnSuccessListener<DocumentReference>() {
-//                                            @Override
-//                                            public void onSuccess(DocumentReference documentReference) {
-//
-//                                            }
-//                                        });
 
 
                                             // [START_EXCLUDE]

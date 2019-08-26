@@ -1,85 +1,180 @@
 package com.shif.peterson.tizik.fragment;
 
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.shif.peterson.tizik.R;
+import com.shif.peterson.tizik.model.Utilisateur;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ArtisteTendanceFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ArtisteTendanceFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class ArtisteTendanceFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final int LIMIT = 20;
+    private static final String COLLECTION_NAME_USER = "Utilisateur";
+    ChipGroup chipGroup;
+    View view;
+    FirebaseFirestore mFirestore;
+    List<Utilisateur> utilisateurList;
+    List<Utilisateur> selectedArtist;
+     private OnArtistChoosenListener mListener;
 
-    private OnFragmentInteractionListener mListener;
+    public static CollectionReference getUtilisateurCollectionReference(){
+        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME_USER);
+    }
 
     public ArtisteTendanceFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ArtisteTendanceFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ArtisteTendanceFragment newInstance(String param1, String param2) {
+    public static ArtisteTendanceFragment newInstance() {
         ArtisteTendanceFragment fragment = new ArtisteTendanceFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_artiste_tendance, container, false);
+        view =  inflater.inflate(R.layout.fragment_artiste_tendance, container, false);
+
+        chipGroup = view.findViewById(R.id.chipgroup);
+
+
+        initFirestore();
+
+    return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    private void initFirestore() {
+
+        FirebaseFirestore.setLoggingEnabled(true);
+        mFirestore = FirebaseFirestore.getInstance();
+
+
+        getUtilisateurCollectionReference().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+                if (queryDocumentSnapshots.isEmpty()){
+
+                    //todo skip this step
+                    Toast.makeText(getActivity(), "Empty", Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    utilisateurList = queryDocumentSnapshots.toObjects(Utilisateur.class);
+                    initChipGroup(utilisateurList);
+
+
+                }
+            }
+        });
+
+    }
+
+
+
+    public void initChipGroup(List<Utilisateur> utilisateurs){
+
+        selectedArtist = new ArrayList<>();
+        for (final Utilisateur utilisateur : utilisateurs){
+
+
+            final Chip chip = new Chip(getActivity());
+            chip.setText(utilisateur.getNom_complet());
+            chip.setCheckable(true);
+            chip.setTag(utilisateur);
+            if(utilisateur.getUrl_photo() != null){
+
+                RequestOptions glideCircle = new RequestOptions()
+                        .centerCrop()
+                        .transform( new CircleCrop());
+
+                Glide.with(getContext())
+                        .load(utilisateur.getUrl_photo())
+                        .apply(glideCircle)
+                        .into(new SimpleTarget<Drawable>() {
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+
+                                chip.setChipIcon(resource);
+                            }
+                        });
+
+            }
+
+            chip.setChipBackgroundColorResource(R.color.placeholder_bg);
+            chip.setTextAppearanceResource(android.R.style.TextAppearance_Small);
+            chip.setGravity(View.TEXT_ALIGNMENT_CENTER);
+
+            chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                   if(isChecked){
+
+                        Utilisateur utilisateur = (Utilisateur) buttonView.getTag();
+                        selectedArtist.add(utilisateur);
+                        onButtonPressed(utilisateur, true);
+
+                   }else{
+
+                       Utilisateur utilisateur = (Utilisateur) buttonView.getTag();
+                       selectedArtist.remove(utilisateur);
+                       onButtonPressed(utilisateur, false);
+                   }
+                }
+            });
+
+            chipGroup.addView(chip);
+        }
+    }
+
+
+    public void onButtonPressed(Utilisateur uri, boolean choosen) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onArtisteChoosen(uri, choosen);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnArtistChoosenListener) {
+            mListener = (OnArtistChoosenListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -92,18 +187,12 @@ public class ArtisteTendanceFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+
+    public interface OnArtistChoosenListener {
+
+        void onArtisteChoosen(Utilisateur utilisateur, boolean choosen);
     }
+
+
+
 }

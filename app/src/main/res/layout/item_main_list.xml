@@ -4,53 +4,51 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <TextView
-        android:id="@+id/itemtitle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/head"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:padding="5dp"
-        android:text="Sample title"
-        android:layout_alignParentStart="true"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Bold
+            android:id="@+id/itemtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Collection"
+            android:textColor="#252527"
+            android:textSize="16.8sp" />
+
+        <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular
+            android:id="@+id/itemtitleviewmore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/view_all"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/itemtitleviewmore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:padding="5dp"
-        android:layout_alignParentEnd="true"
-        android:text="voir plus"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:textColor="@color/colorAccent"
-        android:textAllCaps="true"
-        app:layout_constraintBottom_toBottomOf="@+id/itemtitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"  />
-
-
-
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainsubrecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_below="@+id/itemtitleviewmore"
-        android:layout_marginTop="8dp"
+        android:layout_below="@+id/head"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="8dp"
+        android:clipToPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemtitle" />
+        app:layout_constraintTop_toBottomOf="@+id/head" />
 
 
 

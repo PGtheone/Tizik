@@ -1,18 +1,19 @@
 package com.shif.peterson.tizik.adapter;
 
 import android.content.Context;
-import android.media.audiofx.Visualizer;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.chibde.visualizer.BarVisualizer;
 import com.shif.peterson.tizik.R;
@@ -27,13 +28,13 @@ public class SimilarAdater extends RecyclerView.Adapter<SimilarAdater.SimilarVie
 
     private Context mContext;
     private List<Audio_Artiste> audioArtisteList;
-    private final SimiClickListener removeFromListListener;
+    private final SimiClickListener onclickhandler;
 
 
-    public SimilarAdater(Context mContext, List<Audio_Artiste> audioArtisteList, SimiClickListener removeFromListListener) {
+    public SimilarAdater(Context mContext, List<Audio_Artiste> audioArtisteList, SimiClickListener onclickhandler) {
         this.mContext = mContext;
         this.audioArtisteList = audioArtisteList;
-        this.removeFromListListener = removeFromListListener;
+        this.onclickhandler = onclickhandler;
     }
 
     @NonNull
@@ -50,13 +51,26 @@ public class SimilarAdater extends RecyclerView.Adapter<SimilarAdater.SimilarVie
         Audio_Artiste audio_artiste = audioArtisteList.get(i);
         if (audio_artiste != null){
 
-            holder.txtartiste.setText(audio_artiste.getId_album());
+            if (null != ( audio_artiste).getNom_chanteur()){
+
+                if (!( audio_artiste).getNom_chanteur().isEmpty()){
+                    holder.txtartiste.setText(( audio_artiste).getNom_chanteur());
+                }else{
+
+                    holder.txtartiste.setText(R.string.exo_track_unknown);
+                }
+
+
+            }else{
+                holder.txtartiste.setText(R.string.exo_track_unknown);
+            }
             holder.txtnomMusique.setText(audio_artiste.getTitre_musique());
             if (audio_artiste.getUrl_poster() != null){
 
                 RequestOptions glideOptions = new RequestOptions()
                         .centerCrop()
-                        .error(R.color.cardview_dark_background)
+                        .error(R.color.colorPrimary)
+                        .transform(new MultiTransformation(new CenterCrop(), new RoundedCorners(10)))
                         .placeholder(android.R.drawable.stat_notify_error);
 
 
@@ -87,12 +101,11 @@ public class SimilarAdater extends RecyclerView.Adapter<SimilarAdater.SimilarVie
     public interface SimiClickListener{
 
 
-        public void onClick( int position);
+        void onClick(int position);
     }
     public class SimilarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
          ImageView imgposter;
-         ImageView imgmore;
          TextView txtnomMusique;
          TextView txtartiste;
          BarVisualizer visualizer;
@@ -101,59 +114,18 @@ public class SimilarAdater extends RecyclerView.Adapter<SimilarAdater.SimilarVie
         public SimilarViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imgposter = (ImageView) itemView.findViewById(R.id.imgmusic);
-            imgmore = (ImageView) itemView.findViewById(R.id.imgmore);
-            txtartiste = (TextView) itemView.findViewById(R.id.song_artist);
-            txtnomMusique = (TextView) itemView.findViewById(R.id.song_title);
-            visualizer = (BarVisualizer) itemView.findViewById(R.id.visualizer);
+            imgposter = itemView.findViewById(R.id.imgmusic);
+            txtartiste = itemView.findViewById(R.id.song_artist);
+            txtnomMusique = itemView.findViewById(R.id.song_title);
+            visualizer = itemView.findViewById(R.id.visualizer);
 
             itemView.setOnClickListener(this);
 
-            imgmore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    PopupMenu popupMenu = new PopupMenu(mContext, imgmore);
-                    popupMenu.getMenuInflater().inflate(R.menu.similar_list_sub_menu, popupMenu.getMenu());
-
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-
-                            int id = item.getItemId();
-
-                            switch (id){
-
-                                case R.id.nav_delete:
-
-
-                                  break;
-                                case R.id.nav_favori:
-
-                                    //todo add to favorite;
-
-
-                                    break;
-                                default:
-                                    return false;
-
-                            }
-
-                            return true;
-                        }
-
-
-                    });
-
-                    popupMenu.show();
-
-                }
-            });
         }
 
         @Override
         public void onClick(View v) {
-            removeFromListListener.onClick(getAdapterPosition());
+            onclickhandler.onClick(getAdapterPosition());
 
         }
     }

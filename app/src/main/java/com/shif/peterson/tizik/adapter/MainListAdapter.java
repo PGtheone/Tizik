@@ -1,22 +1,23 @@
 package com.shif.peterson.tizik.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.shif.peterson.tizik.R;
+import com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Bold;
+import com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular;
 import com.shif.peterson.tizik.model.Audio_Artiste;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -30,6 +31,7 @@ public class MainListAdapter  extends RecyclerView.Adapter<MainListAdapter.MainL
     private Context mContext;
 
     final MainProductHandler productHandler;
+    RequestOptions glideOptions;
 
 
     public interface MainProductHandler{
@@ -38,11 +40,6 @@ public class MainListAdapter  extends RecyclerView.Adapter<MainListAdapter.MainL
 
     }
 
-    public MainListAdapter(Context context, ArrayList<Audio_Artiste> itemsList) {
-        this.itemsList = itemsList;
-        this.mContext = context;
-        productHandler = null;
-    }
 
     public MainListAdapter(Context context, ArrayList<Audio_Artiste> itemsList, MainProductHandler productHandler) {
         this.itemsList = itemsList;
@@ -70,22 +67,24 @@ public class MainListAdapter  extends RecyclerView.Adapter<MainListAdapter.MainL
         if (singleItem.getPrix() == 0){
 
             holder.txtprix.setText(mContext.getString(R.string.gratuit));
+            holder.txtprix.setVisibility(View.GONE);
         }else {
 
             holder.txtprix.setText(String.valueOf(singleItem.getPrix()));
         }
 
 
-//        RequestOptions glideOptions = new RequestOptions()
-//                .centerCrop()
-//                .error(R.drawable.ic_placeholder)
-//                .placeholder(R.drawable.ic_placeholder);
+        int min = 1;
+        int max = 3;
 
-        RequestOptions glideOptions = new RequestOptions()
+        Random r = new Random();
+        int i = r.nextInt(max - min + 1) + min;
+
+
+        glideOptions = new RequestOptions()
                 .centerCrop()
-                .error(R.drawable.ic_placeholder_headset)
-                .placeholder(R.drawable.ic_placeholder_headset);
-
+                .error(R.drawable.ic_tizik_logo_svg_gray)
+                .placeholder(R.drawable.ic_tizik_logo_svg_gray);
 
 
         if (singleItem.getUrl_poster() != null){
@@ -100,13 +99,7 @@ public class MainListAdapter  extends RecyclerView.Adapter<MainListAdapter.MainL
         }else{
 
 
-//            String url = singleItem.getPhoto_produits().get(0).getUrlPhoto();
-//
-//            Glide.with(mContext)
-//                    .load(url)
-//                    .apply(glideOptions)
-//                    .transition(withCrossFade())
-//                    .into(holder.imgproduit);
+
         }
 
 
@@ -120,18 +113,18 @@ public class MainListAdapter  extends RecyclerView.Adapter<MainListAdapter.MainL
     public class MainListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         protected ImageView imgproduit;
-        protected TextView txtnomproduit;
-        protected TextView txtalbum;
-        protected TextView txtprix;
+        protected MyTextView_Ubuntu_Bold txtnomproduit;
+        protected MyTextView_Ubuntu_Regular txtalbum;
+        protected MyTextView_Ubuntu_Regular txtprix;
 
 
         public MainListViewHolder(View itemView) {
             super(itemView);
 
-            imgproduit = (ImageView) itemView.findViewById(R.id.imgproduct);
-            txtnomproduit = (TextView) itemView.findViewById(R.id.txtnomproduct);
-            txtalbum = (TextView) itemView.findViewById(R.id.txtnomalbum);
-            txtprix = (TextView) itemView.findViewById(R.id.txtprixproduct);
+            imgproduit = itemView.findViewById(R.id.imgproduct);
+            txtnomproduit = itemView.findViewById(R.id.txtnomproduct);
+            txtalbum = itemView.findViewById(R.id.txtnomalbum);
+            txtprix = itemView.findViewById(R.id.txtprixproduct);
 
 
             itemView.setOnClickListener(this);

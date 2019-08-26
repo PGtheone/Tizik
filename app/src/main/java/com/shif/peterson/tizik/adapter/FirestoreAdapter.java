@@ -1,7 +1,8 @@
 package com.shif.peterson.tizik.adapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;

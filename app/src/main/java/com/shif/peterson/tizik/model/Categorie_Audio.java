@@ -1,61 +1,70 @@
 package com.shif.peterson.tizik.model;
 
+import java.util.Date;
+
 public class Categorie_Audio {
 
-    private String id_categorieAudio;
-    private String id_audio;
-    private String id_categorie;
-    private String created_by;
-    private String date_created;
+    private String id_Audio;
+    private String id_Categorie;
+    private String id_AudioTendance;
+    private String createdBy;
+    private Date dateCreated;
+
+
+    public Categorie_Audio(String id_Audio, String id_Categorie, String id_AudioTendance, String createdBy, Date dateCreated) {
+        this.id_Audio = id_Audio;
+        this.id_Categorie = id_Categorie;
+        this.id_AudioTendance = id_AudioTendance;
+        this.createdBy = createdBy;
+        this.dateCreated = dateCreated;
+    }
+
 
     public Categorie_Audio() {
     }
 
-    public Categorie_Audio(String id_categorieAudio, String id_audio, String id_categorie, String created_by, String date_created) {
-        this.id_categorieAudio = id_categorieAudio;
-        this.id_audio = id_audio;
-        this.id_categorie = id_categorie;
-        this.created_by = created_by;
-        this.date_created = date_created;
+
+    public String getId_Audio() {
+        return id_Audio;
     }
 
-    public String getId_categorie() {
-        return id_categorie;
+    public void setId_Audio(String id_Audio) {
+        this.id_Audio = id_Audio;
     }
 
-    public void setId_categorie(String id_categorie) {
-        this.id_categorie = id_categorie;
+    public String getId_Categorie() {
+        return id_Categorie;
     }
 
-    public String getId_categorieAudio() {
-        return id_categorieAudio;
+    public void setId_Categorie(String id_Categorie) {
+        this.id_Categorie = id_Categorie;
     }
 
-    public void setId_categorieAudio(String id_categorieAudio) {
-        this.id_categorieAudio = id_categorieAudio;
+    public String getId_AudioTendance() {
+        return id_AudioTendance;
     }
 
-    public String getId_audio() {
-        return id_audio;
+    public void setId_AudioTendance(String id_AudioTendance) {
+        this.id_AudioTendance = id_AudioTendance;
     }
 
-    public void setId_audio(String id_audio) {
-        this.id_audio = id_audio;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public String getCreated_by() {
-        return created_by;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
-    public void setCreated_by(String created_by) {
-        this.created_by = created_by;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
-    public String getDate_created() {
-        return date_created;
-    }
-
-    public void setDate_created(String date_created) {
-        this.date_created = date_created;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }
+
+
+
+

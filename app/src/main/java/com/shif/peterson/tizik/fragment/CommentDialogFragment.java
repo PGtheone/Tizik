@@ -3,15 +3,7 @@ package com.shif.peterson.tizik.fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatRatingBar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,26 +12,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatRatingBar;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.shif.peterson.tizik.NowPlayingActivity;
 import com.shif.peterson.tizik.R;
 import com.shif.peterson.tizik.adapter.CommentAdapter;
-import com.shif.peterson.tizik.adapter.SimilarAdater;
 import com.shif.peterson.tizik.model.Commentaire_Audio;
 import com.shif.peterson.tizik.model.Utilisateur;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -88,11 +79,6 @@ public class CommentDialogFragment extends DialogFragment {
 
     public static CollectionReference getCommentCollectionReference(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
-    }
-
-    private static final String COLLECTION_NAME_USER = "Utilisateur";
-    public static CollectionReference getUtilisateurCollectionReference(){
-        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME_USER);
     }
 
 
@@ -176,7 +162,14 @@ public class CommentDialogFragment extends DialogFragment {
            String date =  formatter.format(now);
 
             commentaire_audio.setDate_created(date);
-            commentaire_audio.setNote(rating.getRating());
+            if(rating.getRating() != 0){
+
+                commentaire_audio.setNote(rating.getRating());
+            }else{
+
+                commentaire_audio.setNote(0);
+            }
+
             commentaire_audio.setCreated_by(mid_user);
 
             getCommentCollectionReference().add(commentaire_audio).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -184,6 +177,7 @@ public class CommentDialogFragment extends DialogFragment {
                 public void onSuccess(DocumentReference documentReference) {
 
                     linearLayout.setVisibility(View.GONE);
+                    editComment.setText("");
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -198,44 +192,7 @@ public class CommentDialogFragment extends DialogFragment {
 
             }
 
-        }).setNegativeButton(getString(R.string.annuler),
-
-        new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int id) {
-
-                linearLayout.setVisibility(View.VISIBLE);
-
-                final Commentaire_Audio commentaire_audio = new Commentaire_Audio();
-                commentaire_audio.setId_commentaireAudio(UUID.randomUUID().toString());
-                commentaire_audio.setId_audio(mid_musique);
-                commentaire_audio.setId_utilisateur(mid_user);
-                commentaire_audio.setCommentaire(editComment.getText().toString());
-                commentaire_audio.setDate_created(new Date().toString());
-                commentaire_audio.setCreated_by(mid_user);
-
-                getCommentCollectionReference().add(commentaire_audio).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-
-                        linearLayout.setVisibility(View.GONE);
-
-                        commentaire_audios.add(0, commentaire_audio);
-                        commentAdapter.notifyItemInserted(1);
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        linearLayout.setVisibility(View.GONE);
-                    }
-                });
-
-                dialog.cancel();
-
-            }
-    });
+        });
 
         popDialog.create();
         popDialog.show();
@@ -283,9 +240,11 @@ public class CommentDialogFragment extends DialogFragment {
             }
         };
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         linearLayoutManager.setAutoMeasureEnabled(true);
         recyclercomment.setLayoutManager(linearLayoutManager);
+       DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        recyclercomment.addItemDecoration(itemDecor);
         recyclercomment.setAdapter(commentAdapter);
         recyclercomment.setNestedScrollingEnabled(false);
     }
@@ -296,15 +255,15 @@ public class CommentDialogFragment extends DialogFragment {
 
         commentaire_audios = new ArrayList<>();
 
-        recyclercomment = (RecyclerView) view.findViewById(R.id.recyclercomment);
-        avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
-        linearLayout = (LinearLayout) view.findViewById(R.id.linearprogress);
-        txtheadstate = (TextView) view.findViewById(R.id.txthead);
-        txtdesc = (TextView) view.findViewById(R.id.txtemptycomment);
-        imgstate = (ImageView) view.findViewById(R.id.imgemptystate);
+        recyclercomment = view.findViewById(R.id.recyclercomment);
+        avi = view.findViewById(R.id.avi);
+        linearLayout = view.findViewById(R.id.linearprogress);
+        txtheadstate = view.findViewById(R.id.txthead);
+        txtdesc = view.findViewById(R.id.txtemptycomment);
+        imgstate = view.findViewById(R.id.imgemptystate);
 
-        btncomment = (Button) view.findViewById(R.id.btncomment);
-        editComment = (EditText) view.findViewById(R.id.editcomment);
+        btncomment = view.findViewById(R.id.btncomment);
+        editComment = view.findViewById(R.id.editcomment);
 
 
         linearLayout.setVisibility(View.VISIBLE);

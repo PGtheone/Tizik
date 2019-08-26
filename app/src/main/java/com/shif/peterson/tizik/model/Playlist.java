@@ -1,22 +1,58 @@
 package com.shif.peterson.tizik.model;
 
-public class Playlist {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.Date;
+
+public class Playlist implements Parcelable {
 
     private String id_playlist;
-    private String nom_playlist;
-    private String created_by;
-    private String date_created;
-    private String modify_by;
-    private String date_modify;
+    public static final Creator<Playlist> CREATOR = new Creator<Playlist>() {
+        @Override
+        public Playlist createFromParcel(Parcel source) {
+            return new Playlist(source);
+        }
+
+        @Override
+        public Playlist[] newArray(int size) {
+            return new Playlist[size];
+        }
+    };
+    private String id_utilisateur;
+    private String Nom;
+    private String CreatedBy;
+    private Date DateCreated;
+    private String ModifBy;
+    private Date DateModif;
+    private String urlPoster;
+    private boolean isPublic;
+
+    public Playlist(String id_playlist, String id_utilisateur, String nom, String createdBy, Date dateCreated, String urlPoster, boolean isPublic) {
+        this.id_playlist = id_playlist;
+        this.id_utilisateur = id_utilisateur;
+        Nom = nom;
+        CreatedBy = createdBy;
+        DateCreated = dateCreated;
+        this.urlPoster = urlPoster;
+        this.isPublic = isPublic;
+    }
 
     public Playlist() {
     }
 
-    public Playlist(String id_playlist, String nom_playlist, String created_by, String date_created) {
-        this.id_playlist = id_playlist;
-        this.nom_playlist = nom_playlist;
-        this.created_by = created_by;
-        this.date_created = date_created;
+    protected Playlist(Parcel in) {
+        this.id_playlist = in.readString();
+        this.id_utilisateur = in.readString();
+        this.Nom = in.readString();
+        this.CreatedBy = in.readString();
+        long tmpDateCreated = in.readLong();
+        this.DateCreated = tmpDateCreated == -1 ? null : new Date(tmpDateCreated);
+        this.ModifBy = in.readString();
+        long tmpDateModif = in.readLong();
+        this.DateModif = tmpDateModif == -1 ? null : new Date(tmpDateModif);
+        this.urlPoster = in.readString();
+        this.isPublic = in.readByte() != 0;
     }
 
     public String getId_playlist() {
@@ -27,43 +63,85 @@ public class Playlist {
         this.id_playlist = id_playlist;
     }
 
-    public String getNom_playlist() {
-        return nom_playlist;
+    public boolean isPublic() {
+        return isPublic;
     }
 
-    public void setNom_playlist(String nom_playlist) {
-        this.nom_playlist = nom_playlist;
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 
-    public String getCreated_by() {
-        return created_by;
+    public String getId_utilisateur() {
+        return id_utilisateur;
     }
 
-    public void setCreated_by(String created_by) {
-        this.created_by = created_by;
+    public void setId_utilisateur(String id_utilisateur) {
+        this.id_utilisateur = id_utilisateur;
     }
 
-    public String getDate_created() {
-        return date_created;
+    public String getNom() {
+        return Nom;
     }
 
-    public void setDate_created(String date_created) {
-        this.date_created = date_created;
+    public void setNom(String nom) {
+        Nom = nom;
     }
 
-    public String getModify_by() {
-        return modify_by;
+    public String getCreatedBy() {
+        return CreatedBy;
     }
 
-    public void setModify_by(String modify_by) {
-        this.modify_by = modify_by;
+    public void setCreatedBy(String createdBy) {
+        CreatedBy = createdBy;
     }
 
-    public String getDate_modify() {
-        return date_modify;
+    public Date getDateCreated() {
+        return DateCreated;
     }
 
-    public void setDate_modify(String date_modify) {
-        this.date_modify = date_modify;
+    public void setDateCreated(Date dateCreated) {
+        DateCreated = dateCreated;
+    }
+
+    public String getModifBy() {
+        return ModifBy;
+    }
+
+    public void setModifBy(String modifBy) {
+        ModifBy = modifBy;
+    }
+
+    public Date getDateModif() {
+        return DateModif;
+    }
+
+    public void setDateModif(Date dateModif) {
+        DateModif = dateModif;
+    }
+
+    public String getUrlPoster() {
+        return urlPoster;
+    }
+
+    public void setUrlPoster(String urlPoster) {
+        this.urlPoster = urlPoster;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id_playlist);
+        dest.writeString(this.id_utilisateur);
+        dest.writeString(this.Nom);
+        dest.writeString(this.CreatedBy);
+        dest.writeLong(this.DateCreated != null ? this.DateCreated.getTime() : -1);
+        dest.writeString(this.ModifBy);
+        dest.writeLong(this.DateModif != null ? this.DateModif.getTime() : -1);
+        dest.writeString(this.urlPoster);
+        dest.writeByte(this.isPublic ? (byte) 1 : (byte) 0);
     }
 }

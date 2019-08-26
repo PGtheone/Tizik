@@ -1,13 +1,14 @@
 package com.shif.peterson.tizik.adapter;
 
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.shif.peterson.tizik.R;
 import com.shif.peterson.tizik.model.Audio_Artiste;
@@ -136,11 +137,11 @@ public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.Item
 
         public ItemHolder(View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.song_title);
-            this.artist = (TextView) view.findViewById(R.id.song_artist);
-            this.albumArt = (ImageView) view.findViewById(R.id.albumArt);
-            this.popupMenu = (ImageView) view.findViewById(R.id.popup_menu);
-            visualizer = (MusicVisualizer) view.findViewById(R.id.visualizer);
+            this.title = view.findViewById(R.id.song_title);
+            this.artist = view.findViewById(R.id.song_artist);
+            this.albumArt = view.findViewById(R.id.albumArt);
+            this.popupMenu = view.findViewById(R.id.popup_menu);
+            visualizer = view.findViewById(R.id.visualizer);
             view.setOnClickListener(this);
         }
 

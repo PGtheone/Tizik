@@ -1,9 +1,10 @@
 package com.shif.peterson.tizik.adapter;
 
 import android.content.Context;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 
 import com.shif.peterson.tizik.R;
 import com.shif.peterson.tizik.fragment.StepChooseMusicFragment;

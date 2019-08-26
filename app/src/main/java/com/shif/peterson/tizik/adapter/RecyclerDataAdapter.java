@@ -1,53 +1,85 @@
 package com.shif.peterson.tizik.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.shif.peterson.tizik.AllMusicActivity;
+import com.shif.peterson.tizik.DetailPlaylistActivity;
+import com.shif.peterson.tizik.GenresActivity;
+import com.shif.peterson.tizik.NowPlayingActivity;
 import com.shif.peterson.tizik.R;
+import com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Bold;
+import com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular;
+import com.shif.peterson.tizik.model.Abonnement;
 import com.shif.peterson.tizik.model.Audio_Artiste;
+import com.shif.peterson.tizik.model.Categorie;
+import com.shif.peterson.tizik.model.Playlist;
 import com.shif.peterson.tizik.model.SectionDataModel;
+import com.shif.peterson.tizik.utilis.RoundishImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.shif.peterson.tizik.utilis.ExoPlayerHelper.MUSIC_EXTRA;
+
 
 /**
  * Created by ydnar on 27/03/2018.
  */
 
 public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
-        MainListAdapter.MainProductHandler{
+        MainListAdapter.MainProductHandler,
+        PlaylistAdapter.PlaylistHandler {
 
 
-
+    final static String EXTRA_CATEGORIE = "extra_categorie";
+    final static String EXTRA_CATEGORIE_NAME = "extra_categorie_name";
     ProductHandler productHandler;
+    private static final int PUB_ROW = 2;
+    private static final int GRID_ROW = 1;
 
     private ArrayList<SectionDataModel> dataList;
     private Context mContext;
-    private List<String> publink;
+    private static final int PROD_ROW = 3;
+    private static final int PLAYLIST_ROW = 0;
+    private static final int CONNECTION_ROW = 4;
+    PlaylistAdapter.PlaylistHandler playlistHandler;
+    private List<Object> mainObject;
+    private List<Categorie> publink;
+    private List<Playlist> playlists;
+    private List<Audio_Artiste> audio_artistes;
+    private List<Abonnement> listAbonnement;
 
-    private static final int PUB_ROW = 1;
-    private static final int PROD_ROW = 0;
-
-    private static  int pubchoose = 1;
 
     @Override
     public void OnClick(Audio_Artiste audio) {
 
         productHandler.onClick(audio);
+    }
+
+    public RecyclerDataAdapter(Context context, List<Object> dataList, ProductHandler productHandler, PlaylistAdapter.PlaylistHandler playlistHandler) {
+        this.mainObject = dataList;
+        this.mContext = context;
+        this.productHandler = productHandler;
+        this.playlistHandler = playlistHandler;
+    }
+
+    @Override
+    public void onPlaylistClick(Playlist position) {
+
+        playlistHandler.onPlaylistClick(position);
+
     }
 
 
@@ -56,65 +88,40 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         void onClick(Audio_Artiste audio);
     }
 
-    public RecyclerDataAdapter(Context context, ArrayList<SectionDataModel> dataList, ProductHandler productHandler) {
-        this.dataList = dataList;
-        this.mContext = context;
-        this.productHandler = productHandler;
-        }
+    @Override
+    public void onPlayClick(Playlist position) {
 
-    public RecyclerDataAdapter(Context context, ArrayList<SectionDataModel> dataList, List<String> publink, ProductHandler productHandler) {
-        this.dataList = dataList;
-        this.mContext = context;
-        this.publink = publink;
-        this.productHandler = productHandler;
-        pubchoose = 1;
+        playlistHandler.onPlayClick(position);
+
     }
-
-//    @NonNull
-//    @Override
-//    public RecyclerDataViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_list, null);
-//        RecyclerDataViewholder mh = new RecyclerDataViewholder(v);
-//        return mh;
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull RecyclerDataViewholder holder, int position) {
-//
-//        final String sectionName = dataList.get(position).getHeaderTitle();
-//
-//        ArrayList singleSectionItems = dataList.get(position).getAllItemsInSection();
-//
-//        holder.itemTitle.setText(sectionName);
-//
-//        MainListAdapter mainListAdapter = new MainListAdapter(mContext, singleSectionItems);
-//        holder.recycler_view_list.setHasFixedSize(true);
-//        holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-//        holder.recycler_view_list.setAdapter(mainListAdapter);
-//
-//
-//        holder.recycler_view_list.setNestedScrollingEnabled(false);
-//
-//
-//    }
-
 
     @Override
     public int getItemViewType(int position) {
 
-        if(position == 2 || position == 6){
+        if(position == 0 ){
+
+            return PLAYLIST_ROW;
+
+        }else if(position == 1 ){
+
+            return GRID_ROW;
+
+        } else if(position == 2 ){
+
+            return CONNECTION_ROW;
+
+        }else if(position == 4 ){
 
             return PUB_ROW;
 
-        }else{
+        } else{
 
             return PROD_ROW;
 
         }
-    }
 
-    public boolean isPub(int position){
-        return position == 2;
+
+
     }
 
     @NonNull
@@ -131,11 +138,30 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
                 return new RecyclerDataViewholder(view);
 
+            case GRID_ROW:
+
+                layoutId = R.layout.item_single_top_music;
+                View view5 = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
+                return new SingleRowDataGridViewholder(view5);
+
+
+            case CONNECTION_ROW:
+
+                layoutId = R.layout.item_single_connection;
+                View view4 = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
+                return new SingleRowConnectionViewholder(view4);
+
             case PUB_ROW:
 
                 layoutId = R.layout.item_single_row_pub;
                 View view1 = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
                 return new SingleRowDataViewholder(view1);
+
+            case PLAYLIST_ROW:
+
+                layoutId = R.layout.item_main_list;
+                View view2 = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
+                return new PlaylistDataViewholder(view2);
 
 
             default:
@@ -154,59 +180,119 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             case PROD_ROW:
 
-                final String sectionName = dataList.get(position).getHeaderTitle();
 
-                ArrayList singleSectionItems = dataList.get(position).getAllItemsInSection();
+                 dataList = (ArrayList<SectionDataModel>) mainObject.get(position);
+                for (SectionDataModel sectionDataModel: dataList) {
 
-                ((RecyclerDataViewholder) holder).itemTitle.setText(sectionName);
+                    final String sectionName = sectionDataModel.getHeaderTitle();
+                    ArrayList singleSectionItems = sectionDataModel.getAllItemsInSection();
+
+                    ((RecyclerDataViewholder) holder).itemTitle.setText(sectionName);
+
+                    MainListAdapter mainListAdapter = new MainListAdapter(mContext, singleSectionItems, this);
+                    ((RecyclerDataViewholder) holder).recycler_view_list.setHasFixedSize(true);
+                    ((RecyclerDataViewholder) holder).recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                    ((RecyclerDataViewholder) holder).recycler_view_list.setAdapter(mainListAdapter);
+
+                    ((RecyclerDataViewholder) holder).recycler_view_list.setNestedScrollingEnabled(false);
 
 
-                MainListAdapter mainListAdapter = new MainListAdapter(mContext, singleSectionItems, this);
-                ((RecyclerDataViewholder) holder).recycler_view_list.setHasFixedSize(true);
-                ((RecyclerDataViewholder) holder).recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-                ((RecyclerDataViewholder) holder).recycler_view_list.setAdapter(mainListAdapter);
 
-                ((RecyclerDataViewholder) holder).recycler_view_list.setNestedScrollingEnabled(false);
+                }
+
+                break;
+
+            case GRID_ROW:
+
+
+                audio_artistes = (List<Audio_Artiste>) mainObject.get(position);
+                TopGridAdapter topGridAdapter = new TopGridAdapter(mContext, audio_artistes, new TopGridAdapter.TopgridClickListener() {
+                    @Override
+                    public void onClick(Audio_Artiste audio_artiste) {
+
+                        Intent intent2 =  new Intent(mContext, NowPlayingActivity.class);
+                        intent2.putExtra(MUSIC_EXTRA, audio_artiste);
+                        mContext.startActivity(intent2);
+                    }
+                });
+
+                GridLayoutManager glm1 = new GridLayoutManager(mContext, mContext.getResources().getInteger(R.integer.shr_column_count), GridLayoutManager.HORIZONTAL, false);
+
+                ((SingleRowDataGridViewholder) holder).recycler_view_list.setHasFixedSize(true);
+                ((SingleRowDataGridViewholder) holder).recycler_view_list.setLayoutManager(glm1);
+               // ((SingleRowDataGridViewholder) holder).recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
+
+                ((SingleRowDataGridViewholder) holder).recycler_view_list.setAdapter(topGridAdapter);
+
+
+                break;
+
+            case CONNECTION_ROW:
+
+
+                listAbonnement = (List<Abonnement>) mainObject.get(position);
+
+                RequestOptions glideOptions = new RequestOptions()
+                        .centerCrop()
+                        .error(R.drawable.ic_tizik_logo_svg)
+                        .placeholder(R.drawable.ic_tizik_logo_svg);
+
+                Glide.with(mContext)
+                        .load("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/CarouselImage%2Fcarousel2.jpg?alt=media&token=29095dc9-e725-48a7-b5fd-f4a4ea1c42b9")
+                        .apply(glideOptions)
+                        .transition(withCrossFade())
+                        .into(((SingleRowConnectionViewholder) holder).imgbg);
+
+                ConnectionAdapter connectionAdapter = new ConnectionAdapter(mContext, listAbonnement);
+                ((SingleRowConnectionViewholder) holder).recycler_view_list.setHasFixedSize(true);
+                ((SingleRowConnectionViewholder) holder).recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
+                ((SingleRowConnectionViewholder) holder).recycler_view_list.setAdapter(connectionAdapter);
+
 
                 break;
 
             case PUB_ROW:
 
 
+                publink = (List<Categorie>) mainObject.get(position);
+                GenreAdapter  genreAdapter = new GenreAdapter(mContext, publink, new GenreAdapter.CategorieClickHandler() {
+                    @Override
+                    public void OnCategorieClickListener(Categorie categorie) {
 
-                String pub;
+                        Intent intent = new Intent(mContext, AllMusicActivity.class);
+                        intent.putExtra(EXTRA_CATEGORIE, categorie.getId_categorie());
+                        intent.putExtra(EXTRA_CATEGORIE_NAME, categorie.getNom_categorie());
+                        mContext.startActivity(intent);
 
-                    if(position == 2){
-
-                         pub = publink.get(1);
-                    }else{
-
-                         pub = publink.get(2);
                     }
+                }) ;
 
-
-                    RequestOptions glideOptions = new RequestOptions()
-                            .override(900, 700)
-                            .centerCrop()
-                            .error(R.drawable.ic_placeholder_headset)
-                            .placeholder(R.drawable.ic_placeholder_headset);
-
-
-                    Glide.with(mContext)
-                            .load(pub)
-                            .apply(glideOptions)
-                            .transition(withCrossFade())
-                            .into(((SingleRowDataViewholder) holder).imgpub);
-
-
-
-
-
+                GridLayoutManager glm = new GridLayoutManager(mContext, mContext.getResources().getInteger(R.integer.shr_column_count));
+                ((SingleRowDataViewholder) holder).recycler_view_list.setHasFixedSize(true);
+                ((SingleRowDataViewholder) holder).recycler_view_list.setLayoutManager(glm);
+                ((SingleRowDataViewholder) holder).recycler_view_list.setAdapter(genreAdapter);
 
 
                 break;
 
 
+            case PLAYLIST_ROW:
+
+                final String playlisHead =  mContext.getString(R.string.newplaylist);
+                ((PlaylistDataViewholder) holder).itemTitle.setText(playlisHead);
+
+                playlists = (List<Playlist>) mainObject.get(position);
+
+                PlaylistAdapter playlistAdapter = new PlaylistAdapter(mContext, playlists, this);
+                ((PlaylistDataViewholder) holder).recycler_view_list.setHasFixedSize(true);
+                ((PlaylistDataViewholder) holder).recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                ((PlaylistDataViewholder) holder).recycler_view_list.setAdapter(playlistAdapter);
+
+                ((PlaylistDataViewholder) holder).recycler_view_list.setNestedScrollingEnabled(false);
+
+
+
+                break;
         }
 
 
@@ -215,35 +301,134 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemCount() {
         
-        return (null != dataList ? dataList.size() : 0);
+        return (null != mainObject ? (mainObject.size()) : 0);
+    }
+
+    public static class SingleRowDataViewholder extends RecyclerView.ViewHolder{
+
+        protected MyTextView_Ubuntu_Bold itemTitle;
+        protected RecyclerView recycler_view_list;
+        protected MyTextView_Ubuntu_Regular txtMore;
+
+
+        public SingleRowDataViewholder(final View itemView) {
+            super(itemView);
+
+            this.itemTitle = itemView.findViewById(R.id.itemtitle);
+            this.recycler_view_list = itemView.findViewById(R.id.mainsubrecycler);
+            this.txtMore= itemView.findViewById(R.id.itemtitleviewmore);
+
+            txtMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(itemView.getContext(), GenresActivity.class);
+                    itemView.getContext().startActivity(intent);
+                }
+            });
+
+        }
+
+    }
+
+    public static class SingleRowDataGridViewholder extends RecyclerView.ViewHolder{
+
+        protected MyTextView_Ubuntu_Bold itemTitle;
+        protected RecyclerView recycler_view_list;
+        protected MyTextView_Ubuntu_Regular txtMore;
+
+
+        public SingleRowDataGridViewholder(final View itemView) {
+            super(itemView);
+
+            this.itemTitle = itemView.findViewById(R.id.itemtitle);
+            this.recycler_view_list = itemView.findViewById(R.id.mainsubrecycler);
+            this.txtMore= itemView.findViewById(R.id.itemtitleviewmore);
+
+            txtMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(itemView.getContext(), AllMusicActivity.class);
+                    itemView.getContext().startActivity(intent);
+                }
+            });
+
+        }
+
+    }
+
+    public static class SingleRowConnectionViewholder extends RecyclerView.ViewHolder{
+
+        protected MyTextView_Ubuntu_Bold itemTitle;
+        protected RoundishImageView imgbg;
+        protected RecyclerView recycler_view_list;
+        protected MyTextView_Ubuntu_Regular txtMore;
+
+
+        public SingleRowConnectionViewholder(final View itemView) {
+            super(itemView);
+
+            this.itemTitle = itemView.findViewById(R.id.itemtitle);
+
+            this.imgbg= itemView.findViewById(R.id.imggalerie);
+            this.recycler_view_list = itemView.findViewById(R.id.mainsubrecycler);
+            this.txtMore= itemView.findViewById(R.id.itemtitleviewmore);
+
+
+            txtMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(itemView.getContext(), AllMusicActivity.class);
+                    itemView.getContext().startActivity(intent);
+                }
+            });
+
+        }
+
     }
 
     public class RecyclerDataViewholder extends RecyclerView.ViewHolder{
 
-        protected TextView itemTitle;
+        protected MyTextView_Ubuntu_Bold itemTitle;
         protected RecyclerView recycler_view_list;
-        protected TextView txtMore;
+        protected MyTextView_Ubuntu_Regular txtMore;
 
 
         public RecyclerDataViewholder(View itemView) {
             super(itemView);
 
-            this.itemTitle = (TextView) itemView.findViewById(R.id.itemtitle);
-            this.recycler_view_list = (RecyclerView) itemView.findViewById(R.id.mainsubrecycler);
-            this.txtMore= (TextView) itemView.findViewById(R.id.itemtitleviewmore);
+            this.itemTitle = itemView.findViewById(R.id.itemtitle);
+            this.recycler_view_list = itemView.findViewById(R.id.mainsubrecycler);
+            this.txtMore= itemView.findViewById(R.id.itemtitleviewmore);
 
         }
     }
 
-    public static class SingleRowDataViewholder extends RecyclerView.ViewHolder{
+    public class PlaylistDataViewholder extends RecyclerView.ViewHolder{
 
-        protected ImageView imgpub;
+        protected MyTextView_Ubuntu_Bold itemTitle;
+        protected RecyclerView recycler_view_list;
+        protected MyTextView_Ubuntu_Regular txtMore;
 
 
-        public SingleRowDataViewholder(View itemView) {
-            super(itemView);
+        public PlaylistDataViewholder(final View view) {
+            super(view);
 
-            this.imgpub = (ImageView) itemView.findViewById(R.id.imgplaceholder);
+            this.itemTitle = view.findViewById(R.id.itemtitle);
+            this.recycler_view_list = view.findViewById(R.id.mainsubrecycler);
+            this.txtMore= view.findViewById(R.id.itemtitleviewmore);
+
+            txtMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(view.getContext(), DetailPlaylistActivity.class);
+                    view.getContext().startActivity(intent);
+                }
+            });
+
 
         }
     }

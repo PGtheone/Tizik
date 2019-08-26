@@ -10,7 +10,8 @@
     app:umanoPanelHeight="0dp"
     app:umanoShadowHeight="5dp"
     android:gravity="bottom"
-    tools:showIn="@layout/app_bar_main"
+    android:background="@android:color/white"
+    tools:showIn="@layout/activity_main"
     >
 
         <FrameLayout

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="shr_column_count">8</integer>
+    <integer name="shr_column_count">9</integer>
     <integer name="prod_column_count">8</integer>
 
     <integer name="anim_duration_default">5000</integer>

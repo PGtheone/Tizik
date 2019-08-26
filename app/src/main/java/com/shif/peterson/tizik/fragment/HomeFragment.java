@@ -1,208 +1,212 @@
 package com.shif.peterson.tizik.fragment;
 
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcelable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.adroitandroid.chipcloud.ChipCloud;
-import com.adroitandroid.chipcloud.ChipListener;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.shif.peterson.tizik.DetailPlaylistActivity;
 import com.shif.peterson.tizik.NowPlayingActivity;
 import com.shif.peterson.tizik.R;
-import com.shif.peterson.tizik.adapter.CarouselAdapter;
+import com.shif.peterson.tizik.adapter.PlaylistAdapter;
 import com.shif.peterson.tizik.adapter.RecyclerDataAdapter;
 import com.shif.peterson.tizik.model.Audio_Artiste;
+import com.shif.peterson.tizik.model.Categorie;
+import com.shif.peterson.tizik.model.Playlist;
 import com.shif.peterson.tizik.model.SectionDataModel;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
-import net.steamcrafted.materialiconlib.MaterialIconView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
-
-import static android.app.Activity.RESULT_OK;
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.shif.peterson.tizik.DetailPlaylistActivity.EXTRA_PLAYLIST;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment implements RecyclerDataAdapter.ProductHandler {
+public class HomeFragment extends Fragment
+       {
 
+    private static final int LIMIT = 10;
+    private static final String COLLECTION_NAME_AUDIO = "Audio";
+    private final ArrayList<SectionDataModel> allMusic = new ArrayList<SectionDataModel>();
     private final String MUSIC_EXTRA = "music_extra";
-
     private ShimmerFrameLayout mShimmerViewContainer;
-
     private RecyclerView listProduitRecyclerview;
-    ArrayList<SectionDataModel> allMusic;
-    RecyclerDataAdapter dataAdapter;
-
-    //caarousel
-    private ViewPager carousel;
-    private CarouselAdapter carouselAdapter;
-    private List<String> carouselImage;
-    private int current_page = 0;
-    private int NUM_PAGES = 0;
-
-    private List<String> listPubrow;
-    private View view;
-
-    int ACTIVITY_REQUEST_CODE = 10000;
-
-
-
-
-
-
-
+    private final List<Categorie> allcategories = new ArrayList<>();
+    private final List<Playlist> allPlaylist = new ArrayList<>();
+    private final int ACTIVITY_REQUEST_CODE = 10000;
+    private ArrayList<Object> mainObject = new ArrayList<>();
+    private NowPlayingHandler nowPlayingHandler;
+    private RecyclerDataAdapter dataAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-
     public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
 
-        return fragment;
+        return new HomeFragment();
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_home, container, false);
 
-        mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
-        listProduitRecyclerview = (RecyclerView) view.findViewById(R.id.listaudiorecycler);
-        carousel = (ViewPager) view.findViewById(R.id.carousel);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+       // mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
+        listProduitRecyclerview = view.findViewById(R.id.listaudiorecycler);
 
-        allMusic = new ArrayList<SectionDataModel>();
+        listProduitRecyclerview.setVisibility(View.GONE);
+        mShimmerViewContainer.setVisibility(View.VISIBLE);
 
-        createDummyData();
-
-
-        listProduitRecyclerview.setHasFixedSize(true);
-        dataAdapter = new RecyclerDataAdapter(getContext(), allMusic,listPubrow, this);
-
-        listProduitRecyclerview.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        listProduitRecyclerview.setAdapter(dataAdapter);
-        listProduitRecyclerview.setNestedScrollingEnabled(false);
-
-
-        carouselAdapter = new CarouselAdapter(getContext(), carouselImage);
-        carousel.setAdapter(carouselAdapter);
-        NUM_PAGES = carouselImage.size();
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (current_page == NUM_PAGES) {
-                    current_page = 0;
-                }
-                carousel.setCurrentItem(current_page++, true);
-            }
-        };
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 3000, 3000);
-
-
-        Handler handler1 = new Handler();
-        handler1.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-
-            }
-        }, 7000L);
-
-
-
-
-        listProduitRecyclerview.setVisibility(View.VISIBLE);
-        mShimmerViewContainer.setVisibility(View.GONE);
-
+     initList();
 
         return view;
 
     }
 
-    private void createDummyData() {
 
-        carouselImage = new ArrayList<>();
-        carouselImage.add("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/CarouselImage%2Fcarousel3.jpg?alt=media&token=253a0e79-698b-4e38-80c1-5c0339727c9e");
-        carouselImage.add("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/CarouselImage%2Fcarousel5.jpg?alt=media&token=22cc988f-706e-45dc-86a3-a56e0cc234ea");
-        carouselImage.add("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/CarouselImage%2Fcarousel1.jpg?alt=media&token=793b0d9e-f61c-4bb1-9952-a24f361f4cfc");
-        carouselImage.add("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/CarouselImage%2Fcarousel4.jpg?alt=media&token=85825417-b070-4c6f-8c5b-6ea7a6dbff82");
-        carouselImage.add("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/CarouselImage%2Fcarousel2.jpg?alt=media&token=29095dc9-e725-48a7-b5fd-f4a4ea1c42b9");
+    private void initList() {
+
+        Task taskfree = FirebaseFirestore
+                .getInstance()
+                .collection("Audio")
+                .whereEqualTo("prix", 0)
+                .limit(10)
+                .get();
+
+        //Playlist
+        Task taskPlaylist = FirebaseFirestore
+                .getInstance()
+                .collection("Playlist")
+                .limit(10)
+                .get();
+
+        Task taskCategorie =    FirebaseFirestore.getInstance()
+                .collection(Categorie.class.getSimpleName())
+                .orderBy("nom_categorie", Query.Direction.ASCENDING)
+                .limit(6)
+                .get();
 
 
-        listPubrow = new ArrayList<>();
-        listPubrow.add("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/CarouselImage%2Fpubrow2.jpg?alt=media&token=4472a69a-a420-4e4d-ad09-ddc4ccafe6fb");
-        listPubrow.add("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/CarouselImage%2Fpubrow1.jpg?alt=media&token=5e03b3cb-cdd6-4160-9121-b650a13f480c");
-        listPubrow.add("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/CarouselImage%2Fpubrow1.jpg?alt=media&token=5e03b3cb-cdd6-4160-9121-b650a13f480c");
+        Task taskrecommended = FirebaseFirestore
+                .getInstance()
+                .collection("Audio")
+                .whereEqualTo("prix", 0)
+                .limit(10)
+                .get();
+
+        Task tasknew =   FirebaseFirestore.getInstance()
+                .collection("Audio")
+                .whereEqualTo("prix", 0)
+                .limit(10)
+                .get();
 
 
-        for (int i = 1; i <= 10; i++) {
 
-            SectionDataModel dm = new SectionDataModel();
-            dm.setHeaderTitle("Titre Section " + i);
+        final Task<List<QuerySnapshot>> allMainTask = Tasks.whenAllSuccess(taskfree,taskPlaylist,taskCategorie,taskrecommended,tasknew);
+        allMainTask.addOnSuccessListener(new OnSuccessListener<List<QuerySnapshot>>() {
+            @Override
+            public void onSuccess(List<QuerySnapshot> querySnapshots) {
 
-            ArrayList<Audio_Artiste> singleItem = new ArrayList<Audio_Artiste>();
-            for (int j = 0; j <= 5; j++) {
+                for(int i = 0; i < querySnapshots.size(); i++){
+                    QuerySnapshot queryDocumentSnapshots =  querySnapshots.get(i);
 
-                Audio_Artiste produit = new Audio_Artiste();
-                produit.setId_musique( "c580dcde-6de1-448a-9328-5c6da9474319");
-                produit.setuploaded_by("vlrg2OpgCHZe4rDiG3UKwlssTv03");
-                produit.setNom_chanteur("PIC");
-                produit.setTitre_musique("Higher");
-                produit.setId_album( "Lem Ap Ekri [LAE] Mixtape Vol I");
-                produit.setDuree_musique(169770);
-                produit.setDate_upload("Wed Nov 14 16:50:29 EST 2018");
+                    if (i == 1){
 
-                produit.setUrl_musique("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/Audio%2F09-PIC-MAprann.mp3?alt=media&token=cffba160-d342-430b-acb3-5f4a2a4aa2b2");
-                produit.setUrl_poster("https://firebasestorage.googleapis.com/v0/b/tizik-1b4be.appspot.com/o/Images%2F09-PIC-MAprann.mp3?alt=media&token=66b2adfc-46a1-48c8-bab3-b652232d3438");
-                singleItem.add(produit);
+                        if (!queryDocumentSnapshots.isEmpty()){
+
+                            allPlaylist.addAll(queryDocumentSnapshots.toObjects(Playlist.class));
+                            mainObject.add(allPlaylist);
+
+
+                        }
+                    }else if(i == 2){
+
+                        if (!queryDocumentSnapshots.isEmpty()){
+
+
+                        allcategories.addAll(queryDocumentSnapshots.toObjects(Categorie.class));
+                            mainObject.add(allcategories);
+
+                }
+                    } else{
+
+                        if(!queryDocumentSnapshots.isEmpty()){
+
+                            SectionDataModel dm = new SectionDataModel();
+                            dm.setHeaderTitle(getString(R.string.gratuit));
+                            ArrayList<Audio_Artiste> singleItem = new ArrayList<Audio_Artiste>();
+
+                            singleItem.addAll(queryDocumentSnapshots.toObjects(Audio_Artiste.class));
+                            dm.setAllItemsInSection(singleItem);
+
+                            allMusic.add(dm);
+                            mainObject.add(allMusic);
+                        }
+
+
+                    }
+                }
+
+
+
+                dataAdapter = new RecyclerDataAdapter(getContext(), mainObject, new RecyclerDataAdapter.ProductHandler() {
+                    @Override
+                    public void onClick(Audio_Artiste audio) {
+                        Intent intent2 =  new Intent(getContext(), NowPlayingActivity.class);
+                        intent2.putExtra(MUSIC_EXTRA, audio);
+                        startActivity(intent2);
+
+                    }
+                }, new PlaylistAdapter.PlaylistHandler() {
+                    @Override
+                    public void onPlaylistClick(Playlist position) {
+
+                        Intent intent2 =  new Intent(getContext(), DetailPlaylistActivity.class);
+                        intent2.putExtra(EXTRA_PLAYLIST, position);
+                        startActivity(intent2);
+
+                    }
+
+                    @Override
+                    public void onPlayClick(Playlist position) {
+
+                    }
+                });
+
+
+                listProduitRecyclerview.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL, false));
+                listProduitRecyclerview.setAdapter(dataAdapter);
+                listProduitRecyclerview.setNestedScrollingEnabled(false);
+                listProduitRecyclerview.getAdapter().notifyDataSetChanged();
+
+                mShimmerViewContainer.setVisibility(View.GONE);
+                listProduitRecyclerview.setVisibility(View.VISIBLE);
 
             }
-
-            dm.setAllItemsInSection(singleItem);
-
-            allMusic.add(dm);
-
-        }
-
+        });
 
 
     }
+
 
     @Override
     public void onResume() {
@@ -216,17 +220,45 @@ public class HomeFragment extends Fragment implements RecyclerDataAdapter.Produc
         super.onPause();
     }
 
-    @Override
-    public void onClick(Audio_Artiste audio) {
 
-        Intent intent =  new Intent(getContext(), NowPlayingActivity.class);
-        intent.putExtra(MUSIC_EXTRA, audio);
-        startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
+
+    public void onMusiChoosen(Audio_Artiste audio_artiste) {
+        if (nowPlayingHandler != null) {
+            nowPlayingHandler.nowPlayingListener(audio_artiste);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof HomeFragment.NowPlayingHandler) {
+            nowPlayingHandler = (HomeFragment.NowPlayingHandler) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        nowPlayingHandler = null;
+    }
+
+
+
+    public interface NowPlayingHandler{
+
+         void nowPlayingListener(Audio_Artiste audio_artiste);
+    }
+
+
+
+
 }

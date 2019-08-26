@@ -5,13 +5,35 @@
     <!--<color name="colorAccent">#E77818</color>-->
     <!--<color name="colorAccent">#A0B0B0</color>-->
 
-    <color name="colorPrimary">#d32f2f</color>
-    <color name="colorPrimaryDark">#c72c2c</color>
-    <color name="colorAccent">#E77818</color>
+    <color name="colorPrimary">#701830</color>
+    <color name="colorPrimaryDark">#5A1326</color>
+    <color name="colorAccent">#c1272d</color>
 
     <color name="semi_transparent_pink">#99C05070</color>
     <color name="textcolor_gray">#757575</color>
     <color name="placeholder_bg">#dddddd</color>
     <color name="black_translucent">#66000000</color>
+
+
+    <color name="genre_bg1">#99e8c129</color>
+    <color name="genre_bg2">#99e5413b</color>
+    <color name="genre_bg3">#991ecc4d</color>
+    <color name="genre_bg4">#99bea3c0</color>
+    <color name="genre_bg5">#99366470</color>
+    <color name="genre_bg6">#99c642d6</color>
+    <color name="genre_bg7">#994f3496</color>
+
+    <color name="divider_color">#747474</color>
+
+    <integer-array name="genres_bg_arrays">
+        <item>@color/genre_bg1</item>
+        <item>@color/genre_bg2</item>
+        <item>@color/genre_bg3</item>
+        <item>@color/genre_bg4</item>
+        <item>@color/genre_bg5</item>
+        <item>@color/genre_bg6</item>
+        <item>@color/genre_bg7</item>
+    </integer-array>
+
 
 </resources>

@@ -4,10 +4,6 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home_black"
-            android:title="@string/nav_accueil" />
 
         <item
             android:id="@+id/nav_profile"
@@ -43,6 +39,11 @@
             android:id="@+id/nav_reglages"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/action_settings" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/deconnexion" />
 
     </group>
 

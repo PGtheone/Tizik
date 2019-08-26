@@ -13,7 +13,10 @@
     <string name="s_inscrire">S\'inscrire</string>
     <string name="email">Email</string>
     <string name="mot_de_passe">Mot de passe</string>
-    <string name="se_connecter">Se connecter</string>
+    <declare-styleable name="PlayPauseState">
+        <attr name="state_play" format="boolean" />
+        <attr name="state_pause" format="boolean" />
+    </declare-styleable>
     <string name="nom_complet">Nom Complet</string>
     <string name="tel">Telephone</string>
     <string name="d_ja_membre">Déja membre ?</string>
@@ -21,17 +24,19 @@
     <string name="upload_success">Succes</string>
     <string name="upload_failure">Erreur</string>
     <string name="progress_uploading">Patientez</string>
+
     <string name="nav_notification">Notifications</string>
     <string name="nav_playlist">Playlist</string>
     <string name="nav_favori">Favori</string>
-    <string name="nav_genres">Genres</string>
+    <string name="se_connecter"><u>Se connecter</u></string>
     <string name="nav_profile">Profile</string>
     <string name="nav_accueil">Accueil</string>
     <string name="nav_upload">Upload</string>
 
     <!--Facebook-->
-    <string name="facebook_app_id">2056975091279719</string>
-    <string name="fb_login_protocol_scheme">fb2056975091279719</string>
+    <string name="nav_genres">Catégorie</string>
+    <string name="facebook_app_id">2215055992092965</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -46,7 +51,7 @@
     <string name="paiement">Paiement</string>
     <string name="credit_card">Carte de credit</string>
     <string name="paypal">Paypal</string>
-    <string name="gratuit">Gratuit</string>
+
     <string name="supprimer_str">Supprimer</string>
     <string name="title_activity_upload_music">Tizik</string>
     <string name="ok">OK</string>
@@ -62,6 +67,7 @@
     <string name="envoyer">Envoyer</string>
     <string name="aucun_commentaire">Aucun commentaire</string>
     <string name="malheureusement_aucun_commentaire_n_a_encore_t_fait_pour_cette_musique_pri_re_de_laisser_le_votre">Malheureusement aucun commentaire n\'a encore été fait pour cette musique prière de laisser le votre</string>
+    <string name="fb_login_protocol_scheme">fb2215055992092965</string>
     <string name="annuler">Annuler</string>
     <string name="tous_le_commentaires">Tous le commentaires</string>
     <string name="votre_commentaire_ici">Votre commentaire ici</string>
@@ -73,6 +79,119 @@
 
     <string name="playback_channel_name">Playback</string>
     <string name="download_channel_name">Download</string>
+    <string name="empty_filter_error">Malheureusement il n\'existe aucune musique dans cette catégorie</string>
+
+
+    <string name="deconnexion">Deconnexion</string>
+    <string name="select_genre">sélectionnez votre genre préféré</string>
+
+    <string name="choose_at_least">Vous devez au moins choisir quatre genres pour configurer votre profil.</string>
+    <string name="acoustic">Acoustique</string>
+    <string name="blue">Blues</string>
+    <string name="compas">Compas</string>
+    <string name="carnaval">Carnaval</string>
+    <string name="kids">Kids</string>
+    <string name="danceedm">Dance &amp; EDM </string>
+    <string name="classique">Classique</string>
+    <string name="electro">Electro</string>
+    <string name="musiquer">Musiques Religieuses</string>
+    <string name="hiphop">Hip-Hop</string>
+    <string name="hiphopk">Hip-Hop Creole</string>
+    <string name="rap">Rap</string>
+    <string name="jazz">Jazz</string>
+    <string name="salsa">Salsa</string>
+    <string name="zouk">Zouk</string>
+    <string name="latino">Latino</string>
+    <string name="metal">Metal</string>
+    <string name="pop">Pop</string>
+    <string name="rnb">R\'n\'B</string>
+    <string name="reggae">Reggae</string>
+    <string name="rock">Rock</string>
+    <string name="musiquea">Musiques Africaines</string>
+    <string name="musiquelove">Musiques Romantiques</string>
+    <string name="soul">Soul &amp; Funk</string>
+    <string name="folk">Folk</string>
+    <string name="voudou">Vodou</string>
+    <string name="reggaeton">Reggaeton</string>
+    <string name="mix">Mix</string>
+
+
+    <string name="retro">Rétro</string>
+    <string name="view_all">Voir tout</string>
+    <string name="qu_aimez_vous">Qu\'aimez-vous ?</string>
+    <string name="finish">Terminer</string>
+    <string name="next_str">Suivant</string>
+    <string name="etape_1_sur_2">Etape 1 sur 2</string>
+    <string name="step2_of_2">Etape 2 sur 2</string>
+    <string name="alaune">A la une</string>
+    <string name="gratuit">Gratuit</string>
+
+    <string name="musiques">Musiques</string>
+
+    <string name="title_activity_all_music">AllMusicActivity</string>
+    <string name="filtrer">Filtrer</string>
+    <string name="disposition">Disposition</string>
+    <string name="categorie">Catégorie</string>
+    <string name="sortby">Trier par</string>
+    <string name="prix">Prix</string>
+    <string name="croissant">Croissant</string>
+    <string name="decroissant">Décroissant</string>
+    <string name="music_found">Musiques trouveés</string>
+    <string name="tous_les_favoris">Tous les favoris</string>
+    <string name="category_label">categories :</string>
+    <string name="vide">choisissez des categories pour cette piste</string>
+    <string name="newplaylist">Nouvelles Playlists</string>
+    <string name="publication">Publication</string>
+    <string name="abonn_e">Abonnée</string>
+    <string name="abonnement">Abonnement</string>
+    <string name="liste_vide">Liste vide</string>
+    <string name="pause_path">M10,18 H6 L6,6 L10,6 M14,18 H18 L18,6 L14,6</string>
+
+
+    <string name="play_path">M12,16 H5 L8.5,10.5 L12,5 M12,16 H19 L15.5,10.5 L12,5</string>
+    <string name="poster">Poster</string>
+    <string name="action_search">Rechercher</string>
+    <string-array name="main_nav">
+        <item>@string/nav_accueil</item>
+        <item>@string/nav_profile</item>
+        <item>@string/nav_genres</item>
+        <item>@string/nav_favori</item>
+        <item>@string/nav_playlist</item>
+        <item>@string/nav_upload</item>
+        <item>@string/nav_notification</item>
+        <item>@string/action_settings</item>
+
+    </string-array>
+    <string-array name="tendance_array">
+
+        <item>@string/acoustic</item>
+        <item>@string/carnaval</item>
+        <item>@string/compas</item>
+        <item>@string/hiphop</item>
+        <item>@string/hiphopk</item>
+        <item>@string/rap</item>
+        <item>@string/reggae</item>
+        <item>@string/pop</item>
+        <item>@string/musiquer</item>
+        <item>@string/musiquea</item>
+        <item>@string/latino</item>
+        <item>@string/soul</item>
+        <item>@string/danceedm</item>
+        <item>@string/electro</item>
+        <item>@string/reggaeton</item>
+        <item>@string/rock</item>
+        <item>@string/metal</item>
+        <item>@string/salsa</item>
+        <item>@string/blue</item>
+        <item>@string/classique</item>
+        <item>@string/jazz</item>
+        <item>@string/kids</item>
+        <item>@string/folk</item>
+        <item>@string/voudou</item>
+        <item>@string/zouk</item>
+
+
+    </string-array>
 
 
 </resources>

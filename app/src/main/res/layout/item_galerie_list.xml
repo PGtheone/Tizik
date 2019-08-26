@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/placeholder_view"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_select"
+        android:contentDescription="@string/poster"
+        android:visibility="visible" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Medium
+            android:id="@+id/txttitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:singleLine="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/ms_black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imggalerie"
+            app:layout_constraintTop_toTopOf="@+id/imggalerie" />
+
+        <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular
+            android:id="@+id/txtartiste"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:singleLine="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imggalerie"
+            app:layout_constraintTop_toBottomOf="@id/txttitle" />
+
+        <com.shif.peterson.tizik.utilis.RoundishImageView
+            android:id="@+id/imggalerie"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/circle_bg"
+            android:contentDescription="@string/poster"
+            android:scaleType="centerCrop"
+            app:cornerRadius="@dimen/round_corner_radius_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:roundedCorners="topLeft|bottomRight|topRight|bottomLeft"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

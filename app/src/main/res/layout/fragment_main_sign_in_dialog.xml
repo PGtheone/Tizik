@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -42,57 +40,69 @@
                 android:layout_width="@dimen/img_close"
                 android:layout_height="@dimen/img_close"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/ic_close_white" />
 
         </FrameLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/txtemailconnect"
+
+            <Button
+                android:id="@+id/btnemaillogin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/welcome"
-                android:textAlignment="center"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_button"
+                android:textSize="14sp"
+                android:padding="10dp"
+                android:text="@string/se_connecter"
                 android:textColor="@android:color/white"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/linearedit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toBottomOf="@+id/linearedit" />
 
             <LinearLayout
                 android:id="@+id/linearedit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginEnd="32dp"
                 android:layout_marginBottom="64dp"
                 android:background="@drawable/bg_radius"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtemailconnect"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <android.support.design.widget.TextInputLayout
+                <View
+                    android:id="@+id/divider0"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/light_grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtiemail"
+                      />
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtiemail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtemailconnect">
@@ -101,58 +111,44 @@
                         android:id="@+id/editemail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_radius"
                         android:drawableStart="@drawable/ic_email_gray"
                         android:drawablePadding="10dp"
                         android:hint="@string/email"
+                        android:padding="10dp"
                         android:singleLine="true"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
 
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtipassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtiemail"
+                    app:layout_constraintTop_toBottomOf="@+id/divider0"
                     app:passwordToggleEnabled="true">
 
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editpassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_radius"
+                        android:drawableLeft="@drawable/ic_lock_gray"
                         android:drawablePadding="10dp"
                         android:hint="@string/mot_de_passe"
                         android:inputType="textPassword"
+                        android:padding="10dp"
                         android:singleLine="true"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btnemaillogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/bg_button"
-                android:padding="10dp"
-                android:text="@string/se_connecter"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="@android:color/white"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearedit" />
 
             <View
                 android:id="@+id/viewleft"
@@ -172,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="64dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/ou"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -194,17 +190,38 @@
                 app:layout_constraintStart_toEndOf="@id/txtou"
                 app:layout_constraintTop_toTopOf="@+id/txtou" />
 
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/btngmail"
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnfacebook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
+                android:background="@drawable/bg_facebook"
+                android:drawableLeft="@drawable/facebookicon"
+                android:padding="10dp"
+                android:text="Facebook"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtou" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btninscrire"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/s_inscrire"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btngmail" />
 
 
             <TextView
@@ -224,20 +241,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btninscrire" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btninscrire"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btngmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/bg_button_accent"
-                android:text="@string/s_inscrire"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
+                android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btngmail" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnfacebook" />
 
 
             <!--<Button-->
@@ -289,7 +302,7 @@
             <!--app:layout_constraintTop_toBottomOf="@+id/btnemaillogin" />-->
 
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/avi"
@@ -308,4 +321,4 @@
 
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,13 @@
 package com.shif.peterson.tizik.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.fragment.app.DialogFragment;
 
 import com.shif.peterson.tizik.R;
 
@@ -56,9 +54,9 @@ public class PlanDialogFragment extends DialogFragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_plan_dialog, container, false);
 
-        txthead = (TextView) view.findViewById(R.id.txthead);
-        txtdesc = (TextView) view.findViewById(R.id.desctimerest);
-        btnok = (Button) view.findViewById(R.id.btnok);
+        txthead = view.findViewById(R.id.txthead);
+        txtdesc = view.findViewById(R.id.desctimerest);
+        btnok = view.findViewById(R.id.btnok);
 
         btnok.setOnClickListener(new View.OnClickListener() {
             @Override

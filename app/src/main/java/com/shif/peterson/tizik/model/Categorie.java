@@ -1,6 +1,9 @@
 package com.shif.peterson.tizik.model;
 
-public class Tendance {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Categorie implements Parcelable {
 
     private String id_categorie;
     private String nom_categorie;
@@ -8,15 +11,19 @@ public class Tendance {
     private String date_created;
     private String date_modified;
 
-    public Tendance() {
-    }
+    public static final Parcelable.Creator<Categorie> CREATOR = new Parcelable.Creator<Categorie>() {
+        @Override
+        public Categorie createFromParcel(Parcel source) {
+            return new Categorie(source);
+        }
 
-    public Tendance(String id_categorie, String nom_categorie, String ceated_by, String date_created) {
-        this.id_categorie = id_categorie;
-        this.nom_categorie = nom_categorie;
-        this.ceated_by = ceated_by;
-        this.date_created = date_created;
-        this.date_modified = null;
+        @Override
+        public Categorie[] newArray(int size) {
+            return new Categorie[size];
+        }
+    };
+
+    public Categorie() {
     }
 
     public String getId_categorie() {
@@ -57,5 +64,35 @@ public class Tendance {
 
     public void setDate_modified(String date_modified) {
         this.date_modified = date_modified;
+    }
+
+    public Categorie(String id_categorie, String nom_categorie, String ceated_by, String date_created) {
+        this.id_categorie = id_categorie;
+        this.nom_categorie = nom_categorie;
+        this.ceated_by = ceated_by;
+        this.date_created = date_created;
+        this.date_modified = null;
+    }
+
+    protected Categorie(Parcel in) {
+        this.id_categorie = in.readString();
+        this.nom_categorie = in.readString();
+        this.ceated_by = in.readString();
+        this.date_created = in.readString();
+        this.date_modified = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id_categorie);
+        dest.writeString(this.nom_categorie);
+        dest.writeString(this.ceated_by);
+        dest.writeString(this.date_created);
+        dest.writeString(this.date_modified);
     }
 }

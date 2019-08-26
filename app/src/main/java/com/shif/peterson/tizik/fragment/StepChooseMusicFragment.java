@@ -1,6 +1,7 @@
 package com.shif.peterson.tizik.fragment;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -8,22 +9,28 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.shif.peterson.tizik.R;
 import com.shif.peterson.tizik.adapter.MusiqueGalerieAdapter;
+import com.shif.peterson.tizik.adapter.MusiqueGalerieAdapterList;
 import com.shif.peterson.tizik.model.Audio_Artiste;
 import com.shif.peterson.tizik.utilis.MediaQuery;
 import com.shif.peterson.tizik.utilis.OnItemSelectedListener;
@@ -37,17 +44,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.support.v4.content.ContextCompat.checkSelfPermission;
+import static androidx.core.content.ContextCompat.checkSelfPermission;
 
 
 public class StepChooseMusicFragment extends Fragment implements BlockingStep,
-        OnItemSelectedListener
+        OnItemSelectedListener,
+        LoaderManager.LoaderCallbacks<Cursor>
 {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
     private TextView txtcountphoto;
     private MusiqueGalerieAdapter galerieAdapter;
+    ProgressDialog progressBar;
     private MediaQuery mediaQuery;
     private List<Audio_Artiste> imageItemList;
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
@@ -55,16 +65,10 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
     int COMPTEUR_PHOTO = 0;
 
     View view;
+    private MusiqueGalerieAdapterList galerieAdapterList;
 
     private List<SelectableItem> selectedImageItemList;
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -75,90 +79,42 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
 
     public static StepChooseMusicFragment newInstance() {
         StepChooseMusicFragment fragment = new StepChooseMusicFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_step_choose_music, container, false);
 
-        swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
-        recyclerView= (RecyclerView) view.findViewById(R.id.recyclerchoosephoto);
-        txtcountphoto = (TextView) view.findViewById(R.id.txtcountphoto);
-
-
-
-        selectedImageItemList = new ArrayList<>();
-        COMPTEUR_PHOTO = 0;
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            checkandAskPermission();
-        }
-        else {
-            initMedia();
-        }
+        swipeRefreshLayout= view.findViewById(R.id.swiperefresh);
+        recyclerView= view.findViewById(R.id.recyclerchoosephoto);
+        txtcountphoto = view.findViewById(R.id.txtcountphoto);
 
 
         return view;
     }
 
 
-    private void initMedia(){
-
-        imageItemList=new ArrayList<Audio_Artiste>();
-        mediaQuery=new MediaQuery(getContext());
-        Cursor cursor = mediaQuery.getAllMusique();
-
-//        imageItemList=mediaQuery.getAllMusique();
-//        Log.d("ImageList","Count:"+imageItemList.size());
-//        Log.d("ImageList","data : "+imageItemList.get(0).getDATA());
-////        galerieAdapter=new GalerieAdapter(imageItemList,getContext(), StepChoosePhotoFragment.this, this);
-
-        galerieAdapter=new MusiqueGalerieAdapter(this, getContext(), cursor, true);
-
-        GridLayoutManager glm = new GridLayoutManager(getContext(), getContext().getResources().getInteger(R.integer.shr_column_count));
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                updateGalerie();
-
-            }
-        });
-
-
-        recyclerView.setLayoutManager(glm);
-        recyclerView.setAdapter(galerieAdapter);
-    }
-
     protected void updateGalerie(){
 
        // imageItemList=new ArrayList<Audio_Artiste>();
         mediaQuery = new MediaQuery(getContext());
         //imageItemList = new ArrayList<>();
-        Cursor cursor = mediaQuery.getAllMusique();
+       // Cursor cursor = mediaQuery.getAllMusique();
 
-        cursor = mediaQuery.getAllMusique();
-        Log.d("ImageList","Count:"+imageItemList.size());
-        galerieAdapter = new MusiqueGalerieAdapter(this, getContext(), cursor, true);
+      //  cursor = mediaQuery.getAllMusique();
+
+      //  galerieAdapter = new MusiqueGalerieAdapter(this, getContext(), cursor, true);
         // galerieAdapter = new GalerieAdapter(imageItemList,getContext(), StepChoosePhotoFragment.this, StepChoosePhotoFragment.this);
-        GridLayoutManager glm = new GridLayoutManager(getContext(), getContext().getResources().getInteger(R.integer.shr_column_count));
+
+        layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+       // GridLayoutManager glm = new GridLayoutManager(getContext(), getContext().getResources().getInteger(R.integer.shr_column_count));
 
         swipeRefreshLayout.setRefreshing(false);
 
@@ -188,10 +144,9 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
                     REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
             return;
         }
-        initMedia();
+
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onNextButtonClicked(List<SelectableItem> selectableItems) {
         if (mListener != null) {
             mListener.onFragmentInteraction(selectableItems);
@@ -218,8 +173,13 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
 
-       onNextButtonClicked(selectedImageItemList);
-       callback.goToNextStep();
+        if(!selectedImageItemList.isEmpty() && selectedImageItemList != null){
+
+            onNextButtonClicked(selectedImageItemList);
+            callback.goToNextStep();
+
+        }
+
 
     }
 
@@ -242,6 +202,16 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
     @Override
     public void onSelected() {
 
+
+        selectedImageItemList = new ArrayList<>();
+        COMPTEUR_PHOTO = 0;
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            checkandAskPermission();
+        }
+        getLoaderManager().initLoader(1, null, this);
+
+
     }
 
     @Override
@@ -262,25 +232,6 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
             selectedImageItemList.remove(item);
 
         }
-//        if(COMPTEUR_PHOTO == 0){
-//
-//            txtcountphoto.setText(longToDate(selectedImageItemList.));
-//
-//        }else if(COMPTEUR_PHOTO == 1){
-//
-//            txtcountphoto.setText(getResources().getString(R.string.count_single_pic, COMPTEUR_PHOTO));
-//
-//        }else{
-//
-//            txtcountphoto.setText(getResources().getString(R.string.count_multiple_pic, COMPTEUR_PHOTO));
-//
-//        }
-
-//        if(COMPTEUR_PHOTO == 5){
-//
-//            goToNext(selectedImageItemList);
-//        }
-
 
     }
 
@@ -289,8 +240,7 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
 
         if (checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
             permissionsList.add(permission);
-            if (!shouldShowRequestPermissionRationale(permission))
-                return false;
+            return shouldShowRequestPermissionRationale(permission);
         }
         return true;
     }
@@ -305,7 +255,7 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
                 for (int i = 0; i < permissions.length; i++)
                     perms.put(permissions[i], grantResults[i]);
                 if (perms.get(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    initMedia();
+
                 }
                 else {
                     // Permission Denied
@@ -325,20 +275,58 @@ public class StepChooseMusicFragment extends Fragment implements BlockingStep,
                 .show();
     }
 
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
+         progressBar = new ProgressDialog(getContext());
+        progressBar.setIndeterminate(true);
+        progressBar.setMessage("Patientez...");
+        progressBar.setCancelable(false);
+        progressBar.show();
+
+        Uri musicUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        String sortOrder = MediaStore.Audio.Media.DATE_ADDED +" Desc Limit 100";
+
+        CursorLoader cursorLoader = new CursorLoader(getContext(), musicUri,null, null, null, sortOrder);
+        return cursorLoader;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
 
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+        galerieAdapterList = new MusiqueGalerieAdapterList(this, getContext(),  cursor, true);
+
+
+       // galerieAdapter=new MusiqueGalerieAdapter(this, getContext(),  cursor, true);
+      // GridLayoutManager glm = new GridLayoutManager(getContext(), getContext().getResources().getInteger(R.integer.shr_column_count));
+        //int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        //recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//
+//                updateGalerie();
+//
+//            }
+//        });
+
+        layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(galerieAdapterList);
+        DividerItemDecoration  itemDecor = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecor);
+        progressBar.hide();
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+
+    }
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(List<SelectableItem> selectableItems);
     }
 }

@@ -1,70 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-
-    <ImageView
-        android:id="@+id/imgmusic"
-        android:layout_width="75dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:padding="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/song_title"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/imgmusic"
-        app:layout_constraintTop_toTopOf="@id/imgmusic" />
-
-    <TextView
-        android:id="@+id/song_artist"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vizualizer"
-        app:layout_constraintStart_toEndOf="@+id/imgmusic"
-        app:layout_constraintTop_toBottomOf="@+id/song_title" />
 
 
     <com.chibde.visualizer.BarVisualizer
         android:id="@+id/vizualizer"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/card" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imgmore"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/imgmusic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Medium
+        android:id="@+id/song_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:text="Monte Desann"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/vizualizer"
+        app:layout_constraintStart_toEndOf="@+id/card"
+        app:layout_constraintTop_toTopOf="@+id/card" />
+
+    <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular
+        android:id="@+id/song_artist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/song_title"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="8dp"
+        android:text="Baky Popile"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/vizualizer"
+        app:layout_constraintStart_toEndOf="@+id/card"
         app:layout_constraintTop_toBottomOf="@+id/song_title" />
 
 
-    <ImageView
-        android:id="@+id/imgmore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_more_vert_black_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 
-</android.support.constraint.ConstraintLayout>
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/song_artist"-->
+        <!--style="@style/TextAppearance.AppCompat.Body1"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:ellipsize="end"-->
+        <!--android:singleLine="true"-->
+        <!--android:textSize="14sp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/vizualizer"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/imgmusic"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/song_title" />-->
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

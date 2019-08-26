@@ -1,18 +1,16 @@
 package com.shif.peterson.tizik.utilis;
 
-import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 
+import androidx.core.graphics.drawable.DrawableCompat;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public  class Utils {
 
@@ -23,7 +21,7 @@ public  class Utils {
         cal.setTimeInMillis(time);
         String date = DateFormat.format("mm:ss", cal).toString();
 
-        return String.valueOf(date);
+        return date;
     }
 
 
@@ -58,5 +56,17 @@ public  class Utils {
 
         return moyenne;
     }
+
+
+    public static Drawable tintMyDrawable(Drawable drawable, int color) {
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, color);
+        DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_IN);
+        return drawable;
+    }
+
+
+
+
 
 }

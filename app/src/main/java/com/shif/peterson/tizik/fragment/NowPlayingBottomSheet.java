@@ -2,21 +2,20 @@ package com.shif.peterson.tizik.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.shif.peterson.tizik.R;
 import com.shif.peterson.tizik.model.Audio_Artiste;
 
 
-public class NowPlayingBottomSheet extends android.support.design.widget.BottomSheetDialogFragment {
+public class NowPlayingBottomSheet extends BottomSheetDialogFragment {
 
     private static final String ARG_PARAM_MUSIC = "music_param";
 

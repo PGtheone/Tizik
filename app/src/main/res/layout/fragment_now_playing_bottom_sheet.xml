@@ -1,84 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bottomControl"
         tools:context=".fragment.NowPlayingBottomSheet">
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/head"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="top"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imgmusic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:src="@color/light_grey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txttitremusic"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:singleLine="true"
-            android:text="Lem Ap Ekri"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgmusic"
-            app:layout_constraintTop_toTopOf="@+id/imgmusic" />
-
-
-        <TextView
-            android:id="@+id/txtnomartiste2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:singleLine="true"
-            android:textSize="14sp"
-            android:text="PIC"
-            app:layout_constraintStart_toEndOf="@+id/imgmusic"
-            app:layout_constraintTop_toBottomOf="@+id/txttitremusic" />
-
-        <net.steamcrafted.materialiconlib.MaterialIconView
-            android:id="@+id/imgplay"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:materialIcon="play"
-            app:materialIconColor="@color/colorAccent"
-            app:materialIconSize="35dp" />
-
-
-        <ImageView
-            android:id="@+id/imgplaypause"
-            android:layout_width="24dp"
-            android:layout_height="24dp" />
-    </android.support.constraint.ConstraintLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -101,7 +28,7 @@
         />
 
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -141,7 +68,7 @@
 
 
 
-        <android.support.v7.widget.AppCompatSeekBar
+        <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -216,8 +143,81 @@
         app:materialIconSize="35dp" />
 
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgmusic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@color/light_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txttitremusic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:singleLine="true"
+            android:text="Lem Ap Ekri"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgmusic"
+            app:layout_constraintTop_toTopOf="@+id/imgmusic" />
+
+
+        <TextView
+            android:id="@+id/txtnomartiste2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:text="PIC"
+            app:layout_constraintStart_toEndOf="@+id/imgmusic"
+            app:layout_constraintTop_toBottomOf="@+id/txttitremusic" />
+
+        <net.steamcrafted.materialiconlib.MaterialIconView
+            android:id="@+id/imgplay"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:materialIcon="play"
+            app:materialIconColor="@color/colorAccent"
+            app:materialIconSize="35dp" />
+
+
+        <ImageView
+            android:id="@+id/imgplaypause"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
@@ -244,7 +244,7 @@
 
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

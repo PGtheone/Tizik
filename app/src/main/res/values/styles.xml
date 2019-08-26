@@ -1,12 +1,83 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryVariant">#80701830</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="colorSecondaryVariant">#805A1326</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorError">@color/colorAccent</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#212121</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorOnBackground">#212121</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+
+
+        <item name="shapeAppearanceSmallComponent">@style/AppShapeAppearance.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/AppShapeAppearance.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/AppShapeAppearance.LargeComponent</item>
+
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
+
     </style>
+
+    <style name="AppShapeAppearance.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/round_corner_radius_medium</item>
+    </style>
+
+    <style name="AppShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/round_corner_radius_small</item>
+    </style>
+
+    <style name="AppShapeAppearance.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/round_corner_radius_large</item>
+
+        <item name="ms_stepperStyle">@style/DotStepperStyle</item>
+
+    </style>
+
+    <style name="Widget.Shrine.CollapsingToolbar" parent="">
+        <item name="collapsedTitleTextAppearance">@style/TextAppearance.Shrine.Logo</item>
+        <item name="contentScrim">#FFFFFF</item>
+        <item name="expandedTitleGravity">top</item>
+        <item name="expandedTitleTextAppearance">@style/TextAppearance.Shrine.Logo</item>
+        <item name="android:textColor">#000000</item>
+        <item name="expandedTitleMarginTop">10dp</item>
+        <item name="expandedTitleMarginStart">70dp</item>
+    </style>
+
+    <style name="TextAppearance.Shrine.Logo" parent="TextAppearance.AppCompat.Display3">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#000000</item>
+
+    </style>
+
+
+
+
+
+    <!--<style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+
+        <!--<item name="ms_stepperStyle">@style/DotStepperStyle</item>-->
+    <!--</style>-->
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -19,5 +90,18 @@
     <style name="DialogTheme" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+
+    <style name="DotStepperStyle">
+        <item name="ms_stepperType">progress_bar</item>
+        <item name="ms_activeStepColor">#FFFFFF</item>
+        <item name="ms_inactiveStepColor">#006867</item>
+        <item name="ms_bottomNavigationBackground">?attr/colorPrimary</item>
+        <item name="ms_backButtonBackground">?attr/colorPrimaryDark</item>
+    </style>
+
+
+
+
 
 </resources>

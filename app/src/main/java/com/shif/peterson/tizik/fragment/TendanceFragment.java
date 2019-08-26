@@ -1,85 +1,135 @@
 package com.shif.peterson.tizik.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
+import com.adroitandroid.chipcloud.ChipCloud;
+import com.adroitandroid.chipcloud.ChipListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.shif.peterson.tizik.R;
+import com.shif.peterson.tizik.model.Categorie;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TendanceFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TendanceFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class TendanceFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+   // public List<String> tendance;
+   // RecyclerView recyclerView;
+    View view;
+   // TendanceRecyclerViewAdapter tendanceRecyclerViewAdapter;
+   // private RecyclerView.LayoutManager mLayoutManager;
+
+    ChipCloud chipCloud;
+    String[] tendanceArray;
+    List<Categorie> listTendance;
+    List<String> chiptendance;
+    List<String> listSelectedGenre;
+
+   ProgressDialog progressDialog;
+
+
+    private OnTendanceChoosedListener mListener;
 
     public TendanceFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TendanceFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TendanceFragment newInstance(String param1, String param2) {
+
+    public static TendanceFragment newInstance() {
         TendanceFragment fragment = new TendanceFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tendance, container, false);
+        view =  inflater.inflate(R.layout.fragment_tendance, container, false);
+        chipCloud = view.findViewById(R.id.chipcloud);
+
+        progressDialog =  new ProgressDialog(getContext());
+        progressDialog.setTitle("Patientez");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        listSelectedGenre = new ArrayList<>();
+        chiptendance = new ArrayList<>();
+
+        chipCloud.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/ubuntu.regular.ttf"));
+
+        FirebaseFirestore.getInstance().collection(Categorie.class.getSimpleName()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                if (!queryDocumentSnapshots.isEmpty()){
+
+                    listTendance = queryDocumentSnapshots.toObjects(Categorie.class);
+                    for ( Categorie categorie : listTendance){
+
+                        chiptendance.add(categorie.getNom_categorie());
+                        Log.d("TAG", chiptendance.get(0));
+
+                    }
+
+                    String[] tendanceArray = new String[chiptendance.size()];
+                    tendanceArray = chiptendance.toArray(tendanceArray);
+                    chipCloud.addChips(tendanceArray);
+
+                    progressDialog.dismiss();
+
+                }
+            }
+        });
+
+
+      chipCloud.setChipListener(new ChipListener() {
+          @Override
+          public void chipSelected(int i) {
+
+              onTendanceChoosed(listTendance.get(i), true);
+          }
+
+          @Override
+          public void chipDeselected(int i) {
+
+              onTendanceChoosed(listTendance.get(i),false);
+
+          }
+      });
+
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onTendanceChoosed(Categorie index, boolean choosen) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onTendanceChoose(index, choosen);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnTendanceChoosedListener) {
+            mListener = (OnTendanceChoosedListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -92,18 +142,9 @@ public class TendanceFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+
+    public interface OnTendanceChoosedListener {
+
+        void onTendanceChoose(Categorie index, boolean choosen);
     }
 }

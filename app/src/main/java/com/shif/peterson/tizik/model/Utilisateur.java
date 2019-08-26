@@ -7,6 +7,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Date;
+
 public class Utilisateur {
 
     private static final String COLLECTION_NAME = "Utilisateur";
@@ -29,13 +31,12 @@ public class Utilisateur {
     private String url_photo;
     private String type_utilisateur;
     private String biographie;
-    private String id_plan;
-    private String date_inscription;
+    private Date date_inscription;
 
     public Utilisateur() {
     }
 
-    public Utilisateur(String id_utilisateur, String username, String nom_complet, String sexe, String email, String telephone, String password, String url_photo, String type_utilisateur, String biographie, String id_plan, String date_inscription) {
+    public Utilisateur(String id_utilisateur, String username, String nom_complet, String sexe, String email, String telephone, String password, String url_photo, String type_utilisateur, String biographie,  Date date_inscription) {
         this.id_utilisateur = id_utilisateur;
         this.username = username;
         this.nom_complet = nom_complet;
@@ -46,11 +47,10 @@ public class Utilisateur {
         this.url_photo = url_photo;
         this.type_utilisateur = type_utilisateur;
         this.biographie = biographie;
-        this.id_plan = id_plan;
         this.date_inscription = date_inscription;
     }
 
-    public Utilisateur(String id_utilisateur, String nom_complet, String sexe, String email, String telephone, String password, String url_photo, String type_utilisateur, String id_plan, String date_inscription) {
+    public Utilisateur(String id_utilisateur, String nom_complet, String sexe, String email, String telephone, String password, String url_photo, String type_utilisateur, Date date_inscription) {
         this.id_utilisateur = id_utilisateur;
         this.nom_complet = nom_complet;
         this.sexe = sexe;
@@ -59,7 +59,6 @@ public class Utilisateur {
         this.password = password;
         this.url_photo = url_photo;
         this.type_utilisateur = type_utilisateur;
-        this.id_plan = id_plan;
         this.date_inscription = date_inscription;
     }
 
@@ -143,13 +142,6 @@ public class Utilisateur {
         this.biographie = biographie;
     }
 
-    public String getId_plan() {
-        return id_plan;
-    }
-
-    public void setId_plan(String id_plan) {
-        this.id_plan = id_plan;
-    }
 
     public String getPays() {
         return pays;
@@ -159,18 +151,12 @@ public class Utilisateur {
         this.pays = pays;
     }
 
-    public String getDate_inscription() {
-        return date_inscription;
-    }
-
-    public void setDate_inscription(String date_inscription) {
-        this.date_inscription = date_inscription;
-    }
-
     public static Utilisateur getUserById(Activity context, String id){
 
 
-        Utilisateur.getUtilisateurCollectionReference().document(id).get().addOnSuccessListener(context, new OnSuccessListener<DocumentSnapshot>() {
+        Utilisateur.getUtilisateurCollectionReference().document(id)
+                .get()
+                .addOnSuccessListener(context, new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
@@ -184,5 +170,13 @@ public class Utilisateur {
         });
 
         return  FirebaseUser;
+    }
+
+    public Date getDate_inscription() {
+        return date_inscription;
+    }
+
+    public void setDate_inscription(Date date_inscription) {
+        this.date_inscription = date_inscription;
     }
 }

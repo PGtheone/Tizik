@@ -1,12 +1,8 @@
 package com.shif.peterson.tizik.fragment;
 
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +11,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.hbb20.CountryCodePicker;
 import com.shif.peterson.tizik.R;
+import com.shif.peterson.tizik.TendanceActivity;
+import com.shif.peterson.tizik.model.UserPlan;
 import com.shif.peterson.tizik.model.Utilisateur;
+import com.wang.avi.AVLoadingIndicatorView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,15 +47,13 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
     private EditText editnomcomplet;
     private EditText editemail;
     private TextInputEditText editpassword;
-    private CountryCodePicker ccpPays;
 
-    private EditText editphone;
-    private CountryCodePicker ccp;
 
     private Button btninscrire;
     private Button btnconnect;
 
     FirebaseAuth mAuth;
+    private AVLoadingIndicatorView avLoadingIndicatorView;
 
 
     public SignUpFragment() {
@@ -76,33 +81,30 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
-        imgback = (ImageView) view.findViewById(R.id.imgclose);
-        editnomcomplet = (EditText) view.findViewById(R.id.editnomcomplet);
-        editemail = (EditText) view.findViewById(R.id.editemail);
-        editpassword = (TextInputEditText) view.findViewById(R.id.editpassword);
-
-        editphone = (EditText) view.findViewById(R.id.edittel);
-        ccp = (CountryCodePicker) view.findViewById(R.id.ccp);
-        ccpPays = (CountryCodePicker) view.findViewById(R.id.countryCodePicker2);
-
-        btnconnect = (Button) view.findViewById(R.id.btninscrire);
-        btninscrire = (Button) view.findViewById(R.id.btnemailsignup);
+        imgback = view.findViewById(R.id.imgclose);
+        editnomcomplet = view.findViewById(R.id.editnomcomplet);
+        editemail = view.findViewById(R.id.editemail);
+        editpassword = view.findViewById(R.id.editpassword);
+        avLoadingIndicatorView = view.findViewById(R.id.avi);
 
 
 
-        ccp.registerCarrierNumberEditText(editphone);
-        ccp.setAutoDetectedCountry(true);
-        ccp.setDefaultCountryUsingNameCode("ht");
+
+        btnconnect = view.findViewById(R.id.btninscrire);
+        btninscrire = view.findViewById(R.id.btnemailsignup);
+
+
+
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 getDialog().dismiss();
-                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
-                // newFragment.setTargetFragment(MainActivity.this, 0);
-                newFragment.show(ft, "SignUp SignIn");
+//                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                final MainSignInDialogFragment newFragment = MainSignInDialogFragment.newInstance();
+//                // newFragment.setTargetFragment(MainActivity.this, 0);
+//                newFragment.show(ft, "SignUp SignIn");
 
             }
         });
@@ -156,12 +158,11 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
 
     protected void signUpWithEmailPassword(final String nom, String email, String password){
 
-        //todo add loading screen
-        final String telephone = ccp.getFullNumberWithPlus();
-        final String pays = ccpPays.getSelectedCountryName();
+
 
         if (valide()){
 
+            startAnim();
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -170,7 +171,7 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
 
                                 Log.d(LOG, "signInWithCredential:success");
 
-                                FirebaseUser user = task.getResult().getUser();
+                                final FirebaseUser user = task.getResult().getUser();
 
                                 Utilisateur utilisateur;
 
@@ -178,9 +179,16 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
                                 utilisateur.setId_utilisateur(user.getUid());
                                 utilisateur.setNom_complet(nom);
                                 utilisateur.setEmail(user.getEmail());
-                                utilisateur.setTelephone(telephone);
                                 utilisateur.setPassword(editpassword.getText().toString());
-                                utilisateur.setPays(pays);
+                                utilisateur.setType_utilisateur("Fan");
+
+                                Date now =  new Date();
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+                                String date =  formatter.format(now);
+
+
+                                final UserPlan userPlan = new UserPlan(UUID.randomUUID().toString(), utilisateur.getId_utilisateur(),"0ur5131b-ZBPN-kcae6c7m-yn65S4YEtewq", 0, date, true);
+
 //
                                 Utilisateur userfirestore = Utilisateur.getUserById(getActivity(), utilisateur.getId_utilisateur());
                                 if (userfirestore == null){
@@ -189,8 +197,17 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
 
-                                            Log.d(LOG, "Success");
-                                            getDialog().dismiss();
+                                            UserPlan.getUserPlanCollectionReference().add(userPlan).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+
+                                                    stopAnim();
+                                                    Intent intent = new Intent(getActivity(), TendanceActivity.class);
+                                                    startActivity(intent);
+                                                    getDialog().dismiss();
+                                                }
+                                            });
+
                                         }
                                     });
 
@@ -198,6 +215,7 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
                                 }
 
                             } else {
+                                stopAnim();
                                 // If sign in fails, display a message to the user.
                                 Log.w(LOG, "signInWithCredential:failure", task.getException());
 
@@ -225,13 +243,23 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
 
             case R.id.btninscrire:
 
-                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
                 final SignUpFragment newFragment = SignUpFragment.newInstance();
                 // newFragment.setTargetFragment(MainActivity.this, 0);
                 newFragment.show(ft, "SignUp SignIn");
 
                 break;
         }
+    }
+
+    void startAnim(){
+        avLoadingIndicatorView.show();
+        // or avi.smoothToShow();
+    }
+
+    void stopAnim(){
+        avLoadingIndicatorView.hide();
+        // or avi.smoothToHide();
     }
 
 

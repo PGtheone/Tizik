@@ -2,37 +2,33 @@ package com.shif.peterson.tizik.adapter;
 
 import android.content.ContentUris;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.shif.peterson.tizik.R;
+import com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Medium;
+import com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular;
 import com.shif.peterson.tizik.model.Audio_Artiste;
 import com.shif.peterson.tizik.utilis.OnItemSelectedListener;
 import com.shif.peterson.tizik.utilis.SelectableItem;
-import android.database.Cursor;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -52,7 +48,7 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
     List<SelectableItem> audioArtisteList;
     int DATA;
 
-    public MusiqueGalerieAdapter(OnItemSelectedListener listener, Context context, Cursor items, boolean isMultiSelectionEnabled) {
+    public MusiqueGalerieAdapter(OnItemSelectedListener listener, Context context,Cursor items, boolean isMultiSelectionEnabled) {
 
         this.listener = listener;
         this.isMultiSelectionEnabled = isMultiSelectionEnabled;
@@ -78,37 +74,37 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
 //        int poster = mValues.getColumnIndex
 //                (android.provider.MediaStore.Audio.AudioColumns.)
 
-
-        do {
-            String thisId = java.lang.String.valueOf(mValues.getLong(idColumn));
-            String thisTitle = mValues.getString(titleColumn);
-            String thisArtist = mValues.getString(artistColumn);
-            double durationMusique = mValues.getDouble(duration);
-            String urlMusique = String.valueOf(mValues.getString(PATH));
-            String album = mValues.getString(albumColumn);
-
-            long songId = Long.parseLong(thisId);
-            Uri songUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,songId);
-            String[] dataColumn = {MediaStore.Audio.Media.DATA};
-            Cursor coverCursor = context.getContentResolver().query(songUri, dataColumn, null, null, null);
-            coverCursor.moveToFirst();
-            int dataIndex = coverCursor.getColumnIndex(MediaStore.Audio.Media.DATA);
-
-            String posterPath = coverCursor.getString(dataIndex);
+        if(mValues!= null && mValues.moveToFirst()){
 
 
+            do {
+                String thisId = java.lang.String.valueOf(mValues.getLong(idColumn));
+                String thisTitle = mValues.getString(titleColumn);
+                String thisArtist = mValues.getString(artistColumn);
+                double durationMusique = mValues.getDouble(duration);
+                String urlMusique = String.valueOf(mValues.getString(PATH));
+                String album = mValues.getString(albumColumn);
 
-            Audio_Artiste audio_artiste = new Audio_Artiste(thisId, urlMusique, thisTitle, thisArtist, durationMusique, urlMusique);
-           audio_artiste.setUrl_poster(posterPath);
-            audioArtisteList.add(new SelectableItem(audio_artiste, thisArtist, album, false));
+                long songId = Long.parseLong(thisId);
+                Uri songUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,songId);
+                String[] dataColumn = {MediaStore.Audio.Media.DATA};
+                Cursor coverCursor = context.getContentResolver().query(songUri, dataColumn, null, null, null);
+                coverCursor.moveToFirst();
+                int dataIndex = coverCursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+
+                String posterPath = coverCursor.getString(dataIndex);
 
 
+
+                Audio_Artiste audio_artiste = new Audio_Artiste(thisId, urlMusique, thisTitle, thisArtist, durationMusique, urlMusique);
+                audio_artiste.setUrl_poster(posterPath);
+                audioArtisteList.add(new SelectableItem(audio_artiste, thisArtist, album, false));
+
+
+            }
+            while (mValues.moveToNext());
         }
-        while (mValues.moveToNext());
-//        mValues = new ArrayList<>();
-//        for (Audio_Artiste item : items) {
-//            mValues.add(new SelectableItem(item, false));
-//        }
+
     }
 
     @NonNull
@@ -126,7 +122,7 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
         SelectableItem selectableItem = audioArtisteList.get(position);
 
         holder.placeholderView.setVisibility(selectableItem.isSelected() ? View.VISIBLE : View.INVISIBLE);
-        holder.imggalerie.setImageResource(R.color.cardview_dark_background);
+        holder.imggalerie.setImageResource(R.drawable.circle_bg);
 
 
         long songId = Long.parseLong(selectableItem.getId_musique());
@@ -149,11 +145,12 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
 
             RequestOptions glideOptions = new RequestOptions()
                     .centerCrop()
-                    .error(R.color.cardview_dark_background)
+                    .transform(new CircleCrop())
+                    .error(R.drawable.circle_bg)
                     .placeholder(android.R.drawable.stat_notify_error);
 
 
-            glide.with(context)
+            Glide.with(context)
                     .load(songCover)
                     .apply(glideOptions)
                     .transition(withCrossFade())
@@ -164,21 +161,8 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
             songCover=null;
         }
 
-
-
          holder.mItem = selectableItem;
          holder.setChecked(holder.mItem.isSelected());
-
-
-      // String timeDisplay =  toYYYYMMDDHHMMSS((long)selectableItem.getDuree_musique());
-
-//        holder.txtdurree.setText(String.valueOf(timeDisplay));
-
-
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis((long)selectableItem.getDuree_musique());
-        String date = DateFormat.format("mm:ss", cal).toString();
-        holder.txtdurree.setText(String.valueOf(date));
 
          holder.txttitremusique.setText(selectableItem.getTitre_musique());
          holder.txtartiste.setText(selectableItem.getArtiste());
@@ -232,22 +216,18 @@ public class MusiqueGalerieAdapter extends RecyclerView.Adapter<MusiqueGalerieAd
 
         final ImageView imggalerie;
         final ImageView placeholderView;
-        final TextView txttitremusique;
-        final TextView txtartiste;
-        final TextView txtdurree;
-
-
+        final MyTextView_Ubuntu_Medium txttitremusique;
+        final MyTextView_Ubuntu_Regular txtartiste;
 
 
         public MusiqueGalerieViewHolder(@NonNull View itemView, OnItemSelectedListener listener) {
             super(itemView);
             itemSelectedListener = listener;
 
-            imggalerie = (ImageView) itemView.findViewById(R.id.imggalerie);
-            placeholderView = (ImageView) itemView.findViewById(R.id.placeholder_view);
-            txttitremusique = (TextView) itemView.findViewById(R.id.txttitle);
-            txtartiste = (TextView) itemView.findViewById(R.id.txtartiste);
-            txtdurree = (TextView) itemView.findViewById(R.id.txtduree);
+            imggalerie = itemView.findViewById(R.id.imggalerie);
+            placeholderView = itemView.findViewById(R.id.placeholder_view);
+            txttitremusique = itemView.findViewById(R.id.txttitle);
+            txtartiste = itemView.findViewById(R.id.txtartiste);
 
             itemView.setOnClickListener(this);
         }

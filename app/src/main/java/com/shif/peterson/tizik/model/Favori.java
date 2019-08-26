@@ -4,25 +4,37 @@ public class Favori {
 
     private String id_favori;
     private String id_utilisateur;
+    private String id_media;
     private boolean always_inFavori;
-    private String created_by;
-    private String date_created;
-    private String modify_by;
-    private String date_modify;
+    private String CreatedBy;
+    private String DateCreated;
+    private String ModifBy;
+    private String DateModif;
+
 
     public Favori() {
     }
 
-    public Favori(String id_favori, String id_utilisateur, boolean always_inFavori, String created_by, String date_created) {
+    public Favori(String id_favori, String id_media, String id_utilisateur, boolean always_inFavori, String CreatedBy, String DateCreated) {
         this.id_favori = id_favori;
         this.id_utilisateur = id_utilisateur;
         this.always_inFavori = always_inFavori;
-        this.created_by = created_by;
-        this.date_created = date_created;
+        this.CreatedBy = CreatedBy;
+        this.DateCreated = DateCreated;
+        this.id_media = id_media;
     }
 
     public String getId_favori() {
         return id_favori;
+    }
+
+
+    public String getId_media() {
+        return id_media;
+    }
+
+    public void setId_media(String id_media) {
+        this.id_media = id_media;
     }
 
     public void setId_favori(String id_favori) {
@@ -45,35 +57,35 @@ public class Favori {
         this.always_inFavori = always_inFavori;
     }
 
-    public String getCreated_by() {
-        return created_by;
+    public String getCreatedBy() {
+        return CreatedBy;
     }
 
-    public void setCreated_by(String created_by) {
-        this.created_by = created_by;
+    public void setCreatedBy(String CreatedBy) {
+        this.CreatedBy = CreatedBy;
     }
 
-    public String getDate_created() {
-        return date_created;
+    public String getDateCreated() {
+        return DateCreated;
     }
 
-    public void setDate_created(String date_created) {
-        this.date_created = date_created;
+    public void setDateCreated(String DateCreated) {
+        this.DateCreated = DateCreated;
     }
 
-    public String getModify_by() {
-        return modify_by;
+    public String getModifBy() {
+        return ModifBy;
     }
 
-    public void setModify_by(String modify_by) {
-        this.modify_by = modify_by;
+    public void setModifBy(String ModifBy) {
+        this.ModifBy = ModifBy;
     }
 
-    public String getDate_modify() {
-        return date_modify;
+    public String getDateModif() {
+        return DateModif;
     }
 
-    public void setDate_modify(String date_modify) {
-        this.date_modify = date_modify;
+    public void setDateModif(String DateModif) {
+        this.DateModif = DateModif;
     }
 }
