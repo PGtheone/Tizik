@@ -246,4 +246,7 @@ public class Audio_Artiste implements Parcelable {
         dest.writeByte(this.selected ? (byte) 1 : (byte) 0);
         dest.writeTypedList(this.selectedCategorie);
     }
+
+
+
 }

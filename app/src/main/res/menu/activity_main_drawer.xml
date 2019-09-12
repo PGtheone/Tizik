@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        >
 
         <item
             android:id="@+id/nav_profile"
@@ -46,6 +47,22 @@
             android:title="@string/deconnexion" />
 
     </group>
+
+
+<!--    <group android:checkableBehavior="single"-->
+<!--        android:id="@+id/sc"-->
+<!--        >-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_share"-->
+<!--            android:icon="@drawable/ic_menu_share"-->
+<!--            android:title="Share" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_send"-->
+<!--            android:icon="@drawable/ic_menu_send"-->
+<!--            android:title="Send" />-->
+
+<!--    </group>-->
 
     <item android:title="Communicate">
         <menu>
