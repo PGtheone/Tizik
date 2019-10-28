@@ -7,11 +7,11 @@
     <ImageView
         android:id="@+id/placeholder_view"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
+        android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
+        android:layout_marginTop="6dp"
         android:background="@drawable/bg_select"
         android:contentDescription="@string/poster"
         android:visibility="visible" />
@@ -21,51 +21,93 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+<!--        <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Medium-->
+<!--            android:id="@+id/txttitle"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:singleLine="true"-->
+<!--            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"-->
+<!--            android:textColor="@color/ms_black"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/card"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/card" />-->
+
+<!--        <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular-->
+<!--            android:id="@+id/txtartiste"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:singleLine="true"-->
+<!--            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"-->
+<!--            android:textSize="12sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/card"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/txttitle" />-->
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <com.shif.peterson.tizik.utilis.RoundishImageView
+                android:id="@+id/imggalerie"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="@drawable/circle_bg"
+                android:contentDescription="@string/poster"
+                android:scaleType="fitXY"
+                app:cornerRadius="@dimen/round_corner_radius_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:roundedCorners="topLeft|bottomRight|topRight|bottomLeft"
+                />
+        </com.google.android.material.card.MaterialCardView>
+
+
+
         <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Medium
             android:id="@+id/txttitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:padding="5dp"
             android:singleLine="true"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@color/ms_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imggalerie"
-            app:layout_constraintTop_toTopOf="@+id/imggalerie" />
+            android:text="Monte Desann"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/vizualizer"
+            app:layout_constraintStart_toEndOf="@+id/card"
+            app:layout_constraintTop_toTopOf="@+id/card" />
 
         <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Regular
             android:id="@+id/txtartiste"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:singleLine="true"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_below="@id/txttitle"
+            android:layout_marginStart="21dp"
+            android:layout_marginEnd="8dp"
+            android:text="Baky Popile"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imggalerie"
-            app:layout_constraintTop_toBottomOf="@id/txttitle" />
+            app:layout_constraintEnd_toStartOf="@+id/vizualizer"
+            app:layout_constraintStart_toEndOf="@+id/card"
+            app:layout_constraintTop_toBottomOf="@+id/txttitle" />
 
-        <com.shif.peterson.tizik.utilis.RoundishImageView
-            android:id="@+id/imggalerie"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="4dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/circle_bg"
-            android:contentDescription="@string/poster"
-            android:scaleType="centerCrop"
-            app:cornerRadius="@dimen/round_corner_radius_medium"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:roundedCorners="topLeft|bottomRight|topRight|bottomLeft"
-            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

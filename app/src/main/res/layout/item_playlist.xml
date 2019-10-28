@@ -13,6 +13,19 @@
         android:layout_height="150dp"
         >
 
+        <com.shif.peterson.tizik.utilis.RoundishImageView
+            android:id="@+id/imgbg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/poster"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_tizik_logo_svg_gray"
+            app:cornerRadius="@dimen/round_corner_radius_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:roundedCorners="topLeft|bottomRight|topRight|bottomLeft"
+            />
+
       <View
           android:layout_width="match_parent"
           android:layout_height="match_parent"
@@ -63,18 +76,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.shif.peterson.tizik.utilis.RoundishImageView
-            android:id="@+id/imgbg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/poster"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_tizik_logo_svg_gray"
-            app:cornerRadius="@dimen/round_corner_radius_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:roundedCorners="topLeft|bottomRight|topRight|bottomLeft"
-            />
+
 
 
 

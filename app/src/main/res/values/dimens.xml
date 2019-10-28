@@ -27,25 +27,24 @@
     <dimen name="spacing_card">10dp</dimen>
     <dimen name="spacing_card_album_grid">3dp</dimen>
 
-    <item name="letter_to_tile_ratio" type="dimen">53%</item>
-
     <dimen name="header_height">370dp</dimen>
+
     <dimen name="min_header_height">270dp</dimen>
     <dimen name="header_logo_size">100dp</dimen>
+    <dimen name="img_size">158dp</dimen>
 
-    <dimen name="img_size">130dp</dimen>
     <dimen name="seekbar_size_large">150dp</dimen>
     <dimen name="textsize">14sp</dimen>
     <dimen name="spacing">10sp</dimen>
-
-
     <dimen name="normal_gap">16dp</dimen>
+
+
     <dimen name="small_gap">8dp</dimen>
     <dimen name="foreground_radius">16dp</dimen>
     <dimen name="menu_radius">8dp</dimen>
     <dimen name="big_gap">32dp</dimen>
-
     <dimen name="medium_padding">10dp</dimen>
+
     <dimen name="big_padding">24dp</dimen>
     <dimen name="big_margin">24dp</dimen>
     <dimen name="medium_margin">10dp</dimen>
@@ -53,9 +52,12 @@
     <dimen name="divider_thickness">0.5dp</dimen>
     <dimen name="bottom_sheet_corner_radius">20dp</dimen>
     <dimen name="bottom_sheet_top_padding">10dp</dimen>
-
     <dimen name="round_corner_radius_small">8dp</dimen>
+
     <dimen name="round_corner_radius_medium">16dp</dimen>
     <dimen name="round_corner_radius_large">20dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
+    <item name="letter_to_tile_ratio" type="dimen">53%</item>
 
 </resources>

@@ -48,7 +48,6 @@ public class MainListAdapter  extends RecyclerView.Adapter<MainListAdapter.MainL
     }
 
 
-
     @NonNull
     @Override
     public MainListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

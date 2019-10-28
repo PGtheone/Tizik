@@ -11,6 +11,26 @@
         android:layout_height="wrap_content"
 
         >
+        <com.shif.peterson.tizik.utilis.RoundishImageView
+            android:id="@+id/imgbg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/poster"
+            android:scaleType="centerCrop"
+            app:cornerRadius="@dimen/round_corner_radius_medium"
+            app:roundedCorners="topLeft|bottomRight|topRight|bottomLeft"
+            />
+
+        <com.shif.peterson.tizik.utilis.RoundishImageView
+            android:id="@+id/imgbackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/poster"
+            app:cornerRadius="@dimen/round_corner_radius_medium"
+            app:roundedCorners="topLeft|bottomRight|topRight|bottomLeft"
+            />
 
         <View
             android:layout_width="match_parent"
@@ -55,31 +75,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/imgicon"
               />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.shif.peterson.tizik.utilis.RoundishImageView
-            android:id="@+id/imgbg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/poster"
-            android:scaleType="centerCrop"
-            app:cornerRadius="@dimen/round_corner_radius_medium"
-            app:roundedCorners="topLeft|bottomRight|topRight|bottomLeft"
-            />
-
-        <com.shif.peterson.tizik.utilis.RoundishImageView
-            android:id="@+id/imgbackground"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/poster"
-            app:cornerRadius="@dimen/round_corner_radius_medium"
-            app:roundedCorners="topLeft|bottomRight|topRight|bottomLeft"
-            />
-
-
-
-
 
 
 

@@ -227,6 +227,7 @@ public class AudioPlayerService extends Service {
         playerNotificationManager.setPlayer(player);
 
 
+
     }
 
     private void iniLitsAudio() {

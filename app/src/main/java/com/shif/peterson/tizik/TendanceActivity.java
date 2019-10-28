@@ -134,8 +134,14 @@ public class TendanceActivity extends AppCompatActivity implements
                              Date now =  new Date();
                              SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/YYYY HH:mm");
                              String date =  formatter.format(now);
-                             Abonnement abonnement = new Abonnement(UUID.randomUUID().toString(), utilisateur.getId_utilisateur(), firebaseUser.getUid(), true, date, firebaseUser.getUid());
-
+                             Abonnement abonnement = new Abonnement(
+                                     UUID.randomUUID().toString()
+                                     , utilisateur.getId_utilisateur()
+                                     , firebaseUser.getUid()
+                                     , true
+                                     , firebaseUser.getUid()
+                                     , date,
+                                     null );
                              getUserFanCollectionReference().add(abonnement);
 
                          }

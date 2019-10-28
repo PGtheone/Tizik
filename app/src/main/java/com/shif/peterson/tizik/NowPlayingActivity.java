@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -22,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,6 +63,7 @@ import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 import static com.shif.peterson.tizik.utilis.ExoPlayerHelper.MUSIC_EXTRA;
+import static com.shif.peterson.tizik.utilis.ExoPlayerHelper.MUSIC_SIMILAR_KEY;
 
 
 public class NowPlayingActivity extends AppCompatActivity implements
@@ -89,7 +90,6 @@ public class NowPlayingActivity extends AppCompatActivity implements
     private ImageView imgblur;
     private ImageView imgcover;
     private final String TAG = NowPlayingActivity.class.getSimpleName();
-    private final String MUSIC_SIMILAR_KEY = "similar_music";
     //Exoplayer
     SimpleExoPlayer exoPlayer;
     AudioPlayerService mService;
@@ -151,13 +151,14 @@ public class NowPlayingActivity extends AppCompatActivity implements
             if(getIntent().hasExtra(MUSIC_EXTRA)){
 
                 audio_artiste_selected = getIntent().getParcelableExtra(MUSIC_EXTRA);
+                listSimilarAudio = getIntent().getParcelableArrayListExtra(MUSIC_SIMILAR_KEY);
                 if (audio_artiste_selected != null){
 
                     if(serviceIntent == null){
 
                         serviceIntent = new Intent(this, AudioPlayerService.class);
                         serviceIntent.putExtra(MUSIC_EXTRA, audio_artiste_selected);
-                       // serviceIntent.putParcelableArrayListExtra(MUSIC_SIMILAR_KEY, (ArrayList<? extends Parcelable>) listSimilarAudio);
+                        serviceIntent.putParcelableArrayListExtra(MUSIC_SIMILAR_KEY, (ArrayList<? extends Parcelable>) listSimilarAudio);
                         Util.startForegroundService(this, serviceIntent);
 
                          }
@@ -604,8 +605,6 @@ public class NowPlayingActivity extends AppCompatActivity implements
             initExoPlayer2();
             updateUI(audio_artiste_selected);
             listSimilarAudio = binder.getAudio();
-        Toast.makeText(getApplicationContext(), "la "+ audio_artiste_selected.getTitre_musique(), Toast.LENGTH_SHORT).show();
-
 
 
         imgplaypause.setOnClickListener(new View.OnClickListener() {

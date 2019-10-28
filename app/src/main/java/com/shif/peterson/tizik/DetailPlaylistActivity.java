@@ -7,7 +7,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -34,6 +36,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.shif.peterson.tizik.adapter.MusicPlaylistAdapter;
 import com.shif.peterson.tizik.adapter.PlaylistPagerAdapter;
 import com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Bold;
+import com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Medium;
 import com.shif.peterson.tizik.model.Audio_Artiste;
 import com.shif.peterson.tizik.model.Playlist;
 import com.shif.peterson.tizik.model.Playlist_Audio;
@@ -41,8 +44,6 @@ import com.shif.peterson.tizik.utilis.ShadowTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -63,12 +64,15 @@ public class DetailPlaylistActivity extends AppCompatActivity implements
     DividerItemDecoration itemDecor;
     Bitmap bitmap = null;
     Intent serviceIntent;
-    private ImageView imgbg;
     private RecyclerView recyclerView;
     private MusicPlaylistAdapter musicAdapter;
     private ProgressBar progressBar;
-    private ViewPager mViewPager;
-    private MyTextView_Ubuntu_Bold txtcountmusic;
+    private ImageView imgbg1;
+    private ImageView imgplayall;
+    private ImageView imgshuffle;
+
+    private MyTextView_Ubuntu_Bold txtnommusique;
+    private MyTextView_Ubuntu_Medium txtcountmusic;
     private PlaylistPagerAdapter playlistPagerAdapter;
     private ShadowTransformer mCardShadowTransformer;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -87,7 +91,7 @@ public class DetailPlaylistActivity extends AppCompatActivity implements
 
         }
 
-        playlistPagerAdapter = new PlaylistPagerAdapter(this);
+        //playlistPagerAdapter = new PlaylistPagerAdapter(this);
 
         if(playlist == null){
             FirebaseFirestore
@@ -126,10 +130,10 @@ public class DetailPlaylistActivity extends AppCompatActivity implements
                             playlistPagerAdapter.addPlaylist(playlist);
                         }
 
-                        mViewPager.setAdapter(playlistPagerAdapter);
-                        mCardShadowTransformer = new ShadowTransformer(mViewPager, playlistPagerAdapter);
-                        mViewPager.setPageTransformer(false, mCardShadowTransformer);
-                        mViewPager.setOffscreenPageLimit(3);
+                       // mViewPager.setAdapter(playlistPagerAdapter);
+                        //mCardShadowTransformer = new ShadowTransformer(mViewPager, playlistPagerAdapter);
+                        //mViewPager.setPageTransformer(false, mCardShadowTransformer);
+                        //mViewPager.setOffscreenPageLimit(3);
 
                     }
                 }
@@ -150,12 +154,12 @@ public class DetailPlaylistActivity extends AppCompatActivity implements
 //                    }
 //                }
 //            });
-            playlistList.add(playlist);
-            playlistPagerAdapter.addPlaylist(playlist);
-            mViewPager.setAdapter(playlistPagerAdapter);
-            mCardShadowTransformer = new ShadowTransformer(mViewPager, playlistPagerAdapter);
-            mViewPager.setPageTransformer(false, mCardShadowTransformer);
-            mViewPager.setOffscreenPageLimit(3);
+            //playlistList.add(playlist);
+            //playlistPagerAdapter.addPlaylist(playlist);
+            //mViewPager.setAdapter(playlistPagerAdapter);
+            //mCardShadowTransformer = new ShadowTransformer(mViewPager, playlistPagerAdapter);
+            //mViewPager.setPageTransformer(false, mCardShadowTransformer);
+            //mViewPager.setOffscreenPageLimit(3);
 //
 //            // progress.setVisibility(View.VISIBLE);
 //
@@ -171,16 +175,19 @@ public class DetailPlaylistActivity extends AppCompatActivity implements
 
 
 
-        mViewPager.setOnPageChangeListener(this);
+//        mViewPager.setOnPageChangeListener(this);
     }
 
     private void initUI() {
 
-        mViewPager = findViewById(R.id.viewpager);
-        imgbg = findViewById(R.id.image_blur);
+      //  mViewPager = findViewById(R.id.viewpager);
+        imgplayall = findViewById(R.id.imgplay);
+        imgshuffle = findViewById(R.id.imgshuffle);
+        imgbg1 = findViewById(R.id.imgbg);
         recyclerView = findViewById(R.id.recyr_all_musique);
         collapsingToolbarLayout = findViewById(R.id.collapsingtoolbar);
         txtcountmusic = findViewById(R.id.txtallmusiques);
+        txtnommusique = findViewById(R.id.txtnommusique);
         progressBar = findViewById(R.id.progress_bar);
     }
 
@@ -189,9 +196,9 @@ public class DetailPlaylistActivity extends AppCompatActivity implements
 
         RequestOptions glideOptions = new RequestOptions()
                 .centerCrop()
-                .transform( new BlurTransformation(50))
                 .error(R.color.colorPrimary)
                 .placeholder(R.color.colorPrimary);
+
 
         Glide.with(this)
                 .load(playlistselected.getUrlPoster())
@@ -247,7 +254,7 @@ public class DetailPlaylistActivity extends AppCompatActivity implements
                 return false;
             }
         })
-                .into(imgbg);
+                .into(imgbg1);
 
     }
 
@@ -295,11 +302,25 @@ public class DetailPlaylistActivity extends AppCompatActivity implements
 
                     Log.i("TAG", " RecyclerView");
 
-                    txtcountmusic.setText(getItemCount()+" "+getString(R.string.music_found));
+                    txtnommusique.setText(playlist.getNom());
+                    txtcountmusic.setText("Jouer tout ( "+getItemCount()+" ) ");
 //                    txtMusiqueCount.setVisibility(View.VISIBLE);
 //                    empty_const.setVisibility(View.GONE);
 //                    recyclerViewMusique.setVisibility(View.VISIBLE);
 //                    progress.setVisibility(View.GONE);
+
+                    imgplayall.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+
+                            Intent intent2 =  new Intent(DetailPlaylistActivity.this, NowPlayingActivity.class);
+                            intent2.putExtra(MUSIC_EXTRA, getAlltrack().get(0));
+                            intent2.putParcelableArrayListExtra(MUSIC_SIMILAR_KEY, (ArrayList<? extends Parcelable>) getAlltrack());
+                            startActivity(intent2);
+
+                        }
+                    });
                 }
             }
 

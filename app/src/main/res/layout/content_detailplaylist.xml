@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
     android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_detail_playlist">
@@ -36,14 +35,39 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyr_all_musique"
                 />
+
+            <ImageView
+                android:id="@+id/imgplay"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/circle_img_bg"
+                android:padding="5dp"
+                android:src="@drawable/play_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtnommusique"
+                />
+
+
+            <ImageView
+                android:id="@+id/imgshuffle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="16dp"
+                android:padding="5dp"
+                android:src="@drawable/exo_controls_shuffle"
+                android:tint="@color/textcolor_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtnommusique" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyr_all_musique"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toTopOf="@+id/progress_bar"
@@ -54,20 +78,34 @@
 
 
             <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Bold
-                android:id="@+id/txtallmusiques"
+                android:id="@+id/txtnommusique"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:paddingLeft="8dp"
                 android:paddingBottom="10dp"
-                android:text="2500 musiques"
+                android:text="Lorem Ipsum"
                 android:textColor="@color/ms_black"
+                android:textAlignment="center"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <com.shif.peterson.tizik.customfonts.MyTextView_Ubuntu_Medium
+                android:id="@+id/txtallmusiques"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:paddingBottom="10dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/imgplay"
+                app:layout_constraintEnd_toStartOf="@id/imgshuffle"
+               app:layout_constraintStart_toEndOf="@+id/imgplay"
+                app:layout_constraintTop_toTopOf="@id/imgplay"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

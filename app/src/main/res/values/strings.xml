@@ -151,6 +151,8 @@
     <string name="play_path">M12,16 H5 L8.5,10.5 L12,5 M12,16 H19 L15.5,10.5 L12,5</string>
     <string name="poster">Poster</string>
     <string name="action_search">Rechercher</string>
+    <string name="malheureusement_aucun_upload_n_a_encore_t_fait">Malheureusement aucun upload n\'a encore été fait</string>
+    <string name="s_abonner">S\'abonner</string>
     <string-array name="main_nav">
         <item>@string/nav_accueil</item>
         <item>@string/nav_profile</item>

@@ -85,6 +85,16 @@ public class MusicPlaylistAdapter extends FirestoreAdapter
 
     }
 
+    public List<Audio_Artiste> getAlltrack(){
+
+        if (audio_artistes != null){
+
+            return audio_artistes;
+        }
+
+        return null;
+    }
+
     public interface AudioClickHandler{
 
         void OnClick(Audio_Artiste produit);

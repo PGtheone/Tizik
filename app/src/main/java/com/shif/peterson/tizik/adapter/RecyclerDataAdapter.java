@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.exoplayer2.util.Log;
 import com.shif.peterson.tizik.AllMusicActivity;
 import com.shif.peterson.tizik.DetailPlaylistActivity;
 import com.shif.peterson.tizik.GenresActivity;
@@ -38,22 +39,27 @@ import static com.shif.peterson.tizik.utilis.ExoPlayerHelper.MUSIC_EXTRA;
  * Created by ydnar on 27/03/2018.
  */
 
-public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
-        MainListAdapter.MainProductHandler,
+public class RecyclerDataAdapter
+        extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+        implements MainListAdapter.MainProductHandler,
         PlaylistAdapter.PlaylistHandler {
 
 
     final static String EXTRA_CATEGORIE = "extra_categorie";
     final static String EXTRA_CATEGORIE_NAME = "extra_categorie_name";
     ProductHandler productHandler;
-    private static final int PUB_ROW = 2;
-    private static final int GRID_ROW = 1;
+
+
 
     private ArrayList<SectionDataModel> dataList;
     private Context mContext;
-    private static final int PROD_ROW = 3;
+
     private static final int PLAYLIST_ROW = 0;
-    private static final int CONNECTION_ROW = 4;
+    private static final int GRID_ROW = 1;
+    private static final int CONNECTION_ROW = 2;
+    private static final int PROD_ROW = 3;
+    private static final int PUB_ROW = 4;
+
     PlaylistAdapter.PlaylistHandler playlistHandler;
     private List<Object> mainObject;
     private List<Categorie> publink;
@@ -231,6 +237,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
                 listAbonnement = (List<Abonnement>) mainObject.get(position);
+                Log.d("TAG ABON", listAbonnement.toString());
 
                 RequestOptions glideOptions = new RequestOptions()
                         .centerCrop()
@@ -389,7 +396,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     }
 
-    public class RecyclerDataViewholder extends RecyclerView.ViewHolder{
+    public static class RecyclerDataViewholder extends RecyclerView.ViewHolder{
 
         protected MyTextView_Ubuntu_Bold itemTitle;
         protected RecyclerView recycler_view_list;
@@ -406,7 +413,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public class PlaylistDataViewholder extends RecyclerView.ViewHolder{
+    public static class PlaylistDataViewholder extends RecyclerView.ViewHolder{
 
         protected MyTextView_Ubuntu_Bold itemTitle;
         protected RecyclerView recycler_view_list;

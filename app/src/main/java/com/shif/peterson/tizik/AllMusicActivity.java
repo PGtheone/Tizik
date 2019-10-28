@@ -191,7 +191,7 @@ public class AllMusicActivity extends AppCompatActivity implements
                                         }
                                     }
                                 },
-                                3, // number of columns
+                                2, // number of columns
                                 1f // how big is default item
                         );
                         layoutManager = new GridLayoutManager(AllMusicActivity.this, AllMusicActivity.this.getResources().getInteger(R.integer.shr_column_count));
@@ -331,6 +331,7 @@ public class AllMusicActivity extends AppCompatActivity implements
                         @Override
                         public void onClick(View v) {
                             query = audioTendanceRef
+                                    .orderBy("date_upload", Query.Direction.DESCENDING)
                                     .limit(100);
                             musicAdapter.setQuery(query);
 
