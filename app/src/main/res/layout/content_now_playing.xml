@@ -51,13 +51,25 @@
 
 
             <ImageView
+                android:id="@+id/imgcomment"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_comment"
+                app:layout_constraintBottom_toBottomOf="@+id/txtcategorie"
+                app:layout_constraintEnd_toStartOf="@id/imgfav"
+                />
+
+            <ImageView
                 android:id="@+id/imgfav"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_romantic"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/txtcategorie"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txtcategorie" />
+                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -239,13 +251,12 @@
                 android:id="@+id/txtcategorie"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
                 android:text="Rap / Rnb"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textSize="17sp"
-                app:layout_constraintEnd_toStartOf="@+id/imgfav"
+                app:layout_constraintEnd_toStartOf="@+id/imgcomment"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

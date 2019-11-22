@@ -28,126 +28,126 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
-            android:id="@+id/txtspecial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:padding="10dp"
-            android:textStyle="bold"
-            android:text="@string/special"
-            android:layout_alignParentStart="true"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerviewmusic" />
+<!--            <TextView-->
+<!--            android:id="@+id/txtspecial"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:padding="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:text="@string/special"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/recyclerviewmusic" />-->
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardspecial"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:cardElevation="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtspecial">
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/cardspecial"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_marginBottom="8dp"-->
+<!--            app:cardElevation="5dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtspecial">-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/cardview_light_background"
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/cardview_light_background"-->
 
-                >
+<!--                >-->
 
-                <ImageView
-                    android:id="@+id/imgspecial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:src="@drawable/ic_giftcard_gray"
-                    app:layout_constraintBottom_toBottomOf="@id/txtpromocode"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txtpromocode" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgspecial"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:src="@drawable/ic_giftcard_gray"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/txtpromocode"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/txtpromocode" />-->
 
-                <ImageView
-                    android:id="@+id/imgarrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_next_gray"
-                    app:layout_constraintBottom_toBottomOf="@id/txtpromocode"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txtpromocode" />
-
-
-                <ImageView
-                    android:id="@+id/imggiftcard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:src="@drawable/ic_giftcard_gray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgarrow"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:src="@drawable/ic_next_gray"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/txtpromocode"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/txtpromocode" />-->
 
 
-
-                <TextView
-                    android:id="@+id/txtpromocode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="100dp"
-                    android:padding="10dp"
-                    android:text="@string/promo_code"
-
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                    app:layout_constraintEnd_toStartOf="@+id/imgarrow"
-                    app:layout_constraintStart_toEndOf="@+id/imgspecial"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/div"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/placeholder_bg"
-                    app:layout_constraintTop_toBottomOf="@id/txtpromocode"
-
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imggiftcard"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:src="@drawable/ic_giftcard_gray"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
 
-                <TextView
-                    android:id="@+id/txttempsrestant"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="103dp"
-                    android:padding="10dp"
-                    android:text="@string/promo_code"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                    app:layout_constraintEnd_toStartOf="@+id/imgarrow"
-                    app:layout_constraintStart_toEndOf="@+id/imgspecial"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/txtpromocode"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:layout_marginBottom="100dp"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:text="@string/promo_code"-->
+
+<!--                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/imgarrow"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/imgspecial"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                <View-->
+<!--                    android:id="@+id/div"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:background="@color/placeholder_bg"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/txtpromocode"-->
+
+<!--                    />-->
 
 
-        </androidx.cardview.widget.CardView>
+<!--                <TextView-->
+<!--                    android:id="@+id/txttempsrestant"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:layout_marginBottom="103dp"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:text="@string/promo_code"-->
+<!--                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/imgarrow"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/imgspecial"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--        </androidx.cardview.widget.CardView>-->
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerviewmusic"

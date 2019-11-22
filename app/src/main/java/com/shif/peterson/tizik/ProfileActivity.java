@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -338,6 +339,8 @@ GridAdapter.AudioClickHandler,
             txtfollower.setText("0");
         }else{
 
+            Toast.makeText(this, "here follower", Toast.LENGTH_SHORT).show();
+
             txtfollower.setText(String.valueOf(abonnementList.size()));
 
             linearLayoutabonnee.setOnClickListener(new View.OnClickListener() {
@@ -359,6 +362,7 @@ GridAdapter.AudioClickHandler,
             txtfollow.setText("0");
         }else{
 
+            Toast.makeText(this, "here follow", Toast.LENGTH_SHORT).show();
             txtfollow.setText(String.valueOf(abonnementList.size()));
             linearLayoutabonnement.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,5 +1,6 @@
 package com.shif.peterson.tizik;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +45,11 @@ public class FavoriActivity extends AppCompatActivity implements FavoriAdapter.A
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favori);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            findViewById(R.id.scrollview)
+                    .setBackgroundResource(R.drawable.bg_top_radius);
+        }
 
 
         if(getIntent().hasExtra(EXTRA_ID_UTILISATEUR)){

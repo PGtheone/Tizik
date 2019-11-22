@@ -5,129 +5,129 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FavoriActivity"
+    android:background="@color/colorPrimary"
     >
 
-
-
-    <FrameLayout
-        android:id="@+id/container"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="match_parent"
         >
 
-        <LinearLayout
-            android:id="@+id/linearprogress"
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             >
-
-
-            <com.wang.avi.AVLoadingIndicatorView
-                android:id="@+id/avi"
-                style="@style/AVLoadingIndicatorView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:visibility="visible"
-                app:indicatorColor="@color/colorPrimary"
-                app:indicatorName="LineScalePulseOutRapidIndicator"
-                />
-        </LinearLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/emptyconst"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <ImageView
-                android:id="@+id/imgemptystate"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:src="@drawable/empty_comment"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/txthead"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:singleLine="true"
-                android:text="@string/aucun_commentaire"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imgemptystate"
-                />
-
-            <TextView
-                android:id="@+id/txtemptycomment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/malheureusement_aucun_commentaire_n_a_encore_t_fait_pour_cette_musique_pri_re_de_laisser_le_votre"
-                android:textAlignment="center"
-                android:textSize="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txthead"
-                />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/linearprogress"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:gravity="center"
                 >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="@string/tous_les_favoris"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textStyle="bold"
+
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/avi"
+                    style="@style/AVLoadingIndicatorView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="visible"
+                    app:indicatorColor="@color/colorPrimary"
+                    app:indicatorName="LineScalePulseOutRapidIndicator"
                     />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerfav"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
             </LinearLayout>
 
 
-        </androidx.core.widget.NestedScrollView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/emptyconst"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
 
-    </FrameLayout>
+                <ImageView
+                    android:id="@+id/imgemptystate"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/empty_comment"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/txthead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:singleLine="true"
+                    android:text="@string/aucun_commentaire"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgemptystate"
+                    />
+
+                <TextView
+                    android:id="@+id/txtemptycomment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/malheureusement_aucun_commentaire_n_a_encore_t_fait_pour_cette_musique_pri_re_de_laisser_le_votre"
+                    android:textAlignment="center"
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txthead"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerfav"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+
+            </androidx.core.widget.NestedScrollView>
+
+        </FrameLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
 
 
 

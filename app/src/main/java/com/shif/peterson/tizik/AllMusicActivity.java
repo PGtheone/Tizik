@@ -194,7 +194,7 @@ public class AllMusicActivity extends AppCompatActivity implements
                                 2, // number of columns
                                 1f // how big is default item
                         );
-                        layoutManager = new GridLayoutManager(AllMusicActivity.this, AllMusicActivity.this.getResources().getInteger(R.integer.shr_column_count));
+                        layoutManager = new GridLayoutManager(AllMusicActivity.this, 2);
                         recyclerViewMusique.removeItemDecoration(itemDecor);
                         recyclerViewMusique.setLayoutManager(layoutManager);
                     }

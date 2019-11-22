@@ -1,7 +1,6 @@
 package com.shif.peterson.tizik.fragment;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -280,22 +279,22 @@ public class CommentDialogFragment extends DialogFragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnMusicCommentListener) {
-            mListener = (OnMusicCommentListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnMusicCommentListener) {
+//            mListener = (OnMusicCommentListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        mListener = null;
+//    }
 
 
     public interface OnMusicCommentListener {
@@ -311,7 +310,6 @@ public class CommentDialogFragment extends DialogFragment {
 
         mQuery = mFirestore.collection("Commentaire_Audio")
                 .whereEqualTo("id_audio", mid_musique)
-                .orderBy("date_created", Query.Direction.ASCENDING)
                 .limit(LIMIT);
 
     }

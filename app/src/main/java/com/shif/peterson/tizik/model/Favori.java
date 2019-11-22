@@ -5,20 +5,24 @@ public class Favori {
     private String id_favori;
     private String id_utilisateur;
     private String id_media;
-    private boolean always_inFavori;
+
+
     private String CreatedBy;
     private String DateCreated;
     private String ModifBy;
     private String DateModif;
 
 
+
+
+
+
     public Favori() {
     }
 
-    public Favori(String id_favori, String id_media, String id_utilisateur, boolean always_inFavori, String CreatedBy, String DateCreated) {
+    public Favori(String id_favori, String id_media, String id_utilisateur, String CreatedBy, String DateCreated) {
         this.id_favori = id_favori;
         this.id_utilisateur = id_utilisateur;
-        this.always_inFavori = always_inFavori;
         this.CreatedBy = CreatedBy;
         this.DateCreated = DateCreated;
         this.id_media = id_media;
@@ -49,13 +53,6 @@ public class Favori {
         this.id_utilisateur = id_utilisateur;
     }
 
-    public boolean isAlways_inFavori() {
-        return always_inFavori;
-    }
-
-    public void setAlways_inFavori(boolean always_inFavori) {
-        this.always_inFavori = always_inFavori;
-    }
 
     public String getCreatedBy() {
         return CreatedBy;

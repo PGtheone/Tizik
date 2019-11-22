@@ -128,10 +128,12 @@ public class NowPlayingActivity extends AppCompatActivity implements
 
 
 
+
     private static final String COLLECTION_NAME = "Commentaire_Audio";
     public static CollectionReference getCommentCollectionReference(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,38 +151,29 @@ public class NowPlayingActivity extends AppCompatActivity implements
         if(savedInstanceState == null){
 
             if(getIntent().hasExtra(MUSIC_EXTRA)){
-
+//
                 audio_artiste_selected = getIntent().getParcelableExtra(MUSIC_EXTRA);
                 listSimilarAudio = getIntent().getParcelableArrayListExtra(MUSIC_SIMILAR_KEY);
                 if (audio_artiste_selected != null){
 
-                    if(serviceIntent == null){
+                    if(mService == null){
 
                         serviceIntent = new Intent(this, AudioPlayerService.class);
                         serviceIntent.putExtra(MUSIC_EXTRA, audio_artiste_selected);
                         serviceIntent.putParcelableArrayListExtra(MUSIC_SIMILAR_KEY, (ArrayList<? extends Parcelable>) listSimilarAudio);
                         Util.startForegroundService(this, serviceIntent);
 
-                         }
 
-
-                   // updateUI(audio_artiste_selected);
+                    }
                 }
 
             }
+
+
         }else{
 
-
-
             audio_artiste_selected = savedInstanceState.getParcelable(MUSIC_KEY);
-            moyenne = savedInstanceState.getDouble(MUSIC_AVIS_KEY);
-            numComment = savedInstanceState.getInt(MUSIC_AVIS_SIZE);
-          //  recyclersimilar.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(MUSIC_SIMILAR_KEY));
-            playlistposi = savedInstanceState.getInt(MUSIC_PLAYLIST_POSI_KEY);
-
-           // updateUI(audio_artiste_selected);
-
-
+            // updateUI(audio_artiste_selected);
 
         }
 
@@ -257,13 +250,13 @@ public class NowPlayingActivity extends AppCompatActivity implements
                     .placeholder(R.drawable.ic_placeholder_headset)
                     ;
 
-            Glide.with(this)
+            Glide.with(getApplicationContext())
                     .load(audio_artiste_selected.getUrl_poster())
                     .apply(glideOptions)
                     .transition(withCrossFade())
                     .into(imgblur);
 
-            Glide.with(this)
+            Glide.with(getApplicationContext())
                     .load(audio_artiste_selected.getUrl_poster())
                     .apply(glideCircle)
                     .transition(withCrossFade())
@@ -424,7 +417,7 @@ public class NowPlayingActivity extends AppCompatActivity implements
 
             @Override
             public void onPlayerError(ExoPlaybackException error) {
-                //Toast.makeText(NowPlayingActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
                 Snackbar.make(linearLayout, error.getMessage(), Snackbar.LENGTH_LONG)
                         .setAction("Retry", null).show();
 
@@ -587,8 +580,8 @@ public class NowPlayingActivity extends AppCompatActivity implements
         super.onSaveInstanceState(outState);
 
             outState.putParcelable(MUSIC_KEY, audio_artiste_selected);
-            outState.putDouble(MUSIC_AVIS_KEY, moyenne);
-            outState.putInt(MUSIC_AVIS_SIZE, numComment);
+        //    outState.putDouble(MUSIC_AVIS_KEY, moyenne);
+          //  outState.putInt(MUSIC_AVIS_SIZE, numComment);
 
 
     }

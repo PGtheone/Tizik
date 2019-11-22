@@ -9,14 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -98,20 +96,20 @@ public class StepFinishFragment extends Fragment implements
     private void initUI(){
 
         recyclerViewMusique = view.findViewById(R.id.recyclerviewmusic);
-        cardSpecial = view.findViewById(R.id.cardspecial);
+      //  cardSpecial = view.findViewById(R.id.cardspecial);
         txttotal = view.findViewById(R.id.txttotal);
 
 
-        cardSpecial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                final PlanDialogFragment newFragment = PlanDialogFragment.newInstance("p-001");
-                // newFragment.setTargetFragment(MainActivity.this, 0);
-                newFragment.show(ft, "Plan");
-            }
-        });
+//        cardSpecial.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                final PlanDialogFragment newFragment = PlanDialogFragment.newInstance("p-001");
+//                // newFragment.setTargetFragment(MainActivity.this, 0);
+//                newFragment.show(ft, "Plan");
+//            }
+//        });
 
 
     }
@@ -129,16 +127,17 @@ public class StepFinishFragment extends Fragment implements
 
             if(uri.size() == canUpload(uri)){
                  double totaluse  = userPlan.getQuantite_used() + somme;
-                 if(totaluse > detailplan.getTempsUpload()){
-
-
-
-                 }else{
-
-                       mListener.onMusicChoosed(uri);
-
-                 }
-                Toast.makeText(getContext(), ""+totaluse, Toast.LENGTH_SHORT).show();
+                mListener.onMusicChoosed(uri);
+//                 if(totaluse > detailplan.getTempsUpload()){
+//
+//
+//
+//                 }else{
+//
+//                       mListener.onMusicChoosed(uri);
+//
+//                 }
+//                Toast.makeText(getContext(), ""+totaluse, Toast.LENGTH_SHORT).show();
 
 
             }

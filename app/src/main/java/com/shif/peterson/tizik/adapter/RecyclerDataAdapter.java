@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.exoplayer2.util.Log;
 import com.shif.peterson.tizik.AllMusicActivity;
-import com.shif.peterson.tizik.DetailPlaylistActivity;
 import com.shif.peterson.tizik.GenresActivity;
 import com.shif.peterson.tizik.NowPlayingActivity;
 import com.shif.peterson.tizik.R;
@@ -352,6 +351,8 @@ public class RecyclerDataAdapter
             this.recycler_view_list = itemView.findViewById(R.id.mainsubrecycler);
             this.txtMore= itemView.findViewById(R.id.itemtitleviewmore);
 
+            txtMore.setVisibility(View.GONE);
+
             txtMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -382,6 +383,7 @@ public class RecyclerDataAdapter
             this.recycler_view_list = itemView.findViewById(R.id.mainsubrecycler);
             this.txtMore= itemView.findViewById(R.id.itemtitleviewmore);
 
+            txtMore.setVisibility(View.GONE);
 
             txtMore.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -410,6 +412,8 @@ public class RecyclerDataAdapter
             this.recycler_view_list = itemView.findViewById(R.id.mainsubrecycler);
             this.txtMore= itemView.findViewById(R.id.itemtitleviewmore);
 
+            txtMore.setVisibility(View.GONE);
+
         }
     }
 
@@ -427,12 +431,14 @@ public class RecyclerDataAdapter
             this.recycler_view_list = view.findViewById(R.id.mainsubrecycler);
             this.txtMore= view.findViewById(R.id.itemtitleviewmore);
 
+            txtMore.setVisibility(View.GONE);
+
             txtMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(view.getContext(), DetailPlaylistActivity.class);
-                    view.getContext().startActivity(intent);
+//                    Intent intent = new Intent(view.getContext(), DetailPlaylistActivity.class);
+//                    view.getContext().startActivity(intent);
                 }
             });
 

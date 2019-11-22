@@ -387,6 +387,7 @@ public class MainActivity extends AppCompatActivity
                         Intent intent2 =  new Intent(MainActivity.this, NowPlayingActivity.class);
                         intent2.putExtra(MUSIC_EXTRA, audio);
                         intent2.putParcelableArrayListExtra(MUSIC_SIMILAR_KEY, null);
+                        intent2.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent2);
 
                     }
@@ -541,9 +542,11 @@ public class MainActivity extends AppCompatActivity
                 }
 //
 
-        } else if (id == R.id.nav_playlist) {
-
-        }else if (id == R.id.nav_notification) {
+        }
+//        else if (id == R.id.nav_playlist) {
+//
+//        }
+        else if (id == R.id.nav_notification) {
 
         }else if (id == R.id.nav_reglages) {
 

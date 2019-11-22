@@ -89,6 +89,8 @@ public class AudioPlayerService extends Service {
 
     }
 
+
+
     @Override
     public void onDestroy() {
 //        mediaSession.release();
@@ -119,13 +121,14 @@ public class AudioPlayerService extends Service {
             audio_artiste = intent.getParcelableExtra(MUSIC_EXTRA);
         }
         SAMPLES.add(0, audio_artiste);
+
         if(SAMPLES.size() == 1){
 
             iniLitsAudio();
-        }else
+        }else{
             startPlayer(SAMPLES);
 
-
+        }
 
 
         return START_NOT_STICKY;
@@ -161,7 +164,6 @@ public class AudioPlayerService extends Service {
 
                         Intent intent1 = new Intent(context, NowPlayingActivity.class);
                         intent1.putExtra(MUSIC_EXTRA, SAMPLES.get( player.getCurrentWindowIndex()));
-
 
                         return PendingIntent.getActivity(context, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
                     }
@@ -232,6 +234,7 @@ public class AudioPlayerService extends Service {
 
     private void iniLitsAudio() {
 
+        concatenatingMediaSource = new ConcatenatingMediaSource();
 
         FirebaseFirestore
                 .getInstance()
@@ -263,7 +266,7 @@ public class AudioPlayerService extends Service {
     }
 
     public SimpleExoPlayer getplayerInstance() {
-        if (player == null) {
+        if (player != null ) {
             startPlayer(SAMPLES);
         }
         return player;

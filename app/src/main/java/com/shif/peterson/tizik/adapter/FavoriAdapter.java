@@ -3,11 +3,9 @@ package com.shif.peterson.tizik.adapter;
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -156,15 +154,12 @@ public class FavoriAdapter extends FirestoreAdapter<FavoriAdapter.FavoriViewHold
         private TextView txtduree;
 
 
-
-
-
         public FavoriViewHolder(@NonNull View itemView) {
             super(itemView);
 
             //musiquecheck = (CheckBox) itemView.findViewById(R.id.checkbox);
             imgposter = itemView.findViewById(R.id.imgmusique);
-            imgmore = itemView.findViewById(R.id.imgmore);
+           // imgmore = itemView.findViewById(R.id.imgmore);
             txtTitreMusique = itemView.findViewById(R.id.txtnommusique);
             txtnomArtiste = itemView.findViewById(R.id.txtnomartiste);
             txtduree = itemView.findViewById(R.id.txtduree);
@@ -172,42 +167,42 @@ public class FavoriAdapter extends FirestoreAdapter<FavoriAdapter.FavoriViewHold
 
 
 
-            imgmore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    PopupMenu popupMenu = new PopupMenu(mcontext, imgmore);
-                    popupMenu.getMenuInflater().inflate(R.menu.list_selected_musique_menu, popupMenu.getMenu());
-
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-
-                            int id = item.getItemId();
-
-                            switch (id){
-
-                                case R.id.nav_delete:
-
-                                    Audio_Artiste audio_artiste = audio_artisteList.get(getAdapterPosition());
-                                    audio_artisteList.remove(audio_artiste);
-                                    audioDeleteHandler.onAudioDeleted(getAdapterPosition());
-                                    notifyItemRemoved(getAdapterPosition());
-
-
-                                    return true;
-                                default:
-                                    return false;
-
-                            }
-
-                        }
-                    });
-
-                    popupMenu.show();
-
-                }
-            });
+//            imgmore.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    PopupMenu popupMenu = new PopupMenu(mcontext, imgmore);
+//                    popupMenu.getMenuInflater().inflate(R.menu.list_selected_musique_menu, popupMenu.getMenu());
+//
+//                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                        @Override
+//                        public boolean onMenuItemClick(MenuItem item) {
+//
+//                            int id = item.getItemId();
+//
+//                            switch (id){
+//
+//                                case R.id.nav_delete:
+//
+//                                    Audio_Artiste audio_artiste = audio_artisteList.get(getAdapterPosition());
+//                                    audio_artisteList.remove(audio_artiste);
+//                                    audioDeleteHandler.onAudioDeleted(getAdapterPosition());
+//                                    notifyItemRemoved(getAdapterPosition());
+//
+//
+//                                    return true;
+//                                default:
+//                                    return false;
+//
+//                            }
+//
+//                        }
+//                    });
+//
+//                    popupMenu.show();
+//
+//                }
+//            });
 
             itemView.setOnClickListener(this);
         }

@@ -10,6 +10,8 @@
     tools:context=".fragment.AllMusicFragment"
     tools:showIn="@layout/activity_all_music"
     >
+    <include layout="@layout/content_allmusic" />
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -146,7 +148,7 @@
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
 
-    <include layout="@layout/content_allmusic" />
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

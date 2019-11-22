@@ -97,40 +97,9 @@ public class CommentAdapter extends FirestoreAdapter<CommentAdapter.commentViewH
         });
 
 
-
-//
-//
-//        getUtilisateurCollectionReference().whereEqualTo("id_utilisateur", commentaire_audio.getId_utilisateur()).
-//                get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//
-//                if (null != queryDocumentSnapshots && !queryDocumentSnapshots.isEmpty()){
-//
-//                    Toast.makeText(getContext(), "heree", Toast.LENGTH_SHORT).show();
-//                    List<Utilisateur> utilisateurs1 = queryDocumentSnapshots.toObjects(Utilisateur.class);
-//                    for(Utilisateur user : utilisateurs1){
-//
-//                        utilisateurs.add(user);
-//                    }
-//
-//                }
-//
-//
-//
-//            }
-//
-//        });
-
-
-
-
             holder.txtcomment.setText(commentaire_audio.getCommentaire());
             holder.appCompatRatingBar.setRating(commentaire_audio.getNote());
             holder.txtdatecomment.setText(commentaire_audio.getDate_created());
-
-
-//
 
 
     }

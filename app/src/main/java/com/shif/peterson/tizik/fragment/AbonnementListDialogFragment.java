@@ -35,8 +35,9 @@ public class AbonnementListDialogFragment extends BottomSheetDialogFragment {
 
 
     private static final String ARG_LIST_ABONNEMENT = "item_abonnement";
-    private static final String COLLECTION_NAME = "Utilisateur";
     private AbonnementListener mListener;
+
+    private static final String COLLECTION_NAME = "Utilisateur";
 
     public static AbonnementListDialogFragment newInstance(List<Abonnement> list_abonnee) {
         final AbonnementListDialogFragment fragment = new AbonnementListDialogFragment();

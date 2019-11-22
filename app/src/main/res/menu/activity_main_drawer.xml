@@ -26,10 +26,10 @@
         android:icon="@drawable/ic_favorite_black"
         android:title="@string/nav_favori" />
 
-        <item
-            android:id="@+id/nav_playlist"
-            android:icon="@drawable/ic_list_black"
-            android:title="@string/nav_playlist" />
+<!--        <item-->
+<!--            android:id="@+id/nav_playlist"-->
+<!--            android:icon="@drawable/ic_list_black"-->
+<!--            android:title="@string/nav_playlist" />-->
 
         <item
             android:id="@+id/nav_notification"
